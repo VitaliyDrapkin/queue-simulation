@@ -7,6 +7,8 @@
   h1 {
     font-size: 4rem;
     margin-top: 6rem;
+    font-weight: bold;
+    color: #fff;
   }
 
   textarea {
@@ -15,6 +17,10 @@
     padding: 1rem;
     margin-top: 2rem;
     font-size: 2rem;
+    border-radius: 5px;
+    box-shadow: 2px 3px 4px #40476b;
+    background-color: rgba(249, 252, 255, 0.87);
+    outline: none;
   }
   button {
     margin-top: 2rem;
