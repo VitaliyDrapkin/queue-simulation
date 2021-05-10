@@ -1,0 +1,54 @@
+.simulation {
+  padding: 2rem;
+
+  &-top {
+    height: 40vh;
+  }
+  &-bottom {
+    height: 55vh;
+  }
+  &-top,
+  &-bottom {
+    display: flex;
+
+    .receptions,
+    .orders,
+    .delivery,
+    .workPlaces {
+      margin: 0.4rem;
+      background-color: rgb(236, 236, 236);
+      padding: 1rem;
+    }
+
+    .receptions,
+    .orders {
+      width: 40%;
+    }
+
+    .delivery,
+    .workPlaces {
+      width: 60%;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .receptions {
+      &-new-customers {
+        font-size: 2rem;
+        margin-left: 1.2rem;
+      }
+
+      &-queues {
+        max-height: 80%;
+        overflow: auto;
+      }
+    }
+
+    .orders {
+      max-height: 90%;
+      overflow-y: auto;
+    }
+  }
+}

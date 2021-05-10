@@ -1,0 +1,23 @@
+.startPage {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    font-size: 4rem;
+    margin-top: 6rem;
+  }
+
+  textarea {
+    width: 50%;
+    height: 30vh;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 2rem;
+  }
+  button {
+    margin-top: 2rem;
+    font-size: 2rem;
+  }
+}
