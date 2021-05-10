@@ -1,0 +1,21 @@
+@import "../../../own-mixins.scss";
+
+.work-places {
+  height: 100%;
+  @include ownCardStyle;
+}
+.work-place-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 3rem 1.3rem;
+
+  height: 90%;
+  overflow-y: auto;
+}
+
+.work-place {
+  margin-bottom: 1rem;
+  width: 49%;
+  height: 20rem;
+}

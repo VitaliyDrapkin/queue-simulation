@@ -1,0 +1,12 @@
+@import "../../../own-mixins.scss";
+
+.orders {
+  height: 100%;
+  overflow-y: auto;
+  @include ownCardStyle;
+
+  &-items {
+    max-height: 87%;
+    overflow: auto;
+  }
+}

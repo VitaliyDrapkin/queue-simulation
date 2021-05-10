@@ -6,7 +6,6 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./simulation-page.component.scss"],
 })
 export class SimulationPageComponent implements OnInit {
-  queues = [1, 2, 3, 4];
   constructor() {}
 
   ngOnInit(): void {}

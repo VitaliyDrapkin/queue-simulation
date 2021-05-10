@@ -1,27 +1,10 @@
 <div class="simulation">
   <div class="simulation-top">
-    <section class="receptions">
-      <h2>Reception</h2>
-      <div class="receptions-new-customers">New Customers : 10</div>
-      <div class="receptions-queues">
-        <app-queue-item *ngFor="let queue of queues"></app-queue-item>
-      </div>
-    </section>
-    <section class="delivery">
-      <h2>Delivery</h2>
-    </section>
+    <app-receptions class="receptions"></app-receptions>
+    <app-deliveries class="deliveries"></app-deliveries>
   </div>
   <div class="simulation-bottom">
-    <section class="orders">
-      <h2>Orders</h2>
-      <app-order-item></app-order-item>
-      <app-order-item></app-order-item>
-      <app-order-item></app-order-item>
-      <app-order-item></app-order-item>
-      <app-order-item></app-order-item>
-    </section>
-    <section class="workPlaces">
-      <h2>Work places</h2>
-    </section>
+    <app-orders class="orders"></app-orders>
+    <app-work-places class="work-places"></app-work-places>
   </div>
 </div>

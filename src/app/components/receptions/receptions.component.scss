@@ -1,0 +1,16 @@
+@import "../../../own-mixins.scss";
+
+.receptions {
+  height: 100%;
+  @include ownCardStyle;
+
+  &-new-customers {
+    font-size: 2rem;
+    margin-left: 1.2rem;
+  }
+
+  &-queues {
+    max-height: 80%;
+    overflow: auto;
+  }
+}
