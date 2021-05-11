@@ -1,3 +1,4 @@
+import { DeliveryItemComponent } from "./deliveries/delivery-item/delivery-item.component";
 import { InformationComponent } from "./information/information.component";
 import { WorkPlaceComponent } from "./work-places/work-place/work-place.component";
 import { WorkPlacesComponent } from "./work-places/work-places.component";
@@ -23,6 +24,7 @@ import { NgModule } from "@angular/core";
     DeliveriesComponent,
     ReceptionItemComponent,
     InformationComponent,
+    DeliveryItemComponent,
   ],
   imports: [SharedModule, SimulationRoutingModule],
 })

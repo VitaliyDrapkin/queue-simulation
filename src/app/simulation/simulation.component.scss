@@ -1,4 +1,4 @@
-.simulation {
+:host {
   margin-top: 6vh;
   display: flex;
   flex-wrap: wrap;
@@ -6,52 +6,13 @@
   margin-right: 2rem;
   margin-bottom: 2rem;
 
-  .receptions,
-  .deliveries,
-  .information {
-    width: 32%;
-    height: 38vh;
-    margin: 1rem 0;
-  }
-
-  .work-places,
-  .orders {
-    width: 49%;
-    height: 50vh;
+  .widget {
     margin: 1rem 0;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .simulation {
+  :host {
     flex-direction: column;
-
-    .receptions,
-    .deliveries,
-    .information,
-    .work-places,
-    .orders {
-      width: 100%;
-      height: 30vh;
-      margin-left: 1rem;
-    }
-
-    .reception {
-      order: 0;
-    }
-    .orders {
-      order: 1;
-    }
-
-    .work-places {
-      order: 2;
-    }
-    .deliveries {
-      order: 3;
-    }
-
-    .information {
-      order: 4;
-    }
   }
 }

@@ -1,5 +1,6 @@
 .work-places {
-  height: 100%;
+  height: 50vh;
+  width: 48vw;
 }
 .work-place-items {
   display: flex;
@@ -14,6 +15,21 @@
 .work-place {
   margin-bottom: 1rem;
   flex: 1;
-  flex-basis: 27rem;
+  flex-basis: 30rem;
   height: 20rem;
+}
+
+.empty {
+  flex: 1;
+  flex-basis: 30rem;
+}
+
+@media screen and (max-width: 768px) {
+  :host {
+    order: 2;
+  }
+
+  .work-places {
+    width: 99vw;
+  }
 }

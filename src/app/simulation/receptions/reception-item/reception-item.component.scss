@@ -1,4 +1,4 @@
-.reception {
+:host {
   margin: 2rem 1rem;
   display: flex;
 
@@ -6,6 +6,10 @@
     width: 15rem;
     height: 3rem;
     background-color: green;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .reception-customer {

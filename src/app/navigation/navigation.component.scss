@@ -1,15 +1,20 @@
-@import "../../styles/abstracts/variables";
+@import "../../styles/variables";
 
 .navigation {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   height: 5vh;
   background-color: $color-secondary;
   box-shadow: 4px 3px 8px rgb(52, 35, 148);
   z-index: 150;
+  display: flex;
 
+  img {
+    margin: auto 3rem;
+    width: 4rem;
+    height: 4rem;
+  }
   .nav-items {
     display: flex;
     align-self: center;

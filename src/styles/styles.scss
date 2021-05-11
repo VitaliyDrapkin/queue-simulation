@@ -1,6 +1,7 @@
-@import "base/base";
+@import "variables";
 
-@import "components/button";
+@import "./base";
+@import "./typography";
+
 @import "components/card";
-
-@import "abstracts/variables";
+@import "components/button";

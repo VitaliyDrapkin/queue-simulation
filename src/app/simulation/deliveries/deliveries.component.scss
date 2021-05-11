@@ -1,3 +1,23 @@
 .deliveries {
-  height: 100%;
+  height: 36vh;
+  width: 32vw;
+
+  .delivery-items {
+    height: 28vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow-y: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :host {
+    order: 3;
+    width: 99vw;
+  }
+
+  .deliveries {
+    width: 99vw;
+  }
 }
