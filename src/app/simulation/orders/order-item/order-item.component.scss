@@ -1,0 +1,45 @@
+.order {
+  border: 1px solid black;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  border-radius: 1rem;
+  overflow: hidden;
+
+  .product {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+
+    .product:first-child {
+      margin-top: 0;
+    }
+
+    img {
+      width: 15rem;
+      height: 15rem;
+    }
+
+    .product-information {
+      height: 15rem;
+    }
+
+    .product-name {
+      margin-top: 1rem;
+      font-weight: bold;
+      font-size: 2rem;
+      margin-left: 4rem;
+    }
+
+    .product-ingredients {
+      height: 6rem;
+      overflow-y: auto;
+      margin-top: 4rem;
+
+      img {
+        margin-left: 2rem;
+        width: 5rem;
+        height: 5rem;
+      }
+    }
+  }
+}

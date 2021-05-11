@@ -1,0 +1,9 @@
+.orders {
+  height: 100%;
+  overflow-y: auto;
+
+  .orders-items {
+    max-height: 87%;
+    overflow: auto;
+  }
+}

@@ -1,0 +1,42 @@
+@import "../../styles/abstracts/variables";
+
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5vh;
+  background-color: $color-secondary;
+  box-shadow: 4px 3px 8px rgb(52, 35, 148);
+  z-index: 150;
+
+  .nav-items {
+    display: flex;
+    align-self: center;
+    height: 100%;
+
+    .nav-item {
+      height: 100%;
+      width: 15rem;
+      font-size: 2.5rem;
+      margin-right: 0.3rem;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-item:hover {
+      background-color: rgba(255, 255, 255, 0.192);
+    }
+
+    .active {
+      color: gold;
+    }
+    .active:hover {
+      background-color: transparent;
+      cursor: auto;
+    }
+  }
+}

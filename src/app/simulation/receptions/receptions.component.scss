@@ -1,0 +1,13 @@
+.receptions {
+  height: 100%;
+
+  .receptions-new-customers {
+    font-size: 2rem;
+    margin-left: 1.2rem;
+  }
+
+  .receptions-queues {
+    max-height: 80%;
+    overflow: auto;
+  }
+}

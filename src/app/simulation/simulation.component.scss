@@ -1,0 +1,23 @@
+.simulation {
+  margin-top: 6vh;
+  display: flex;
+  flex-wrap: wrap;
+
+  .receptions,
+  .orders,
+  .deliveries,
+  .work-places {
+    width: 48%;
+    margin: 1rem;
+  }
+
+  .receptions,
+  .deliveries {
+    height: 38vh;
+  }
+
+  .work-places,
+  .orders {
+    height: 50vh;
+  }
+}

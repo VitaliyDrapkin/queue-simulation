@@ -1,0 +1,18 @@
+.reception {
+  margin: 2rem 1rem;
+  display: flex;
+
+  .reception-window {
+    width: 15rem;
+    height: 3rem;
+    background-color: green;
+  }
+
+  .reception-customer {
+    border-radius: 800px;
+    width: 3rem;
+    height: 3rem;
+    background-color: blue;
+    margin-left: 1rem;
+  }
+}
