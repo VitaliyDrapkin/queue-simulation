@@ -10,10 +10,6 @@
     align-items: center;
     margin-top: 1rem;
 
-    .product:first-child {
-      margin-top: 0;
-    }
-
     img {
       width: 15rem;
       height: 15rem;
@@ -42,4 +38,50 @@
       }
     }
   }
+  .product:first-child {
+    margin-top: 0;
+  }
 }
+
+@media screen and (max-width: 1024px) {
+  .order {
+    .product {
+      margin-top: 1rem;
+
+      img {
+        width: 11rem;
+        height: 11rem;
+      }
+
+      .product-information {
+        height: 10rem;
+      }
+
+      .product-ingredients {
+        overflow-y: auto;
+        margin-top: 2rem;
+
+        img {
+          margin-left: 1rem;
+          width: 4rem;
+          height: 4rem;
+        }
+      }
+    }
+  }
+}
+
+// @media screen and (max-width: 768px) {
+//   .order {
+//     .product {
+//       img {
+//         width: 10rem;
+//         height: 10rem;
+//       }
+
+//       .product-information {
+//         height: 10rem;
+//       }
+//     }
+//   }
+// }
