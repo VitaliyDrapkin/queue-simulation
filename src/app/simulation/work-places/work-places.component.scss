@@ -1,0 +1,35 @@
+.work-places {
+  height: 50vh;
+  width: 48vw;
+}
+.work-place-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 3rem 1.3rem;
+  height: 87%;
+  overflow-y: auto;
+}
+
+.work-place {
+  margin-bottom: 1rem;
+  flex: 1;
+  flex-basis: 30rem;
+  height: 20rem;
+}
+
+.empty {
+  flex: 1;
+  flex-basis: 30rem;
+}
+
+@media screen and (max-width: 768px) {
+  :host {
+    order: 2;
+  }
+
+  .work-places {
+    width: 99vw;
+  }
+}

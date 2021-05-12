@@ -1,0 +1,24 @@
+.receptions {
+  height: 36vh;
+  width: 32vw;
+
+  .receptions-new-customers {
+    font-size: 2rem;
+    margin-left: 1.2rem;
+  }
+
+  .receptions-queues {
+    max-height: 80%;
+    overflow: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :host {
+    order: 0;
+  }
+
+  .receptions {
+    width: 99vw;
+  }
+}
