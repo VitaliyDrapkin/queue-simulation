@@ -21,6 +21,16 @@
       overflow: auto;
     }
   }
+
+  .testButtons {
+    margin-top: 2rem;
+
+    .start,
+    .stop {
+      margin-left: 2rem;
+      padding: 2rem 5rem;
+    }
+  }
 }
 
 @media screen and (max-width: 1024px) {

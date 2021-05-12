@@ -1,3 +1,4 @@
+import { SimulationService } from "./../../services/simulation.service";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -6,7 +7,15 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./information.component.scss"],
 })
 export class InformationComponent implements OnInit {
-  constructor() {}
+  constructor(private simulationService: SimulationService) {}
 
   ngOnInit(): void {}
+
+  onStart() {
+    this.simulationService.runSimulation();
+  }
+
+  onStop() {
+    this.simulationService.stopSimulation();
+  }
 }

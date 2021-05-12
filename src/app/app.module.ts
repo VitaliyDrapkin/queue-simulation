@@ -1,3 +1,4 @@
+import * as fromApp from "./store/app.reducer";
 import { SharedModule } from "./shared/shared.module";
 import { SimulationModule } from "./simulation/simulation.module";
 import { StartPageModule } from "./start-page/start-page.module";
@@ -7,6 +8,7 @@ import { NgModule } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { StoreModule } from "@ngrx/store";
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent],
@@ -16,6 +18,7 @@ import { AppComponent } from "./app.component";
     AppRoutingModule,
     StartPageModule,
     SimulationModule,
+    StoreModule.forRoot(fromApp.appReducer),
   ],
   providers: [],
   bootstrap: [AppComponent],
