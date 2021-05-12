@@ -1,8 +1,35 @@
 .information {
   height: 36vh;
   width: 32vw;
+  overflow-y: auto;
+
+  .all-information {
+    display: flex;
+    padding: 0 2rem;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .main-information,
+    .active-information {
+      flex: 1;
+    }
+    .main-information div,
+    .active-information div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow: auto;
+    }
+  }
 }
 
+@media screen and (max-width: 1024px) {
+  .information {
+    .all-information {
+      flex-direction: column;
+    }
+  }
+}
 @media screen and (max-width: 768px) {
   :host {
     order: 4;

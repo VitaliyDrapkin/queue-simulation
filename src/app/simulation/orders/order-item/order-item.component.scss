@@ -1,5 +1,4 @@
 .order {
-  border: 1px solid black;
   margin-top: 1rem;
   margin-right: 1rem;
   border-radius: 1rem;
@@ -26,10 +25,21 @@
       margin-left: 4rem;
     }
 
+    .product-state {
+      display: flex;
+      font-size: 1.8rem;
+      margin-left: 4rem;
+      margin-top: 2rem;
+
+      .product-time-left {
+        margin-left: 2rem;
+      }
+    }
+
     .product-ingredients {
       height: 6rem;
       overflow-y: auto;
-      margin-top: 4rem;
+      margin-top: 2rem;
 
       img {
         margin-left: 2rem;
