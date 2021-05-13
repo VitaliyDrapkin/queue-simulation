@@ -4,7 +4,8 @@ import { Action } from "@ngrx/store";
 export const SET_INITIAL_DATA = "Set initial data";
 export const START_SIMULATION = "Start simulation";
 export const PAUSE_SIMULATION = "Pause simulation";
-export const MAKE_STEP = "Make a step";
+export const START_STEP_TIMER = "Start step timer";
+export const END_STEP_TIMER = "End step timer";
 
 export class startSimulation implements Action {
   readonly type = START_SIMULATION;
@@ -19,12 +20,17 @@ export class setInitialData implements Action {
   constructor(public payload: Simulation) {}
 }
 
-export class makeStep implements Action {
-  readonly type = MAKE_STEP;
+export class startStepTimer implements Action {
+  readonly type = START_STEP_TIMER;
+}
+
+export class EndStepTimer implements Action {
+  readonly type = END_STEP_TIMER;
 }
 
 export type SimulationActions =
   | startSimulation
   | pauseSimulation
   | setInitialData
-  | makeStep;
+  | startStepTimer
+  | EndStepTimer;

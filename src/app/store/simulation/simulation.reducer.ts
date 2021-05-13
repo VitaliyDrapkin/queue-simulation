@@ -24,7 +24,17 @@ export function receptionsReducer(
     case SimulationActions.PAUSE_SIMULATION:
       return {
         ...state,
-        isSimulationRunning: true,
+        isSimulationRunning: false,
+      };
+
+    case SimulationActions.END_STEP_TIMER:
+      return {
+        ...state,
+        step: state.step + 1,
+      };
+    case SimulationActions.START_STEP_TIMER:
+      return {
+        ...state,
       };
 
     default: {

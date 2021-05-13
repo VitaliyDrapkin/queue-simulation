@@ -1,3 +1,4 @@
+import { SimulationEffects } from "./store/simulation/simulation.effects";
 import * as fromApp from "./store/app.reducer";
 import { SharedModule } from "./shared/shared.module";
 import { SimulationModule } from "./simulation/simulation.module";
@@ -9,6 +10,7 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent],
@@ -18,6 +20,7 @@ import { StoreModule } from "@ngrx/store";
     AppRoutingModule,
     StartPageModule,
     SimulationModule,
+    EffectsModule.forRoot([SimulationEffects]),
     StoreModule.forRoot(fromApp.appReducer),
   ],
   providers: [],

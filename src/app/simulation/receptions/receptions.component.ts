@@ -1,4 +1,8 @@
+import { Reception } from "./../../models/reception.model";
+import { Store } from "@ngrx/store";
+import { AppState } from "./../../store/app.reducer";
 import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-receptions",
@@ -6,9 +10,15 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./receptions.component.scss"],
 })
 export class ReceptionsComponent implements OnInit {
-  queues = [1, 2];
+  newCustomersLength: Observable<number>;
+  receptions: Observable<Reception[]>;
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.newCustomersLength = this.store.select(
+      (state) => state.receptions.newCustomers.length
+    );
+    this.receptions = this.store.select((state) => state.receptions.receptions);
+  }
 }
