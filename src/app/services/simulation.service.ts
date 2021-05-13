@@ -1,29 +1,25 @@
 import { Customer } from "./../models/customer.model";
 import { AppState } from "./../store/app.reducer";
-import { map, take, tap } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import * as SimulationActions from "../store/simulation/simulation.actions";
 import * as ReceptionsActions from "../store/receptions/receptions.actions";
 
 import * as fromApp from "../store/app.reducer";
-import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class SimulationService {
-  test: Observable<any>;
-  interval: any;
   constructor(public store: Store<fromApp.AppState>) {}
 
-  runSimulation = () => {
-    this.store.dispatch(new SimulationActions.startSimulation());
-  };
-
-  stopSimulation() {
-    clearInterval(this.interval);
+  startSimulation(jsonSimulation: string) {
+    this.store.dispatch(
+      new SimulationActions.startSimulation(JSON.parse(jsonSimulation))
+    );
   }
+
+  stopSimulation() {}
 
   checkSimulationMoves(simulationState: AppState) {
     this.newCustomerLogic(

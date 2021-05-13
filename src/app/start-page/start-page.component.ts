@@ -8,6 +8,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./start-page.component.scss"],
 })
 export class StartPageComponent implements OnInit {
+  inputValue: string;
   constructor(
     private router: Router,
     public simulationService: SimulationService
@@ -16,7 +17,7 @@ export class StartPageComponent implements OnInit {
   ngOnInit(): void {}
 
   onStartSimulation() {
-    this.simulationService.runSimulation();
+    this.simulationService.startSimulation(this.inputValue);
     this.router.navigate(["simulation"]);
   }
 }

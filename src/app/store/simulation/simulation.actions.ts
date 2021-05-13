@@ -9,15 +9,11 @@ export const END_STEP_TIMER = "End step timer";
 
 export class startSimulation implements Action {
   readonly type = START_SIMULATION;
+  constructor(public payload: Simulation) {}
 }
 
 export class pauseSimulation implements Action {
   readonly type = PAUSE_SIMULATION;
-}
-export class setInitialData implements Action {
-  readonly type = SET_INITIAL_DATA;
-
-  constructor(public payload: Simulation) {}
 }
 
 export class startStepTimer implements Action {
@@ -31,6 +27,5 @@ export class EndStepTimer implements Action {
 export type SimulationActions =
   | startSimulation
   | pauseSimulation
-  | setInitialData
   | startStepTimer
   | EndStepTimer;

@@ -10,12 +10,4 @@ export class InformationComponent implements OnInit {
   constructor(private simulationService: SimulationService) {}
 
   ngOnInit(): void {}
-
-  onStart() {
-    this.simulationService.runSimulation();
-  }
-
-  onStop() {
-    this.simulationService.stopSimulation();
-  }
 }

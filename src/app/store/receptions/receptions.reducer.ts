@@ -1,34 +1,23 @@
+import { Product } from "./../../models/product.model";
+import { Ingredient } from "./../../models/ingredient.model";
 import { Customer } from "./../../models/customer.model";
 import { Reception } from "./../../models/reception.model";
 import * as ReceptionsActions from "./receptions.actions";
+import { Order } from "src/app/models/order.model";
 
 export interface State {
   lastCustomerInTime: number;
   newCustomers: Customer[];
   receptions: Reception[];
   newCustomerFrequency: number;
+  // products: Product[];
 }
 
 const initialState: State = {
   lastCustomerInTime: 0,
-  newCustomers: [
-    new Customer(1),
-    new Customer(2),
-    new Customer(3),
-    new Customer(4),
-    new Customer(5),
-    new Customer(6),
-    new Customer(7),
-    new Customer(8),
-    new Customer(9),
-    new Customer(10),
-  ],
-  receptions: [
-    new Reception(1, 2, [], "Empty"),
-    new Reception(2, 2, [], "Empty"),
-    new Reception(2, 2, [], "Empty"),
-  ],
-  newCustomerFrequency: 2,
+  newCustomers: [],
+  receptions: [],
+  newCustomerFrequency: -1,
 };
 
 export function receptionsReducer(
@@ -36,19 +25,43 @@ export function receptionsReducer(
   action: ReceptionsActions.ReceptionsActions
 ) {
   switch (action.type) {
-    case ReceptionsActions.SET_INITIAL_DATA:
+    case ReceptionsActions.START_SIMULATION:
+      const allProducts: Product[] = action.payload.products.map((item) => {
+        const productIngredients = item.ingredients.map((item) => {
+          return new Ingredient(
+            action.payload.ingredients[item].id,
+            action.payload.ingredients[item].name,
+            action.payload.ingredients[item].image,
+            action.payload.ingredients[item].cookingTime
+          );
+        });
+        return new Product(
+          item.id,
+          item.productName,
+          item.image,
+          productIngredients
+        );
+      });
+
+      const newCustomers: Customer[] = action.payload.customers.map((item) => {
+        const products: Product[] = item.order.products.map((item) => {
+          return allProducts[item];
+        });
+
+        return new Customer(item.id, new Order(item.order.id, products));
+      });
+      const receptions = action.payload.receptions.map((item) => {
+        return new Reception(
+          item.id,
+          action.payload.receptionTypes[item.receptionType].getOrderTime,
+          [],
+          "Empty"
+        );
+      });
       return {
         ...state,
-        step: 0,
-        newCustomers: action.payload.customers,
-        receptions: action.payload.receptions.map((item) => {
-          return new Reception(
-            1,
-            action.payload.receptionsTypes[item].getOrderTime,
-            [],
-            "Empty"
-          );
-        }),
+        newCustomers: newCustomers,
+        receptions: receptions,
         newCustomerFrequency: action.payload.newCustomerFrequency,
       };
 
