@@ -54,7 +54,9 @@ export function receptionsReducer(
         return new Reception(
           item.id,
           action.payload.receptionTypes[item.receptionType].getOrderTime,
+          -1,
           [],
+          false,
           "Empty"
         );
       });
@@ -103,10 +105,11 @@ export function receptionsReducer(
     case ReceptionsActions.START_GET_ORDER:
       return {
         ...state,
-        receptions: state.receptions.map((item) => {
-          if (item.id === action.queueIndex) {
+        receptions: state.receptions.map((item, index) => {
+          if (index === action.queueIndex) {
             const cloneItem = { ...item };
             cloneItem.currentOccupation = "Getting order";
+            cloneItem.startedGetOrderTime = action.currentTime;
             return cloneItem;
           }
           return item;
@@ -116,16 +119,32 @@ export function receptionsReducer(
     case ReceptionsActions.END_GET_ORDER:
       return {
         ...state,
-        receptions: state.receptions.map((item) => {
-          if (item.id === action.queueIndex) {
+        receptions: state.receptions.map((item, index) => {
+          if (index === action.queueIndex) {
             const cloneItem = { ...item };
+            cloneItem.customersInQueue = [...cloneItem.customersInQueue];
+            cloneItem.customersInQueue.shift();
+            cloneItem.isHasCompletedCustomer = true;
             cloneItem.currentOccupation = "Empty";
+            cloneItem.startedGetOrderTime = -1;
             return cloneItem;
           }
           return item;
         }),
       };
 
+    case ReceptionsActions.MOVE_QUEUE:
+      return {
+        ...state,
+        receptions: state.receptions.map((item, index) => {
+          if (index === action.queueIndex) {
+            const cloneItem = { ...item };
+            cloneItem.isHasCompletedCustomer = false;
+            return cloneItem;
+          }
+          return item;
+        }),
+      };
     default: {
       return state;
     }

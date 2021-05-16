@@ -1,2 +1,19 @@
-<div class="reception-window">Get order : 18</div>
-<div class="reception-customer" *ngFor="let customer of reception.customersInQueue"></div>
+<div class="reception-window">
+  <span *ngIf="reception.currentOccupation === 'Empty'">Empty</span>
+  <span *ngIf="reception.currentOccupation === 'Getting order'"
+    >Get order :
+    {{
+      reception.getOrderTime -
+        ((currentTime | async) - reception.startedGetOrderTime)
+    }}</span
+  >
+</div>
+
+<div
+  *ngIf="reception.isHasCompletedCustomer"
+  class="reception-empty-place"
+></div>
+<div
+  class="reception-customer"
+  *ngFor="let customer of reception.customersInQueue"
+></div>

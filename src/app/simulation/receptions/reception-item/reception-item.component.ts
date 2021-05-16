@@ -1,6 +1,9 @@
+import { Observable } from "rxjs";
+import { Store } from "@ngrx/store";
 import { Customer } from "./../../../models/customer.model";
 import { Reception } from "./../../../models/reception.model";
 import { Component, Input, OnInit } from "@angular/core";
+import { AppState } from "src/app/store/app.reducer";
 
 @Component({
   selector: "app-reception-item",
@@ -10,9 +13,11 @@ import { Component, Input, OnInit } from "@angular/core";
 export class ReceptionItemComponent implements OnInit {
   @Input() reception: Reception;
   customers: Customer[];
-  constructor() {}
+  currentTime: Observable<number>;
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.customers = this.reception.customersInQueue;
+    this.currentTime = this.store.select((state) => state.simulation.step);
   }
 }

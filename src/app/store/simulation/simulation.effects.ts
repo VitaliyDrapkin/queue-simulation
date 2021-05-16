@@ -1,7 +1,7 @@
+import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AppState } from "./../app.reducer";
 import { SimulationService } from "./../../services/simulation.service";
-import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import * as SimulationActions from "./simulation.actions";
 import {

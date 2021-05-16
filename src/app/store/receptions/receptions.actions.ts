@@ -27,11 +27,17 @@ export class removeCustomerByIndex implements Action {
 export class startGetOrder implements Action {
   readonly type = START_GET_ORDER;
 
-  constructor(public queueIndex: number) {}
+  constructor(public queueIndex: number, public currentTime: number) {}
 }
 
 export class endGetOrder implements Action {
   readonly type = END_GET_ORDER;
+
+  constructor(public queueIndex: number) {}
+}
+
+export class moveQueue implements Action {
+  readonly type = MOVE_QUEUE;
 
   constructor(public queueIndex: number) {}
 }
@@ -41,4 +47,5 @@ export type ReceptionsActions =
   | addCustomerToQueue
   | removeCustomerByIndex
   | startGetOrder
-  | endGetOrder;
+  | endGetOrder
+  | moveQueue;
