@@ -33,11 +33,21 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1440px) {
   .information {
     .all-information {
       flex-direction: column;
     }
+  }
+}
+@media screen and (max-width: 1200px) {
+  :host {
+    order: 4;
+  }
+
+  .information {
+    width: 70vw;
+    margin: 0 auto;
   }
 }
 @media screen and (max-width: 768px) {
@@ -47,6 +57,7 @@
   }
 
   .information {
-    width: 99vw;
+    width: 97vw;
+    margin: 0 auto;
   }
 }

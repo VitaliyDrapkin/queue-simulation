@@ -24,12 +24,23 @@
   flex-basis: 30rem;
 }
 
+@media screen and (max-width: 1200px) {
+  :host {
+    order: 2;
+  }
+
+  .workplaces {
+    width: 70vw;
+    margin: 0 auto;
+  }
+}
 @media screen and (max-width: 768px) {
   :host {
     order: 2;
   }
 
   .workplaces {
-    width: 99vw;
+    width: 97vw;
+    margin: 0 auto;
   }
 }
