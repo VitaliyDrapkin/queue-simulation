@@ -1,7 +1,7 @@
+import { WorkplaceComponent } from "./work-places/work-place/workplace.component";
+import { WorkplacesComponent } from "./work-places/workplaces.component";
 import { DeliveryItemComponent } from "./deliveries/delivery-item/delivery-item.component";
 import { InformationComponent } from "./information/information.component";
-import { WorkPlaceComponent } from "./work-places/work-place/work-place.component";
-import { WorkPlacesComponent } from "./work-places/work-places.component";
 import { ReceptionItemComponent } from "./receptions/reception-item/reception-item.component";
 import { ReceptionsComponent } from "./receptions/receptions.component";
 import { OrderItemComponent } from "./orders/order-item/order-item.component";
@@ -17,8 +17,8 @@ import { NgModule } from "@angular/core";
     SimulationComponent,
     OrdersComponent,
     OrderItemComponent,
-    WorkPlacesComponent,
-    WorkPlaceComponent,
+    WorkplacesComponent,
+    WorkplaceComponent,
     ReceptionsComponent,
     ReceptionItemComponent,
     DeliveriesComponent,

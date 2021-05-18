@@ -1,8 +1,8 @@
 import { Order } from "./order.model";
-export class WorkPlace {
+export class Workplace {
   constructor(
     public id: number,
-    public isEmpty: boolean,
+    public isEmpty: boolean = true,
     public order?: Order
   ) {}
 }

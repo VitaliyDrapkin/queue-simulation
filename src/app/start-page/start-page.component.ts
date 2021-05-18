@@ -1,5 +1,5 @@
 import { jsonDefault } from "./../../assets/JSON";
-import { SimulationService } from "./../services/simulation.service";
+import { SimulationService } from "../services/simulation.service";
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 

@@ -1,8 +1,6 @@
 import { Reception } from "../models/reception.model";
-import { Customer } from "../models/customer.model";
 import { AppState } from "../store/app.reducer";
 import { Store } from "@ngrx/store";
-import * as SimulationActions from "../store/simulation/simulation.actions";
 import * as ReceptionsActions from "../store/receptions/receptions.actions";
 
 import * as fromApp from "../store/app.reducer";
@@ -14,31 +12,51 @@ import { Injectable } from "@angular/core";
 export class ReceptionService {
   constructor(public store: Store<fromApp.AppState>) {}
 
-  newCustomerLogic(
-    CurrentTime: number,
+  checkMovies(simulationState: AppState) {
+    this.addNewCustomer(
+      simulationState.simulation.step,
+      simulationState.receptions.lastCustomerInTime,
+      simulationState.receptions.newCustomerFrequency,
+      !!simulationState.receptions.newCustomers.length
+    );
+
+    this.startGetOrder(
+      simulationState.simulation.step,
+      simulationState.receptions.receptions
+    );
+    this.endGetOrder(
+      simulationState.simulation.step,
+      simulationState.receptions.receptions
+    );
+
+    this.removeEmptyQueuePlace(simulationState.receptions.receptions);
+  }
+
+  private addNewCustomer(
+    currentTime: number,
     lastCustomerTime: number,
     newCustomerFrequency: number,
     isHasNewCustomers: boolean
   ) {
     if (
       isHasNewCustomers &&
-      (CurrentTime - lastCustomerTime) % newCustomerFrequency === 0
+      currentTime - lastCustomerTime >= newCustomerFrequency
     ) {
       this.store.dispatch(new ReceptionsActions.addCustomerToQueue());
     }
   }
 
-  startedGettingOrderLogic(CurrentTime: number, receptions: Reception[]) {
+  private startGetOrder(currentTime: number, receptions: Reception[]) {
     for (let i = 0; i < receptions.length; i++) {
-      if (this.checkStartGetOrder(receptions[i])) {
+      if (this.checkIfNeedToStartGetOrder(receptions[i])) {
         this.store.dispatch(
-          new ReceptionsActions.startGetOrder(i, CurrentTime)
+          new ReceptionsActions.startGetOrder({ queueIndex: i, currentTime })
         );
       }
     }
   }
 
-  checkStartGetOrder(reception: Reception): boolean {
+  private checkIfNeedToStartGetOrder(reception: Reception): boolean {
     if (
       reception.customersInQueue.length &&
       reception.currentOccupation === "Empty" &&
@@ -49,25 +67,28 @@ export class ReceptionService {
     return false;
   }
 
-  endedGettingOrderLogic(CurrentTime: number, receptions: Reception[]) {
+  private endGetOrder(currentTime: number, receptions: Reception[]) {
     for (let i = 0; i < receptions.length; i++) {
-      if (this.checkEndGetOrder(receptions[i], CurrentTime)) {
+      if (this.checkIfNeedToEndGetOrder(receptions[i], currentTime)) {
         this.store.dispatch(new ReceptionsActions.endGetOrder(i));
       }
     }
   }
 
-  checkEndGetOrder(reception: Reception, CurrentTime: number): boolean {
+  private checkIfNeedToEndGetOrder(
+    reception: Reception,
+    currentTime: number
+  ): boolean {
     if (
       reception.currentOccupation === "Getting order" &&
-      reception.getOrderTime + reception.startedGetOrderTime === CurrentTime - 1
+      reception.getOrderTime + reception.startedGetOrderTime === currentTime - 1
     ) {
       return true;
     }
     return false;
   }
 
-  removeEmptyQueuePlace(receptions: Reception[]) {
+  private removeEmptyQueuePlace(receptions: Reception[]) {
     for (let i = 0; i < receptions.length; i++) {
       if (receptions[i].isHasCompletedCustomer) {
         this.store.dispatch(new ReceptionsActions.moveQueue(i));

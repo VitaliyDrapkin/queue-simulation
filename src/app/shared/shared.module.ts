@@ -1,4 +1,4 @@
-import { SimulationService } from "./../services/simulation.service";
+import { ReceptionService } from "../services/reception.service";
 import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
@@ -31,6 +31,6 @@ import { DemoMaterialModule } from "./../material/material-module";
     ReactiveFormsModule,
     RouterModule,
   ],
-  providers: [SimulationService],
+  providers: [ReceptionService],
 })
 export class SharedModule {}

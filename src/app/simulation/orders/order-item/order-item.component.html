@@ -1,32 +1,22 @@
 <mat-card class="order card-secondary">
-    <div class="product">
-        <img src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg" alt="product">
-        <div class="order-information">
-            <div class="product-name">Burger</div>
-            <div class="product-state">
-                <div class="product-action">Wait for work place</div>
-                <div class="product-time-left"></div>
-            </div>
-            <div class="product-ingredients">
-                <img src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg" alt="ingredient">
-                <img src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg" alt="ingredient">
-                <img src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg" alt="ingredient">
-            </div>
-        </div>
+  <div class="order-status">
+    Status : <span>{{ order.status }}</span>
+  </div>
+  <div class="product" *ngFor="let product of order.products">
+    <img src="{{ product.image }}" alt="product" />
+    <div class="order-information">
+      <div class="product-name">{{ product.productName }}</div>
+      <div class="product-state">
+        <div class="product-action">Wait for workplace</div>
+        <div class="product-time-left"></div>
+      </div>
+      <div class="product-ingredients">
+        <img
+          *ngFor="let ingredient of product.ingredients"
+          src="{{ ingredient.image }}"
+          alt="ingredient"
+        />
+      </div>
     </div>
-    <div class="product">
-        <img src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg" alt="product">
-        <div class="order-information">
-            <div class="product-name">Burger</div>
-            <div class="product-state">
-                <div class="product-action">Cooking</div>
-                <div class="product-time-left">13 sec</div>
-            </div>
-            <div class="product-ingredients">
-                <img src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg" alt="ingredient">
-                <img src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg" alt="ingredient">
-                <img src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg" alt="ingredient">
-            </div>
-        </div>
-    </div>
+  </div>
 </mat-card>

@@ -4,10 +4,20 @@
   border-radius: 1rem;
   overflow: hidden;
 
+  .order-status {
+    font-size: 2rem;
+    text-align: center;
+
+    span {
+      font-weight: bold;
+    }
+  }
   .product {
     display: flex;
     align-items: center;
     margin-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed black;
 
     img {
       width: 15rem;
@@ -50,6 +60,11 @@
   }
   .product:first-child {
     margin-top: 0;
+  }
+
+  .product:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
   }
 }
 

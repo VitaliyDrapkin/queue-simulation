@@ -17,7 +17,7 @@ export class Simulation {
     public newCustomerFrequency: number,
     public receptions: { id: number; receptionType: number }[],
     public receptionTypes: { getOrderTime: number }[],
-    public workPlaces: number,
+    public workplaces: number,
     public deliveries: number
   ) {}
 }

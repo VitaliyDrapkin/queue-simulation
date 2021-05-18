@@ -1,44 +1,48 @@
+import { PREPARE_SIMULATION } from "./../receptions/receptions.actions";
+import { SimulationService } from "./../../services/simulation.service";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AppState } from "./../app.reducer";
-import { SimulationService } from "./../../services/simulation.service";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import * as SimulationActions from "./simulation.actions";
-import {
-  switchMap,
-  timeout,
-  map,
-  tap,
-  delay,
-  withLatestFrom,
-} from "rxjs/operators";
+import { switchMap, delay, withLatestFrom } from "rxjs/operators";
 import { of } from "rxjs";
 
 @Injectable()
 export class SimulationEffects {
   @Effect()
+  prepareSimulation = this.actions$.pipe(
+    ofType(SimulationActions.PREPARE_SIMULATION),
+    switchMap(() => {
+      return of(new SimulationActions.StartSimulation());
+    })
+  );
+
+  @Effect()
   startSimulation = this.actions$.pipe(
     ofType(SimulationActions.START_SIMULATION),
     switchMap(() => {
-      return of(new SimulationActions.startStepTimer());
+      return of(new SimulationActions.StartNewStep());
     })
   );
 
   @Effect()
-  startStepTimer = this.actions$.pipe(
-    ofType(SimulationActions.START_STEP_TIMER),
+  startNewStep = this.actions$.pipe(
+    ofType(SimulationActions.START_NEW_STEP),
     switchMap(() => {
-      return of(new SimulationActions.EndStepTimer()).pipe(delay(1000));
+      return of(new SimulationActions.CheckSimulationMovies()).pipe(
+        delay(1000)
+      );
     })
   );
 
   @Effect()
-  endStepTimer = this.actions$.pipe(
-    ofType(SimulationActions.END_STEP_TIMER),
+  checkSimulationMovies = this.actions$.pipe(
+    ofType(SimulationActions.CHECK_SIMULATION_MOVIES),
     withLatestFrom(this.store$),
     switchMap(([actionData, simulationState]) => {
       this.simulationService.checkSimulationMoves(simulationState);
-      return of(new SimulationActions.startStepTimer());
+      return of(new SimulationActions.StartNewStep());
     })
   );
 

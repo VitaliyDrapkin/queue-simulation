@@ -16,6 +16,7 @@ export function receptionsReducer(
 ) {
   switch (action.type) {
     case SimulationActions.START_SIMULATION:
+      console.log("[SimulationReducer]  startSimulation()");
       return {
         ...state,
         isSimulationRunning: true,
@@ -27,14 +28,17 @@ export function receptionsReducer(
         isSimulationRunning: false,
       };
 
-    case SimulationActions.END_STEP_TIMER:
+    case SimulationActions.START_NEW_STEP:
+      console.log("[SimulationReducer]  startNewStep()", state.step);
+      return {
+        ...state,
+      };
+
+    case SimulationActions.CHECK_SIMULATION_MOVIES:
+      console.log("[SimulationReducer]  check simulation movies()");
       return {
         ...state,
         step: state.step + 1,
-      };
-    case SimulationActions.START_STEP_TIMER:
-      return {
-        ...state,
       };
 
     default: {

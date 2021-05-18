@@ -1,31 +1,34 @@
 import { Simulation } from "./../../models/simulation.model";
 import { Action } from "@ngrx/store";
 
-export const SET_INITIAL_DATA = "Set initial data";
-export const START_SIMULATION = "Start simulation";
-export const PAUSE_SIMULATION = "Pause simulation";
-export const START_STEP_TIMER = "Start step timer";
-export const END_STEP_TIMER = "End step timer";
+export const START_SIMULATION = "@@map/START_SIMULATION";
+export const PREPARE_SIMULATION = "@@map/PREPARE_SIMULATION";
+export const PAUSE_SIMULATION = "@@map/PAUSE_SIMULATION";
+export const START_NEW_STEP = "@@map/START_NEW_STEP";
+export const CHECK_SIMULATION_MOVIES = "@@map/CHECK_SIMULATION_MOVIES";
 
-export class startSimulation implements Action {
-  readonly type = START_SIMULATION;
+export class PrepareSimulation implements Action {
+  readonly type = PREPARE_SIMULATION;
   constructor(public payload: Simulation) {}
 }
+export class StartSimulation implements Action {
+  readonly type = START_SIMULATION;
+}
 
-export class pauseSimulation implements Action {
+export class PauseSimulation implements Action {
   readonly type = PAUSE_SIMULATION;
 }
 
-export class startStepTimer implements Action {
-  readonly type = START_STEP_TIMER;
+export class StartNewStep implements Action {
+  readonly type = START_NEW_STEP;
 }
 
-export class EndStepTimer implements Action {
-  readonly type = END_STEP_TIMER;
+export class CheckSimulationMovies implements Action {
+  readonly type = CHECK_SIMULATION_MOVIES;
 }
 
 export type SimulationActions =
-  | startSimulation
-  | pauseSimulation
-  | startStepTimer
-  | EndStepTimer;
+  | StartSimulation
+  | PauseSimulation
+  | StartNewStep
+  | CheckSimulationMovies;

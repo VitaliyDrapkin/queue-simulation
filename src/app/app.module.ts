@@ -1,3 +1,4 @@
+import { StatisticsModule } from "./statistics/statistics.module";
 import { SimulationEffects } from "./store/simulation/simulation.effects";
 import * as fromApp from "./store/app.reducer";
 import { SharedModule } from "./shared/shared.module";
@@ -20,6 +21,7 @@ import { EffectsModule } from "@ngrx/effects";
     AppRoutingModule,
     StartPageModule,
     SimulationModule,
+    StatisticsModule,
     EffectsModule.forRoot([SimulationEffects]),
     StoreModule.forRoot(fromApp.appReducer),
   ],

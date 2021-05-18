@@ -1,8 +1,8 @@
-.work-places {
+.workplaces {
   height: 50vh;
   width: 48vw;
 }
-.work-place-items {
+.workplace-items {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -12,7 +12,7 @@
   overflow-y: auto;
 }
 
-.work-place {
+.workplace {
   margin-bottom: 1rem;
   flex: 1;
   flex-basis: 30rem;
@@ -29,7 +29,7 @@
     order: 2;
   }
 
-  .work-places {
+  .workplaces {
     width: 99vw;
   }
 }

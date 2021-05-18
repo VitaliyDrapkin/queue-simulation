@@ -1,16 +1,13 @@
-import { Product } from "./../../models/product.model";
-import { Ingredient } from "./../../models/ingredient.model";
 import { Customer } from "./../../models/customer.model";
 import { Reception } from "./../../models/reception.model";
 import * as ReceptionsActions from "./receptions.actions";
-import { Order } from "src/app/models/order.model";
+import { prepareReception } from "./prepare-receptions";
 
 export interface State {
   lastCustomerInTime: number;
   newCustomers: Customer[];
   receptions: Reception[];
   newCustomerFrequency: number;
-  // products: Product[];
 }
 
 const initialState: State = {
@@ -25,124 +22,102 @@ export function receptionsReducer(
   action: ReceptionsActions.ReceptionsActions
 ) {
   switch (action.type) {
-    case ReceptionsActions.START_SIMULATION:
-      const allProducts: Product[] = action.payload.products.map((item) => {
-        const productIngredients = item.ingredients.map((item) => {
-          return new Ingredient(
-            action.payload.ingredients[item].id,
-            action.payload.ingredients[item].name,
-            action.payload.ingredients[item].image,
-            action.payload.ingredients[item].cookingTime
-          );
-        });
-        return new Product(
-          item.id,
-          item.productName,
-          item.image,
-          productIngredients
-        );
-      });
-
-      const newCustomers: Customer[] = action.payload.customers.map((item) => {
-        const products: Product[] = item.order.products.map((item) => {
-          return allProducts[item];
-        });
-
-        return new Customer(item.id, new Order(item.order.id, products));
-      });
-      const receptions = action.payload.receptions.map((item) => {
-        return new Reception(
-          item.id,
-          action.payload.receptionTypes[item.receptionType].getOrderTime,
-          -1,
-          [],
-          false,
-          "Empty"
-        );
-      });
-      return {
-        ...state,
-        newCustomers: newCustomers,
-        receptions: receptions,
-        newCustomerFrequency: action.payload.newCustomerFrequency,
-      };
+    case ReceptionsActions.PREPARE_SIMULATION:
+      const updatedState = prepareReception(state, action.payload);
+      return updatedState;
 
     case ReceptionsActions.ADD_CUSTOMER_TO_QUEUE:
-      const cloneCustomers = [...state.newCustomers];
-      const newCustomer = cloneCustomers.shift();
+      console.log("[ReceptionsReducer]  addCustomerToQueue()");
+      const updatedCustomers = [...state.newCustomers];
+      const newCustomer = updatedCustomers.shift();
 
       const smallestQueueIndex = state.receptions
-        .map((item) => item.customersInQueue.length)
+        .map((reception) => reception.customersInQueue.length)
         .indexOf(
           Math.min.apply(
             Math,
-            state.receptions.map((item) => item.customersInQueue.length)
+            state.receptions.map(
+              (reception) => reception.customersInQueue.length
+            )
           )
         );
-
-      const cloneReceptions = JSON.parse(JSON.stringify(state.receptions));
-      cloneReceptions[smallestQueueIndex].customersInQueue.push(newCustomer);
+      const updatedReception = [...state.receptions].map((reception) => {
+        return {
+          ...reception,
+          customersInQueue: [...reception.customersInQueue],
+        };
+      });
+      updatedReception[smallestQueueIndex].customersInQueue.push(newCustomer);
 
       return {
         ...state,
-        receptions: cloneReceptions,
-        newCustomers: cloneCustomers,
+        receptions: updatedReception,
+        newCustomers: updatedCustomers,
       };
 
     case ReceptionsActions.REMOVE_CUSTOMER_BY_INDEX:
       return {
         ...state,
         receptions: [...state.receptions].map((queue, index) => {
-          if (index !== action.queueIndex) {
+          if (index !== action.payload.queueIndex) {
             return queue;
           }
           const newQueue = { ...queue };
-          newQueue.customersInQueue.splice(action.customerInQueueIndex, 1);
+          newQueue.customersInQueue.splice(
+            action.payload.customerInQueueIndex,
+            1
+          );
           return newQueue;
         }),
       };
 
+    //changes the status of reception occupation and add start get order time
     case ReceptionsActions.START_GET_ORDER:
+      console.log("[ReceptionsReducer]  startGetOrder()");
       return {
         ...state,
-        receptions: state.receptions.map((item, index) => {
-          if (index === action.queueIndex) {
-            const cloneItem = { ...item };
-            cloneItem.currentOccupation = "Getting order";
-            cloneItem.startedGetOrderTime = action.currentTime;
-            return cloneItem;
+        receptions: state.receptions.map((reception, index) => {
+          if (index === action.payload.queueIndex) {
+            const updatedReception = { ...reception };
+            updatedReception.currentOccupation = "Getting order";
+            updatedReception.startedGetOrderTime = action.payload.currentTime;
+            return updatedReception;
           }
-          return item;
+          return reception;
         }),
       };
 
+    //changes the status of reception occupation and remove customer from queue
     case ReceptionsActions.END_GET_ORDER:
+      console.log("[ReceptionsReducer]  endGetOrder()");
       return {
         ...state,
-        receptions: state.receptions.map((item, index) => {
-          if (index === action.queueIndex) {
-            const cloneItem = { ...item };
-            cloneItem.customersInQueue = [...cloneItem.customersInQueue];
-            cloneItem.customersInQueue.shift();
-            cloneItem.isHasCompletedCustomer = true;
-            cloneItem.currentOccupation = "Empty";
-            cloneItem.startedGetOrderTime = -1;
-            return cloneItem;
+        receptions: state.receptions.map((reception, index) => {
+          if (index === action.payload) {
+            const updatedReception = { ...reception };
+            updatedReception.customersInQueue = [
+              ...updatedReception.customersInQueue,
+            ];
+            updatedReception.customersInQueue.shift();
+            updatedReception.isHasCompletedCustomer = true;
+            updatedReception.currentOccupation = "Empty";
+            updatedReception.startedGetOrderTime = -1;
+            return updatedReception;
           }
-          return item;
+          return reception;
         }),
       };
 
     case ReceptionsActions.MOVE_QUEUE:
       return {
         ...state,
-        receptions: state.receptions.map((item, index) => {
-          if (index === action.queueIndex) {
-            const cloneItem = { ...item };
-            cloneItem.isHasCompletedCustomer = false;
-            return cloneItem;
+        receptions: state.receptions.map((reception, index) => {
+          if (index === action.payload) {
+            const updatedReception = { ...reception };
+            updatedReception.isHasCompletedCustomer = false;
+            return updatedReception;
           }
-          return item;
+          return reception;
         }),
       };
     default: {
