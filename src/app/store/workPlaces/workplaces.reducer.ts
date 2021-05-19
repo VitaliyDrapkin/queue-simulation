@@ -25,15 +25,16 @@ export function workplacesReducer(
         workplaces: workplaces,
       };
 
-    case WorkplacesActions.ADD_ORDER_TO_WORKPLACE:
+    case WorkplacesActions.ADD_PRODUCT_TO_WORKPLACE:
       const newWorkplaces: Workplace[] = [...state.workplaces].map(
-        (workplace) => {
+        (workplace): Workplace => {
           if (workplace.id === action.payload.workplaceId) {
-            return {
-              ...workplace,
-              isEmpty: false,
-              order: action.payload.order,
-            };
+            const updatedWorkplace = { ...workplace };
+            updatedWorkplace.isEmpty = false;
+            updatedWorkplace.orderId = action.payload.orderId;
+            updatedWorkplace.product = action.payload.product;
+            updatedWorkplace.addedProductTime = action.payload.currentTime;
+            return updatedWorkplace;
           }
           return workplace;
         }

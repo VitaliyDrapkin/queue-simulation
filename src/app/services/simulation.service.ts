@@ -1,3 +1,5 @@
+import { delay } from "rxjs/operators";
+import { of } from "rxjs";
 import { WorkplaceService } from "./workplace.service";
 import { OrdersService } from "./orders.service";
 import { ReceptionService } from "./reception.service";
@@ -31,5 +33,22 @@ export class SimulationService {
     this.receptionService.checkMovies(simulationState);
     this.ordersService.checkMovies(simulationState);
     this.workplaceService.checkMovies(simulationState);
+  }
+
+  delaySimulation(simulationSpeed: number, isSimulationPlaying: boolean) {
+    if (!isSimulationPlaying) {
+      return of(new SimulationActions.CheckSimulationMovies());
+    }
+    return of(new SimulationActions.CheckSimulationMovies()).pipe(
+      delay(1000 / simulationSpeed)
+    );
+  }
+
+  startNewStep(isSimulationPlaying: boolean) {
+    console.log(isSimulationPlaying);
+    if (isSimulationPlaying) {
+      return of(new SimulationActions.StartNewStep());
+    }
+    return of();
   }
 }

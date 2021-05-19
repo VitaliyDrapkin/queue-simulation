@@ -6,6 +6,6 @@ export class Reception {
     public startedGetOrderTime: number,
     public customersInQueue: Customer[],
     public isHasCompletedCustomer: boolean,
-    public currentOccupation: "Empty" | "Getting order" = "Empty" // | "Wait new customer"
+    public currentOccupation: "Empty" | "Getting order" = "Empty" //
   ) {}
 }

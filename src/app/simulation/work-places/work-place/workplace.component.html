@@ -1,29 +1,33 @@
 <mat-card class="workplace card-secondary">
-  <div class="product" *ngIf="!workplace.isEmpty">
-    <div class="product-information">
-      <img
-        src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg"
-        alt="product"
-      />
-      <div class="product-description">
-        <div class="product-name">Burger</div>
-        <div class="product-time-left">Time left: 12 Sec</div>
+  <div
+    class="workplace-empty"
+    *ngIf="workplace.isEmpty; else workplaceWithProduct"
+  >
+    Empty workplace
+  </div>
+  <ng-template #workplaceWithProduct>
+    <div class="product">
+      <div class="product-information">
+        <img src="{{ workplace.product.image }}" alt="product" />
+        <div class="product-description">
+          <div class="product-name">{{ workplace.product.productName }}</div>
+          <div class="product-time-left">
+            Time left:
+            {{
+              calculateCreatingTime() -
+                ((currentTime | async) - workplace.addedProductTime)
+            }}
+            Sec
+          </div>
+        </div>
+      </div>
+      <div class="product-ingredients">
+        <img
+          *ngFor="let ingredient of workplace.product.ingredients"
+          src="{{ ingredient.image }}"
+          alt="ingredient"
+        />
       </div>
     </div>
-    <div class="product-ingredients">
-      <img
-        src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg"
-        alt="ingredient"
-      />
-      <img
-        src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg"
-        alt="ingredient"
-      />
-      <img
-        src="https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg"
-        alt="ingredient"
-      />
-    </div>
-  </div>
-  <div class="empty-workplace" *ngIf="workplace.isEmpty">Empty</div>
+  </ng-template>
 </mat-card>

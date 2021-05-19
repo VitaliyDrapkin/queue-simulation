@@ -27,7 +27,7 @@ export function receptionsReducer(
       return updatedState;
 
     case ReceptionsActions.ADD_CUSTOMER_TO_QUEUE:
-      console.log("[ReceptionsReducer]  addCustomerToQueue()");
+      console.log("[ReceptionReducer]  addCustomerToQueue()");
       const updatedCustomers = [...state.newCustomers];
       const newCustomer = updatedCustomers.shift();
 
@@ -73,7 +73,6 @@ export function receptionsReducer(
 
     //changes the status of reception occupation and add start get order time
     case ReceptionsActions.START_GET_ORDER:
-      console.log("[ReceptionsReducer]  startGetOrder()");
       return {
         ...state,
         receptions: state.receptions.map((reception, index) => {
@@ -89,7 +88,6 @@ export function receptionsReducer(
 
     //changes the status of reception occupation and remove customer from queue
     case ReceptionsActions.END_GET_ORDER:
-      console.log("[ReceptionsReducer]  endGetOrder()");
       return {
         ...state,
         receptions: state.receptions.map((reception, index) => {

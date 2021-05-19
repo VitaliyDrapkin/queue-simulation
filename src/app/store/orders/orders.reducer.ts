@@ -20,10 +20,19 @@ export function ordersReducer(
         orders: [],
       };
     case OrdersActions.ADD_NEW_ORDER:
-      console.log("[OrderReducer]  addNewOrder()", action.order);
+      console.log("[OrdersReducer]  AddNewOrder()");
       return {
         ...state,
         orders: [...state.orders, action.order],
+      };
+    case OrdersActions.CHANGE_ORDER_STATUS:
+      return {
+        ...state,
+        orders: [...state.orders].map((order) => {
+          return order.id === action.payload.orderId
+            ? { ...order, status: action.payload.status }
+            : order;
+        }),
       };
     default: {
       return state;

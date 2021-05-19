@@ -61,3 +61,19 @@
     margin: 0 auto;
   }
 }
+
+.simulationButtons {
+  display: flex;
+  margin-top: 1rem;
+
+  .upSpeedButton,
+  .reduceSpeedButton,
+  .playButton,
+  .pauseButton,
+  .nextButton,
+  .startSimulationButton {
+    width: 20rem;
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
+}

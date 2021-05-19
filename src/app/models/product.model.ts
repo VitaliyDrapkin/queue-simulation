@@ -5,6 +5,6 @@ export class Product {
     public productName: string,
     public image: string,
     public ingredients: Ingredient[],
-    public timeOfCreating?: number
+    public isCreated: boolean = false
   ) {}
 }

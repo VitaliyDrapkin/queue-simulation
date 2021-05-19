@@ -27,11 +27,29 @@ export class SimulationEffects {
   );
 
   @Effect()
+  playSimulation = this.actions$.pipe(
+    ofType(SimulationActions.PLAY_SIMULATION),
+    switchMap(() => {
+      return of(new SimulationActions.StartNewStep());
+    })
+  );
+
+  @Effect()
+  platStep = this.actions$.pipe(
+    ofType(SimulationActions.PLAY_STEP),
+    switchMap(() => {
+      return of(new SimulationActions.StartNewStep());
+    })
+  );
+
+  @Effect()
   startNewStep = this.actions$.pipe(
     ofType(SimulationActions.START_NEW_STEP),
-    switchMap(() => {
-      return of(new SimulationActions.CheckSimulationMovies()).pipe(
-        delay(1000)
+    withLatestFrom(this.store$),
+    switchMap(([actionData, simulationState]) => {
+      return this.simulationService.delaySimulation(
+        simulationState.simulation.simulationSpeed,
+        simulationState.simulation.isSimulationPlaying
       );
     })
   );
@@ -42,7 +60,9 @@ export class SimulationEffects {
     withLatestFrom(this.store$),
     switchMap(([actionData, simulationState]) => {
       this.simulationService.checkSimulationMoves(simulationState);
-      return of(new SimulationActions.StartNewStep());
+      return this.simulationService.startNewStep(
+        simulationState.simulation.isSimulationPlaying
+      );
     })
   );
 
