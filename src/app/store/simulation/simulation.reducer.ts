@@ -38,7 +38,7 @@ export function receptionsReducer(
         isSimulationPlaying: false,
       };
 
-    case SimulationActions.MAKE_TIME_OUT_STEP:
+    case SimulationActions.MAKE_STEP:
       console.log("[SimulationReducer]  makeTimeOutStep()");
       if (state.isSimulationPlaying) {
         return {
@@ -48,15 +48,15 @@ export function receptionsReducer(
       }
       return { ...state };
 
-    case SimulationActions.MAKE_CLICKED_STEP:
+    case SimulationActions.MAKE_ONE_STEP_BY_CLICK:
       console.log("[SimulationReducer]  makeClickedStep()");
       return {
         ...state,
         step: state.step + 1,
       };
 
-    case SimulationActions.CHECK_SIMULATION_MOVIES:
-      console.log("[SimulationReducer]  checkSimulationMovies()");
+    case SimulationActions.CHECK_SIMULATION_MOVES:
+      console.log("[SimulationReducer]  checkSimulationMoves()");
       return {
         ...state,
       };

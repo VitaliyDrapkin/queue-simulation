@@ -1,4 +1,4 @@
-import { jsonDefault } from "./../../assets/JSON";
+import * as scenario from "../../assets/scenario.json";
 import { SimulationService } from "../services/simulation.service";
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
@@ -19,7 +19,7 @@ export class StartPageComponent implements OnInit {
 
   onStartSimulation() {
     if (!this.inputValue) {
-      this.simulationService.startSimulation(jsonDefault);
+      this.simulationService.startSimulation();
     } else {
       this.simulationService.startSimulation(this.inputValue);
     }

@@ -14,7 +14,7 @@ import { Order } from "../models/order.model";
 export class ReceptionService {
   constructor(public store: Store<fromApp.AppState>) {}
 
-  checkMovies(appState: AppState) {
+  checkMoves(appState: AppState) {
     this.addNewCustomer(
       appState.simulation.step,
       appState.receptions.lastCustomerInTime,
@@ -39,10 +39,10 @@ export class ReceptionService {
     currentTime: number,
     lastCustomerTime: number,
     newCustomerFrequency: number,
-    isHasNewCustomers: boolean
+    hasNewCustomers: boolean
   ) {
     if (
-      isHasNewCustomers &&
+      hasNewCustomers &&
       currentTime - lastCustomerTime >= newCustomerFrequency
     ) {
       this.store.dispatch(
@@ -56,7 +56,7 @@ export class ReceptionService {
       if (
         receptions[i].customersInQueue.length &&
         receptions[i].currentOccupation === ReceptionStatuses.Empty &&
-        !receptions[i].isHasCompletedCustomer
+        !receptions[i].hasCompletedCustomer
       ) {
         this.store.dispatch(
           new ReceptionsActions.startGetOrder({ queueIndex: i, currentTime })

@@ -38,7 +38,7 @@ export class PlayMenuComponent implements OnInit {
     this.store.dispatch(new SimulationActions.PlaySimulation());
   }
   onPlayStep() {
-    this.store.dispatch(new SimulationActions.MakeClickedStep());
+    this.store.dispatch(new SimulationActions.MakeOneStepByClick());
   }
   onUpSpeed() {
     this.store.dispatch(new SimulationActions.UpSpeed());

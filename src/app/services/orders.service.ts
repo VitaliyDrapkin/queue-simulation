@@ -13,7 +13,7 @@ import { ReceptionStatuses } from "../enums/ReceptionStatuses";
 export class OrdersService {
   constructor(public store: Store<fromApp.AppState>) {}
 
-  checkMovies(simulationState: AppState) {
+  checkMoves(simulationState: AppState) {
     this.addNewOrders(
       simulationState.receptions.receptions,
       simulationState.simulation.step

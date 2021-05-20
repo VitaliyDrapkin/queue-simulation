@@ -18,8 +18,8 @@ export class SimulationEffects {
   );
 
   @Effect({ dispatch: false })
-  makeTimeOutStep = this.actions$.pipe(
-    ofType(SimulationActions.MAKE_TIME_OUT_STEP),
+  makeStep = this.actions$.pipe(
+    ofType(SimulationActions.MAKE_STEP),
     withLatestFrom(this.store$),
     tap(([actionData, appState]) => {
       if (appState.simulation.isSimulationPlaying) {
@@ -32,8 +32,8 @@ export class SimulationEffects {
   );
 
   @Effect({ dispatch: false })
-  makeClickedStep = this.actions$.pipe(
-    ofType(SimulationActions.MAKE_CLICKED_STEP),
+  makeOneStepByClick = this.actions$.pipe(
+    ofType(SimulationActions.MAKE_ONE_STEP_BY_CLICK),
     withLatestFrom(this.store$),
     tap(([actionData, appState]) => {
       this.simulationService.checkSimulationMoves(appState);

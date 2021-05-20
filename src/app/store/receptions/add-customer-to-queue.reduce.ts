@@ -1,4 +1,4 @@
-import { Reception } from "./../../models/reception.model";
+import { Reception } from "../../models/reception.model";
 import { ReceptionStatuses } from "../../enums/ReceptionStatuses";
 import { Order } from "src/app/models/order.model";
 import { Customer } from "../../models/customer.model";
@@ -11,17 +11,17 @@ export function addCustomerToQueue(state, payload) {
 
   let smallestQueueIndex = getSmallestQueueIndex(state.receptions);
 
-  const updatedReception = [...state.receptions].map((reception) => {
+  const updatedReceptions = [...state.receptions].map((reception) => {
     return {
       ...reception,
       customersInQueue: [...reception.customersInQueue],
     };
   });
-  updatedReception[smallestQueueIndex].customersInQueue.push(newCustomer);
+  updatedReceptions[smallestQueueIndex].customersInQueue.push(newCustomer);
 
   return {
     ...state,
-    receptions: updatedReception,
+    receptions: updatedReceptions,
     newCustomers: updatedCustomers,
     lastCustomerInTime: payload.currentTime,
   };

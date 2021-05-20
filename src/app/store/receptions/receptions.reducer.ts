@@ -1,8 +1,13 @@
 import { Customer } from "./../../models/customer.model";
 import { Reception } from "./../../models/reception.model";
 import * as ReceptionsActions from "./receptions.actions";
-import { prepareReception } from "./prepare-receptions";
-import { addCustomerToQueue } from "./addCustomerToQueue";
+import { prepareReception } from "./prepare-receptions-reduce";
+import { addCustomerToQueue } from "./add-customer-to-queue.reduce";
+import { removeCustomerByIndex } from "./remove-customer.reduce";
+import { startGetOrder } from "./start-get-order.reduce";
+import { endGetOrder } from "./end-get-order.reduce";
+import { moveQueue } from "./move-queue.reduce";
+
 import { ReceptionStatuses } from "src/app/enums/ReceptionStatuses";
 
 export interface State {
@@ -31,68 +36,18 @@ export function receptionsReducer(
       return addCustomerToQueue(state, action.payload);
 
     case ReceptionsActions.REMOVE_CUSTOMER_BY_INDEX:
-      return {
-        ...state,
-        receptions: [...state.receptions].map((queue, index) => {
-          if (index !== action.payload.queueIndex) {
-            return queue;
-          }
-          const newQueue = { ...queue };
-          newQueue.customersInQueue.splice(
-            action.payload.customerInQueueIndex,
-            1
-          );
-          return newQueue;
-        }),
-      };
+      return removeCustomerByIndex(state, action.payload);
 
     //changes the status of reception occupation and add start get order time
     case ReceptionsActions.START_GET_ORDER:
-      return {
-        ...state,
-        receptions: state.receptions.map((reception, index) => {
-          if (index === action.payload.queueIndex) {
-            const updatedReception = { ...reception };
-            updatedReception.currentOccupation = ReceptionStatuses.GettingOrder;
-            updatedReception.startedGetOrderTime = action.payload.currentTime;
-            return updatedReception;
-          }
-          return reception;
-        }),
-      };
+      return startGetOrder(state, action.payload);
 
     //changes the status of reception occupation and remove customer from queue
     case ReceptionsActions.END_GET_ORDER:
-      return {
-        ...state,
-        receptions: state.receptions.map((reception, index) => {
-          if (index === action.payload) {
-            const updatedReception = { ...reception };
-            updatedReception.customersInQueue = [
-              ...updatedReception.customersInQueue,
-            ];
-            updatedReception.customersInQueue.shift();
-            updatedReception.currentOccupation =
-              ReceptionStatuses.WaitingNextCustomer;
-            updatedReception.startedGetOrderTime = -1;
-            return updatedReception;
-          }
-          return reception;
-        }),
-      };
+      return endGetOrder(state, action.payload);
 
     case ReceptionsActions.MOVE_QUEUE:
-      return {
-        ...state,
-        receptions: state.receptions.map((reception, index) => {
-          if (index === action.payload) {
-            const updatedReception = { ...reception };
-            updatedReception.currentOccupation = ReceptionStatuses.Empty;
-            return updatedReception;
-          }
-          return reception;
-        }),
-      };
+      return moveQueue(state, action.payload);
     default: {
       return state;
     }

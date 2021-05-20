@@ -6,7 +6,7 @@ export class Reception {
     public getOrderTime: number,
     public startedGetOrderTime: number,
     public customersInQueue: Customer[],
-    public isHasCompletedCustomer: boolean,
+    public hasCompletedCustomer: boolean,
     public currentOccupation: ReceptionStatuses
   ) {}
 }

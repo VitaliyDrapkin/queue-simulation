@@ -6,7 +6,7 @@ export const PREPARE_SIMULATION = "@@orders/PREPARE_SIMULATION";
 export const ADD_NEW_ORDER = "@@orders/ADD_NEW_ORDER";
 export const CHANGE_ORDER_STATUS = "@@orders/CHANGE_ORDER_STATUS";
 
-export class startSimulation implements Action {
+export class PrepareSimulation implements Action {
   readonly type = PREPARE_SIMULATION;
 }
 export class addOrder implements Action {
@@ -24,4 +24,4 @@ export class changeOrderStatus implements Action {
   ) {}
 }
 
-export type OrdersActions = startSimulation | addOrder | changeOrderStatus;
+export type OrdersActions = PrepareSimulation | addOrder | changeOrderStatus;

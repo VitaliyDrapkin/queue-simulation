@@ -1,5 +1,5 @@
 import { Ingredient } from "./../models/ingredient.model";
-import { Workplace } from "./../models/workplace-model";
+import { Workplace } from "../models/workplace-model";
 import { OrderStatuses } from "./../enums/OrderStatuses";
 import { Product } from "./../models/product.model";
 import * as fromApp from "../store/app.reducer";
@@ -16,7 +16,7 @@ import { Store } from "@ngrx/store";
 export class WorkplaceService {
   constructor(public store: Store<fromApp.AppState>) {}
 
-  checkMovies(simulationState: AppState) {
+  checkMoves(simulationState: AppState) {
     this.addProduct(
       simulationState.orders.orders,
       simulationState.workplaces.workplaces,
@@ -101,8 +101,8 @@ export class WorkplaceService {
       }
 
       const timePassOfStartCreating = step - workplace.addedProductTime;
-      let timeForCreatingIngredient = 0;
 
+      let timeForCreatingIngredient = 0;
       for (let i = 0; i < workplace.product.ingredients.length; i++) {
         timeForCreatingIngredient =
           timeForCreatingIngredient +
