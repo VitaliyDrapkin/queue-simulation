@@ -1,11 +1,10 @@
-import { Ingredient } from "./../models/ingredient.model";
-import { Workplace } from "./../models/workPlace-model";
+import { Workplace } from "../models/workplace-model";
 import { OrderStatuses } from "./../enums/OrderStatuses";
 import { Product } from "./../models/product.model";
 import * as fromApp from "../store/app.reducer";
 import { Injectable } from "@angular/core";
 import { Order } from "./../models/order.model";
-import * as WorkplacesActions from "../store/workPlaces/workplaces.actions";
+import * as WorkplacesActions from "../store/workplaces/workplaces.actions";
 import * as OrdersActions from "../store/orders/orders.actions";
 import { AppState } from "../store/app.reducer";
 import { Store } from "@ngrx/store";

@@ -7,7 +7,7 @@ import { AppState } from "../store/app.reducer";
 import { Store } from "@ngrx/store";
 import * as SimulationActions from "../store/simulation/simulation.actions";
 import * as ReceptionsActions from "../store/receptions/receptions.actions";
-import * as WorkplacesActions from "../store/workPlaces/workplaces.actions";
+import * as WorkplacesActions from "../store/workplaces/workplaces.actions";
 
 import * as fromApp from "../store/app.reducer";
 import { Injectable, OnInit } from "@angular/core";
