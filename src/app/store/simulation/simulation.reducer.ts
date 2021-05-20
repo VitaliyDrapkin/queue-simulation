@@ -63,13 +63,11 @@ export function receptionsReducer(
       };
 
     case SimulationActions.UP_SPEED_TIME:
-      console.log("[SimulationReducer]  upSpeed()");
       return {
         ...state,
         speedMilliseconds: state.speedMilliseconds / 1.5,
       };
     case SimulationActions.REDUCE_SPEED_TIME:
-      console.log("[SimulationReducer]  reduceSpeed()");
       return {
         ...state,
         speedMilliseconds: state.speedMilliseconds * 1.5,
