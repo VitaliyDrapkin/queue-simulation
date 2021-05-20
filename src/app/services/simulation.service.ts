@@ -1,14 +1,17 @@
-import { delay } from "rxjs/operators";
-import { of } from "rxjs";
+import { delay, take } from "rxjs/operators";
+import { Observable, of } from "rxjs";
 import { WorkplaceService } from "./workplace.service";
 import { OrdersService } from "./orders.service";
 import { ReceptionService } from "./reception.service";
 import { AppState } from "../store/app.reducer";
 import { Store } from "@ngrx/store";
 import * as SimulationActions from "../store/simulation/simulation.actions";
+import * as ReceptionsActions from "../store/receptions/receptions.actions";
+import * as WorkplacesActions from "../store/workplaces/workplaces.actions";
+import * as OrdersActions from "../store/orders/orders.actions";
 
 import * as fromApp from "../store/app.reducer";
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 
 @Injectable({
   providedIn: "root",
@@ -23,8 +26,12 @@ export class SimulationService {
 
   startSimulation(jsonSimulation: string) {
     this.store.dispatch(
-      new SimulationActions.PrepareSimulation(JSON.parse(jsonSimulation))
+      new ReceptionsActions.PrepareSimulation(JSON.parse(jsonSimulation))
     );
+    this.store.dispatch(
+      new WorkplacesActions.PrepareSimulation(JSON.parse(jsonSimulation))
+    );
+    this.store.dispatch(new SimulationActions.FinishPrepareSimulation());
   }
 
   stopSimulation() {}
@@ -44,11 +51,10 @@ export class SimulationService {
     );
   }
 
-  startNewStep(isSimulationPlaying: boolean) {
-    console.log(isSimulationPlaying);
-    if (isSimulationPlaying) {
-      return of(new SimulationActions.StartNewStep());
-    }
-    return of();
+  makeNewStep(speedMilliseconds: number) {
+    setTimeout(
+      () => this.store.dispatch(new SimulationActions.MakeTimeOutStep()),
+      speedMilliseconds
+    );
   }
 }

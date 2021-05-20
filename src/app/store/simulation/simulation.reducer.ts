@@ -4,14 +4,14 @@ export interface State {
   isSimulationInit: boolean;
   isSimulationPlaying: boolean;
   step: number;
-  simulationSpeed: number;
+  speedMilliseconds: number;
 }
 
 const initialState: State = {
   isSimulationInit: false,
   isSimulationPlaying: false,
   step: 0,
-  simulationSpeed: 1,
+  speedMilliseconds: 1000,
 };
 
 export function receptionsReducer(
@@ -19,7 +19,8 @@ export function receptionsReducer(
   action: SimulationActions.SimulationActions
 ) {
   switch (action.type) {
-    case SimulationActions.START_SIMULATION:
+    case SimulationActions.FINISH_PREPARE_SIMULATION:
+      console.log("[SimulationReducer]  finishPrepareSimulation()");
       return {
         ...state,
         isSimulationInit: true,
@@ -27,7 +28,6 @@ export function receptionsReducer(
       };
 
     case SimulationActions.PLAY_SIMULATION:
-      console.log("[SimulationReducer]  playSimulation()");
       return {
         ...state,
         isSimulationPlaying: true,
@@ -39,29 +39,40 @@ export function receptionsReducer(
         isSimulationPlaying: false,
       };
 
-    case SimulationActions.START_NEW_STEP:
-      console.log("[SimulationReducer]  startNewStep()", state.step);
+    case SimulationActions.MAKE_TIME_OUT_STEP:
+      console.log("[SimulationReducer]  makeTimeOutStep()");
+      if (state.isSimulationPlaying) {
+        return {
+          ...state,
+          step: state.step + 1,
+        };
+      }
+      return { ...state };
+
+    case SimulationActions.MAKE_CLICKED_STEP:
+      console.log("[SimulationReducer]  makeClickedStep()");
       return {
         ...state,
+        step: state.step + 1,
       };
 
     case SimulationActions.CHECK_SIMULATION_MOVIES:
       console.log("[SimulationReducer]  checkSimulationMovies()");
       return {
         ...state,
-        step: state.step + 1,
       };
-    case SimulationActions.UP_SPEED:
+
+    case SimulationActions.UP_SPEED_TIME:
       console.log("[SimulationReducer]  upSpeed()");
       return {
         ...state,
-        simulationSpeed: state.simulationSpeed * 1.5,
+        speedMilliseconds: state.speedMilliseconds / 1.5,
       };
-    case SimulationActions.REDUCE_SPEED:
+    case SimulationActions.REDUCE_SPEED_TIME:
       console.log("[SimulationReducer]  reduceSpeed()");
       return {
         ...state,
-        simulationSpeed: state.simulationSpeed / 1.5,
+        speedMilliseconds: state.speedMilliseconds * 1.5,
       };
 
     default: {

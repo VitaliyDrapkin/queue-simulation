@@ -1,5 +1,6 @@
 <mat-card class="information card">
   <h2>Information</h2>
+  <app-play-menu></app-play-menu>
   <div class="all-information">
     <mat-card class="main-information card-secondary">
       <div class="total-customers">
@@ -36,7 +37,7 @@
       </div>
     </mat-card>
   </div>
-  <div class="simulationButtons">
+  <!-- <div class="simulationButtons">
     <div *ngIf="isSimulationInit | async; else startSimulationButton">
       <button
         class="pauseButton"
@@ -56,5 +57,5 @@
         Start simulation
       </button>
     </ng-template>
-  </div>
+  </div> -->
 </mat-card>

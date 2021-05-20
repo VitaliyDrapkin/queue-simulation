@@ -1,5 +1,11 @@
 <div class="reception-window">
-  <span *ngIf="reception.currentOccupation === 'Empty'">Empty</span>
+  <span
+    *ngIf="
+      reception.currentOccupation === 'Empty' ||
+      reception.currentOccupation === 'Waiting next customer'
+    "
+    >Empty</span
+  >
   <span *ngIf="reception.currentOccupation === 'Getting order'"
     >Get order :
     {{
@@ -10,7 +16,7 @@
 </div>
 
 <div
-  *ngIf="reception.isHasCompletedCustomer"
+  *ngIf="reception.currentOccupation === 'Waiting next customer'"
   class="reception-empty-place"
 ></div>
 <div

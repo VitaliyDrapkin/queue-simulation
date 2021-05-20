@@ -11,6 +11,7 @@ import { SimulationComponent } from "./simulation.component";
 import { SimulationRoutingModule } from "./simulation-routing.module";
 import { SharedModule } from "./../shared/shared.module";
 import { NgModule } from "@angular/core";
+import { PlayMenuComponent } from "./information/play-menu/play-menu.component";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NgModule } from "@angular/core";
     ReceptionItemComponent,
     InformationComponent,
     DeliveryItemComponent,
+    PlayMenuComponent,
   ],
   imports: [SharedModule, SimulationRoutingModule],
 })

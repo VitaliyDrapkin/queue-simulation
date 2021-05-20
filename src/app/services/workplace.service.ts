@@ -1,3 +1,4 @@
+import { OrderStatuses } from "./../enums/OrderStatuses";
 import { Product } from "./../models/product.model";
 import * as fromApp from "../store/app.reducer";
 import { Injectable } from "@angular/core";
@@ -45,7 +46,7 @@ export class WorkplaceService {
       );
       this.store.dispatch(
         new OrdersActions.changeOrderStatus({
-          status: "Creating",
+          status: OrderStatuses.Creating,
           orderId: waitingForWorkplaceProducts[i].orderId,
         })
       );

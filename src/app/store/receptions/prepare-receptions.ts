@@ -1,3 +1,4 @@
+import { ReceptionStatuses } from "./../../enums/ReceptionStatuses";
 import { Reception } from "./../../models/reception.model";
 import { Order } from "src/app/models/order.model";
 import { Customer } from "./../../models/customer.model";
@@ -35,7 +36,7 @@ export function prepareReception(state, payload) {
       -1,
       [],
       false,
-      "Empty"
+      ReceptionStatuses.Empty
     );
   });
   return {

@@ -1,21 +1,22 @@
 import { Simulation } from "./../../models/simulation.model";
-import { Customer } from "./../../models/customer.model";
 import { Action } from "@ngrx/store";
 
-export const PREPARE_SIMULATION = "@@map/PREPARE_SIMULATION";
-export const ADD_CUSTOMER_TO_QUEUE = "@@map/ADD_CUSTOMER_TO_QUEUE";
-export const REMOVE_CUSTOMER_BY_INDEX = "@@map/REMOVE_CUSTOMER_BY_INDEX";
-export const START_GET_ORDER = "@@map/START_GET_ORDER";
-export const END_GET_ORDER = "@@map/END_GET_ORDER";
-export const MOVE_QUEUE = "@@map/MOVE_QUEUE";
+export const PREPARE_SIMULATION = "@@receptions/PREPARE_SIMULATION";
+export const ADD_CUSTOMER_TO_QUEUE = "@@receptions/ADD_CUSTOMER_TO_QUEUE";
+export const REMOVE_CUSTOMER_BY_INDEX = "@@receptions/REMOVE_CUSTOMER_BY_INDEX";
+export const START_GET_ORDER = "@@receptions/START_GET_ORDER";
+export const END_GET_ORDER = "@@receptions/END_GET_ORDER";
+export const MOVE_QUEUE = "@@receptions/MOVE_QUEUE";
 
-export class startSimulation implements Action {
+export class PrepareSimulation implements Action {
   readonly type = PREPARE_SIMULATION;
   constructor(public payload: Simulation) {}
 }
 
 export class addCustomerToQueue implements Action {
   readonly type = ADD_CUSTOMER_TO_QUEUE;
+
+  constructor(public payload: { currentTime: number }) {}
 }
 
 export class removeCustomerByIndex implements Action {
@@ -45,7 +46,7 @@ export class moveQueue implements Action {
 }
 
 export type ReceptionsActions =
-  | startSimulation
+  | PrepareSimulation
   | addCustomerToQueue
   | removeCustomerByIndex
   | startGetOrder

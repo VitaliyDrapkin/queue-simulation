@@ -2,6 +2,7 @@ import { Customer } from "./../../models/customer.model";
 import { Reception } from "./../../models/reception.model";
 import * as ReceptionsActions from "./receptions.actions";
 import { prepareReception } from "./prepare-receptions";
+import { ReceptionStatuses } from "src/app/enums/ReceptionStatuses";
 
 export interface State {
   lastCustomerInTime: number;
@@ -23,24 +24,25 @@ export function receptionsReducer(
 ) {
   switch (action.type) {
     case ReceptionsActions.PREPARE_SIMULATION:
-      const updatedState = prepareReception(state, action.payload);
-      return updatedState;
+      return prepareReception(state, action.payload);
 
     case ReceptionsActions.ADD_CUSTOMER_TO_QUEUE:
       console.log("[ReceptionReducer]  addCustomerToQueue()");
+
       const updatedCustomers = [...state.newCustomers];
       const newCustomer = updatedCustomers.shift();
+      let smallestQueueIndex = -1;
+      let queueCustomersLength: number;
+      for (let i = 0; i < state.receptions.length; i++) {
+        if (
+          state.receptions[i].customersInQueue.length < queueCustomersLength ||
+          smallestQueueIndex === -1
+        ) {
+          smallestQueueIndex = i;
+          queueCustomersLength = state.receptions[i].customersInQueue.length;
+        }
+      }
 
-      const smallestQueueIndex = state.receptions
-        .map((reception) => reception.customersInQueue.length)
-        .indexOf(
-          Math.min.apply(
-            Math,
-            state.receptions.map(
-              (reception) => reception.customersInQueue.length
-            )
-          )
-        );
       const updatedReception = [...state.receptions].map((reception) => {
         return {
           ...reception,
@@ -53,6 +55,7 @@ export function receptionsReducer(
         ...state,
         receptions: updatedReception,
         newCustomers: updatedCustomers,
+        lastCustomerInTime: action.payload.currentTime,
       };
 
     case ReceptionsActions.REMOVE_CUSTOMER_BY_INDEX:
@@ -78,7 +81,7 @@ export function receptionsReducer(
         receptions: state.receptions.map((reception, index) => {
           if (index === action.payload.queueIndex) {
             const updatedReception = { ...reception };
-            updatedReception.currentOccupation = "Getting order";
+            updatedReception.currentOccupation = ReceptionStatuses.GettingOrder;
             updatedReception.startedGetOrderTime = action.payload.currentTime;
             return updatedReception;
           }
@@ -97,8 +100,8 @@ export function receptionsReducer(
               ...updatedReception.customersInQueue,
             ];
             updatedReception.customersInQueue.shift();
-            updatedReception.isHasCompletedCustomer = true;
-            updatedReception.currentOccupation = "Empty";
+            updatedReception.currentOccupation =
+              ReceptionStatuses.WaitingNextCustomer;
             updatedReception.startedGetOrderTime = -1;
             return updatedReception;
           }
@@ -112,7 +115,7 @@ export function receptionsReducer(
         receptions: state.receptions.map((reception, index) => {
           if (index === action.payload) {
             const updatedReception = { ...reception };
-            updatedReception.isHasCompletedCustomer = false;
+            updatedReception.currentOccupation = ReceptionStatuses.Empty;
             return updatedReception;
           }
           return reception;

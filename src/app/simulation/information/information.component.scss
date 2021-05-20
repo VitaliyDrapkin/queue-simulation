@@ -1,6 +1,6 @@
 .information {
   height: 36vh;
-  width: 32vw;
+  width: 30vw;
   overflow-y: auto;
 
   .all-information {
@@ -8,11 +8,14 @@
     padding: 0 2rem;
     justify-content: space-between;
     gap: 1rem;
+    font-size: 1.3rem;
+    margin-top: 1rem;
 
     .main-information,
     .active-information {
       flex: 1;
     }
+
     .main-information div,
     .active-information div {
       display: flex;

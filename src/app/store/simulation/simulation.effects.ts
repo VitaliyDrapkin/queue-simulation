@@ -1,68 +1,51 @@
-import { PREPARE_SIMULATION } from "./../receptions/receptions.actions";
 import { SimulationService } from "./../../services/simulation.service";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AppState } from "./../app.reducer";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import * as SimulationActions from "./simulation.actions";
-import { switchMap, delay, withLatestFrom } from "rxjs/operators";
-import { of } from "rxjs";
+import { withLatestFrom, tap } from "rxjs/operators";
 
 @Injectable()
 export class SimulationEffects {
-  @Effect()
-  prepareSimulation = this.actions$.pipe(
-    ofType(SimulationActions.PREPARE_SIMULATION),
-    switchMap(() => {
-      return of(new SimulationActions.StartSimulation());
+  @Effect({ dispatch: false })
+  finishPrepareSimulation = this.actions$.pipe(
+    ofType(SimulationActions.FINISH_PREPARE_SIMULATION),
+    withLatestFrom(this.store$),
+    tap(([actionData, appState]) => {
+      this.simulationService.makeNewStep(appState.simulation.speedMilliseconds);
     })
   );
 
-  @Effect()
-  startSimulation = this.actions$.pipe(
-    ofType(SimulationActions.START_SIMULATION),
-    switchMap(() => {
-      return of(new SimulationActions.StartNewStep());
+  @Effect({ dispatch: false })
+  makeTimeOutStep = this.actions$.pipe(
+    ofType(SimulationActions.MAKE_TIME_OUT_STEP),
+    withLatestFrom(this.store$),
+    tap(([actionData, appState]) => {
+      if (appState.simulation.isSimulationPlaying) {
+        this.simulationService.checkSimulationMoves(appState);
+        this.simulationService.makeNewStep(
+          appState.simulation.speedMilliseconds
+        );
+      }
     })
   );
 
-  @Effect()
+  @Effect({ dispatch: false })
+  makeClickedStep = this.actions$.pipe(
+    ofType(SimulationActions.MAKE_CLICKED_STEP),
+    withLatestFrom(this.store$),
+    tap(([actionData, appState]) => {
+      this.simulationService.checkSimulationMoves(appState);
+    })
+  );
+
+  @Effect({ dispatch: false })
   playSimulation = this.actions$.pipe(
     ofType(SimulationActions.PLAY_SIMULATION),
-    switchMap(() => {
-      return of(new SimulationActions.StartNewStep());
-    })
-  );
-
-  @Effect()
-  platStep = this.actions$.pipe(
-    ofType(SimulationActions.PLAY_STEP),
-    switchMap(() => {
-      return of(new SimulationActions.StartNewStep());
-    })
-  );
-
-  @Effect()
-  startNewStep = this.actions$.pipe(
-    ofType(SimulationActions.START_NEW_STEP),
     withLatestFrom(this.store$),
-    switchMap(([actionData, simulationState]) => {
-      return this.simulationService.delaySimulation(
-        simulationState.simulation.simulationSpeed,
-        simulationState.simulation.isSimulationPlaying
-      );
-    })
-  );
-
-  @Effect()
-  checkSimulationMovies = this.actions$.pipe(
-    ofType(SimulationActions.CHECK_SIMULATION_MOVIES),
-    withLatestFrom(this.store$),
-    switchMap(([actionData, simulationState]) => {
-      this.simulationService.checkSimulationMoves(simulationState);
-      return this.simulationService.startNewStep(
-        simulationState.simulation.isSimulationPlaying
-      );
+    tap(([actionData, appState]) => {
+      this.simulationService.makeNewStep(appState.simulation.speedMilliseconds);
     })
   );
 

@@ -14,39 +14,14 @@ import { AppState } from "src/app/store/app.reducer";
   styleUrls: ["./information.component.scss"],
 })
 export class InformationComponent implements OnInit {
-  isSimulationPlaying: Observable<boolean>;
-  isSimulationInit: Observable<boolean>;
   constructor(
     private simulationService: SimulationService,
     private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-    this.isSimulationPlaying = this.store.select(
-      (state) => state.simulation.isSimulationPlaying
-    );
-    this.isSimulationInit = this.store.select(
-      (state) => state.simulation.isSimulationInit
-    );
-  }
-
-  onStartSimulation() {
-    this.simulationService.startSimulation(jsonDefault);
-  }
-  onPause() {
-    this.store.dispatch(new SimulationActions.PauseSimulation());
-  }
-
-  onNextStep() {
-    this.store.dispatch(new SimulationActions.PlayStep());
-  }
-  onPlay() {
-    this.store.dispatch(new SimulationActions.PlaySimulation());
-  }
-  onUpSpeed() {
-    this.store.dispatch(new SimulationActions.UpSpeed());
-  }
-  onReduceSpeed() {
-    this.store.dispatch(new SimulationActions.reduceSpeed());
+    // this.store.subscribe((data) =>
+    //   console.log("[InformationComponent]  changeState()", data)
+    // );
   }
 }

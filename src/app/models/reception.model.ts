@@ -1,3 +1,4 @@
+import { ReceptionStatuses } from "./../enums/ReceptionStatuses";
 import { Customer } from "./customer.model";
 export class Reception {
   constructor(
@@ -6,6 +7,6 @@ export class Reception {
     public startedGetOrderTime: number,
     public customersInQueue: Customer[],
     public isHasCompletedCustomer: boolean,
-    public currentOccupation: "Empty" | "Getting order" = "Empty" //
+    public currentOccupation: ReceptionStatuses
   ) {}
 }

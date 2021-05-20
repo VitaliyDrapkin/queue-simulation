@@ -5,6 +5,7 @@ import { Store } from "@ngrx/store";
 
 import * as fromApp from "../store/app.reducer";
 import { Injectable } from "@angular/core";
+import { ReceptionStatuses } from "../enums/ReceptionStatuses";
 
 @Injectable({
   providedIn: "root",
@@ -21,24 +22,15 @@ export class OrdersService {
 
   private addNewOrders(receptions: Reception[], currentTime: number) {
     for (let i = 0; i < receptions.length; i++) {
-      if (this.checkIfNeedToAddOrder(receptions[i], currentTime)) {
+      if (
+        receptions[i].currentOccupation === ReceptionStatuses.GettingOrder &&
+        receptions[i].getOrderTime + receptions[i].startedGetOrderTime ===
+          currentTime - 1
+      ) {
         this.store.dispatch(
           new OrdersActions.addOrder(receptions[i].customersInQueue[0].order)
         );
       }
     }
-  }
-
-  private checkIfNeedToAddOrder(
-    reception: Reception,
-    currentTime: number
-  ): boolean {
-    if (
-      reception.currentOccupation === "Getting order" &&
-      reception.getOrderTime + reception.startedGetOrderTime === currentTime - 1
-    ) {
-      return true;
-    }
-    return false;
   }
 }

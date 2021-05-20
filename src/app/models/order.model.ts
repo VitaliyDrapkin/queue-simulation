@@ -1,13 +1,9 @@
+import { OrderStatuses } from "./../enums/OrderStatuses";
 import { Product } from "./product.model";
 export class Order {
   constructor(
     public id: number,
     public products: Product[],
-    public status:
-      | "Completed"
-      | "Creating"
-      | "In delivery"
-      | "Waiting for workplace"
-      | "Waiting for delivery" = "Waiting for workplace"
+    public status: OrderStatuses = OrderStatuses.WaitingForWorkPlace
   ) {}
 }
