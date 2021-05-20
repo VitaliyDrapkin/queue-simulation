@@ -1,5 +1,5 @@
-import { delay, take } from "rxjs/operators";
-import { Observable, of } from "rxjs";
+import { delay } from "rxjs/operators";
+import { of } from "rxjs";
 import { WorkplaceService } from "./workplace.service";
 import { OrdersService } from "./orders.service";
 import { ReceptionService } from "./reception.service";
@@ -8,7 +8,6 @@ import { Store } from "@ngrx/store";
 import * as SimulationActions from "../store/simulation/simulation.actions";
 import * as ReceptionsActions from "../store/receptions/receptions.actions";
 import * as WorkplacesActions from "../store/workplaces/workplaces.actions";
-import * as OrdersActions from "../store/orders/orders.actions";
 
 import * as fromApp from "../store/app.reducer";
 import { Injectable, OnInit } from "@angular/core";
@@ -17,6 +16,7 @@ import { Injectable, OnInit } from "@angular/core";
   providedIn: "root",
 })
 export class SimulationService {
+  timeOut: ReturnType<typeof setTimeout>;
   constructor(
     public store: Store<fromApp.AppState>,
     public receptionService: ReceptionService,
@@ -25,6 +25,9 @@ export class SimulationService {
   ) {}
 
   startSimulation(jsonSimulation: string) {
+    if (this.timeOut) {
+      clearTimeout(this.timeOut);
+    }
     this.store.dispatch(
       new ReceptionsActions.PrepareSimulation(JSON.parse(jsonSimulation))
     );
@@ -36,10 +39,10 @@ export class SimulationService {
 
   stopSimulation() {}
 
-  checkSimulationMoves(simulationState: AppState) {
-    this.receptionService.checkMovies(simulationState);
-    this.ordersService.checkMovies(simulationState);
-    this.workplaceService.checkMovies(simulationState);
+  checkSimulationMoves(appState: AppState) {
+    this.receptionService.checkMovies(appState);
+    this.ordersService.checkMovies(appState);
+    this.workplaceService.checkMovies(appState);
   }
 
   delaySimulation(simulationSpeed: number, isSimulationPlaying: boolean) {
@@ -52,7 +55,7 @@ export class SimulationService {
   }
 
   makeNewStep(speedMilliseconds: number) {
-    setTimeout(
+    this.timeOut = setTimeout(
       () => this.store.dispatch(new SimulationActions.MakeTimeOutStep()),
       speedMilliseconds
     );

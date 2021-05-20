@@ -4,6 +4,7 @@ import { Order } from "src/app/models/order.model";
 import { Customer } from "./../../models/customer.model";
 import { Ingredient } from "./../../models/ingredient.model";
 import { Product } from "./../../models/product.model";
+
 export function prepareReception(state, payload) {
   const allProducts: Product[] = payload.products.map((product) => {
     const productIngredients = product.ingredients.map((ingredient) => {

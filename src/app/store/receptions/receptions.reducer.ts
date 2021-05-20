@@ -2,6 +2,7 @@ import { Customer } from "./../../models/customer.model";
 import { Reception } from "./../../models/reception.model";
 import * as ReceptionsActions from "./receptions.actions";
 import { prepareReception } from "./prepare-receptions";
+import { addCustomerToQueue } from "./addCustomerToQueue";
 import { ReceptionStatuses } from "src/app/enums/ReceptionStatuses";
 
 export interface State {
@@ -27,37 +28,7 @@ export function receptionsReducer(
       return prepareReception(state, action.payload);
 
     case ReceptionsActions.ADD_CUSTOMER_TO_QUEUE:
-      console.log("[ReceptionReducer]  addCustomerToQueue()");
-
-      const updatedCustomers = [...state.newCustomers];
-      const newCustomer = updatedCustomers.shift();
-      let smallestQueueIndex = -1;
-      let queueCustomersLength: number;
-
-      for (let i = 0; i < state.receptions.length; i++) {
-        if (
-          state.receptions[i].customersInQueue.length < queueCustomersLength ||
-          smallestQueueIndex === -1
-        ) {
-          smallestQueueIndex = i;
-          queueCustomersLength = state.receptions[i].customersInQueue.length;
-        }
-      }
-
-      const updatedReception = [...state.receptions].map((reception) => {
-        return {
-          ...reception,
-          customersInQueue: [...reception.customersInQueue],
-        };
-      });
-      updatedReception[smallestQueueIndex].customersInQueue.push(newCustomer);
-
-      return {
-        ...state,
-        receptions: updatedReception,
-        newCustomers: updatedCustomers,
-        lastCustomerInTime: action.payload.currentTime,
-      };
+      return addCustomerToQueue(state, action.payload);
 
     case ReceptionsActions.REMOVE_CUSTOMER_BY_INDEX:
       return {

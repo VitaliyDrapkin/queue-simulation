@@ -22,6 +22,6 @@ export const appReducer: ActionReducerMap<AppState> = {
 };
 
 export function logsReducer(state = {}, action: any) {
-  console.log("[AppReducer]  logsReducer()", action);
+  // console.log("[AppReducer]  logsReducer()", action);
   return state;
 }

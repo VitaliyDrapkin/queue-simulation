@@ -20,7 +20,6 @@ export function receptionsReducer(
 ) {
   switch (action.type) {
     case SimulationActions.FINISH_PREPARE_SIMULATION:
-      console.log("[SimulationReducer]  finishPrepareSimulation()");
       return {
         ...state,
         isSimulationInit: true,

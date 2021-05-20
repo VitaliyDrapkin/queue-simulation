@@ -43,6 +43,7 @@ export function workplacesReducer(
         ...state,
         workplaces: newWorkplaces,
       };
+
     default: {
       return state;
     }

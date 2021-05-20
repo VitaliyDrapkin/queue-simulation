@@ -3,6 +3,7 @@ export class Ingredient {
     public id: number,
     public name: string,
     public image: string,
-    public creatingTime: number
+    public creatingTime: number,
+    public isCreated: boolean = false
   ) {}
 }

@@ -14,25 +14,25 @@ import { Order } from "../models/order.model";
 export class ReceptionService {
   constructor(public store: Store<fromApp.AppState>) {}
 
-  checkMovies(simulationState: AppState) {
+  checkMovies(appState: AppState) {
     this.addNewCustomer(
-      simulationState.simulation.step,
-      simulationState.receptions.lastCustomerInTime,
-      simulationState.receptions.newCustomerFrequency,
-      !!simulationState.receptions.newCustomers.length
+      appState.simulation.step,
+      appState.receptions.lastCustomerInTime,
+      appState.receptions.newCustomerFrequency,
+      !!appState.receptions.newCustomers.length
     );
 
     this.startGetOrder(
-      simulationState.simulation.step,
-      simulationState.receptions.receptions
+      appState.simulation.step,
+      appState.receptions.receptions
     );
     this.endGetOrder(
-      simulationState.simulation.step,
-      simulationState.receptions.receptions,
-      simulationState.orders.orders
+      appState.simulation.step,
+      appState.receptions.receptions,
+      appState.orders.orders
     );
 
-    this.moveQueue(simulationState.receptions.receptions);
+    this.moveQueue(appState.receptions.receptions);
   }
 
   private addNewCustomer(

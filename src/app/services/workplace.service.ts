@@ -1,9 +1,9 @@
+import { Ingredient } from "./../models/ingredient.model";
+import { Workplace } from "./../models/workplace-model";
 import { OrderStatuses } from "./../enums/OrderStatuses";
 import { Product } from "./../models/product.model";
 import * as fromApp from "../store/app.reducer";
 import { Injectable } from "@angular/core";
-
-import { Workplace } from "../models/workplace-model";
 import { Order } from "./../models/order.model";
 import * as WorkplacesActions from "../store/workplaces/workplaces.actions";
 import * as OrdersActions from "../store/orders/orders.actions";
@@ -22,6 +22,11 @@ export class WorkplaceService {
       simulationState.workplaces.workplaces,
       simulationState.simulation.step
     );
+
+    // this.finishCreatingIngredient(
+    //   simulationState.workplaces.workplaces,
+    //   simulationState.simulation.step
+    // );
   }
 
   private addProduct(
@@ -88,4 +93,21 @@ export class WorkplaceService {
     });
     return emptyWorkplaces;
   }
+
+  // private finishCreatingIngredient(workplaces: Workplace[], step: number) {
+  //   workplaces.forEach((workplace) => {
+  //     if (workplace.isEmpty) {
+  //       return;
+  //     }
+  //     const timeOfCreating = step - workplace.addedProductTime; //5
+  //     let timeForCreateIngredient = 0;
+
+  //     for (let i = 0; i<workplace.product.ingredients.length;i++){
+  //       timeForCreateIngredient = timeForCreateIngredient + <workplace.product.ingredients[i].
+  //       if (!workplace.product.ingredients[i].isCreated ){
+
+  //       }
+  //     }
+  //   });
+  // }
 }

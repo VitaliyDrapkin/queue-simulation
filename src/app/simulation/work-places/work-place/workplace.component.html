@@ -24,6 +24,8 @@
       <div class="product-ingredients">
         <img
           *ngFor="let ingredient of workplace.product.ingredients"
+          class="created"
+          [ngClass]="ingredient.isCreated ? 'created' : 'onCreating'"
           src="{{ ingredient.image }}"
           alt="ingredient"
         />

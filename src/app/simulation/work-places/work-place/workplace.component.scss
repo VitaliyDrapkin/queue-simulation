@@ -47,8 +47,13 @@
       height: 3.5rem;
       margin-right: 1rem;
       margin-bottom: 0.5rem;
-      border-radius: 300px;
-      position: relative;
+      border-radius: 30rem;
+    }
+    .created {
+      border: 3px solid rgb(7, 211, 7);
+    }
+    .onCreating {
+      border: 3px solid red;
     }
   }
 }
