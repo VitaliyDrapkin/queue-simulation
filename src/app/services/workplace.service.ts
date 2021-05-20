@@ -23,10 +23,10 @@ export class WorkplaceService {
       simulationState.simulation.step
     );
 
-    // this.finishCreatingIngredient(
-    //   simulationState.workplaces.workplaces,
-    //   simulationState.simulation.step
-    // );
+    this.finishCreatingIngredient(
+      simulationState.workplaces.workplaces,
+      simulationState.simulation.step
+    );
   }
 
   private addProduct(
@@ -94,20 +94,26 @@ export class WorkplaceService {
     return emptyWorkplaces;
   }
 
-  // private finishCreatingIngredient(workplaces: Workplace[], step: number) {
-  //   workplaces.forEach((workplace) => {
-  //     if (workplace.isEmpty) {
-  //       return;
-  //     }
-  //     const timeOfCreating = step - workplace.addedProductTime; //5
-  //     let timeForCreateIngredient = 0;
+  private finishCreatingIngredient(workplaces: Workplace[], step: number) {
+    workplaces.forEach((workplace) => {
+      if (workplace.isEmpty) {
+        return;
+      }
 
-  //     for (let i = 0; i<workplace.product.ingredients.length;i++){
-  //       timeForCreateIngredient = timeForCreateIngredient + <workplace.product.ingredients[i].
-  //       if (!workplace.product.ingredients[i].isCreated ){
+      const timePassOfStartCreating = step - workplace.addedProductTime;
+      let timeForCreatingIngredient = 0;
 
-  //       }
-  //     }
-  //   });
-  // }
+      for (let i = 0; i < workplace.product.ingredients.length; i++) {
+        timeForCreatingIngredient =
+          timeForCreatingIngredient +
+          workplace.product.ingredients[i].creatingTime;
+        if (
+          !workplace.product.ingredients[i].isCreated &&
+          timeForCreatingIngredient < timePassOfStartCreating
+        ) {
+          console.log("Ingredient Created");
+        }
+      }
+    });
+  }
 }

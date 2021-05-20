@@ -4,11 +4,21 @@ import { Action } from "@ngrx/store";
 
 export const PREPARE_SIMULATION = "@@workplaces/PREPARE_SIMULATION";
 export const ADD_PRODUCT_TO_WORKPLACE = "@@workplaces/ADD_PRODUCT_TO_WORKPLACE";
+export const FINISH_CREATING_INGREDIENT =
+  "@@workplaces/FINISH_CREATING_INGREDIENT";
 
 export class PrepareSimulation implements Action {
   readonly type = PREPARE_SIMULATION;
 
   constructor(public payload: Simulation) {}
+}
+
+export class FinishCreatingIngredient implements Action {
+  readonly type = FINISH_CREATING_INGREDIENT;
+
+  constructor(
+    public payload: { WorkplaceIndex: number; ingredientIndex: number }
+  ) {}
 }
 
 export class AddOrderToWorkplace implements Action {
