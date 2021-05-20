@@ -34,12 +34,11 @@ export class PlayMenuComponent implements OnInit {
   onPause() {
     this.store.dispatch(new SimulationActions.PauseSimulation());
   }
-
-  onPlayStep() {
-    this.store.dispatch(new SimulationActions.MakeClickedStep());
-  }
   onPlay() {
     this.store.dispatch(new SimulationActions.PlaySimulation());
+  }
+  onPlayStep() {
+    this.store.dispatch(new SimulationActions.MakeClickedStep());
   }
   onUpSpeed() {
     this.store.dispatch(new SimulationActions.UpSpeed());

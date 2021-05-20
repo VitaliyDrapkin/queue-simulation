@@ -10,6 +10,7 @@ export interface AppState {
   simulation: fromSimulation.State;
   orders: fromOrders.State;
   workplaces: fromWorkPlaces.State;
+  logs: any;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {
@@ -17,4 +18,10 @@ export const appReducer: ActionReducerMap<AppState> = {
   simulation: fromSimulation.receptionsReducer,
   orders: fromOrders.ordersReducer,
   workplaces: fromWorkPlaces.workplacesReducer,
+  logs: logsReducer,
 };
+
+export function logsReducer(state = {}, action: any) {
+  console.log("[AppReducer]  logsReducer()", action);
+  return state;
+}

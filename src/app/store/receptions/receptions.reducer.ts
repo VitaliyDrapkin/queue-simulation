@@ -33,6 +33,7 @@ export function receptionsReducer(
       const newCustomer = updatedCustomers.shift();
       let smallestQueueIndex = -1;
       let queueCustomersLength: number;
+
       for (let i = 0; i < state.receptions.length; i++) {
         if (
           state.receptions[i].customersInQueue.length < queueCustomersLength ||

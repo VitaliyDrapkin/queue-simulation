@@ -3,9 +3,9 @@
     class="play-menu playing"
     *ngIf="isSimulationPlaying | async; else simulationOnPause"
   >
-    <span class="material-icons"> fast_rewind </span>
+    <span class="material-icons" (click)="onReduceSpeed()"> fast_rewind </span>
     <span class="material-icons" (click)="onPause()"> pause </span>
-    <span class="material-icons"> fast_forward </span>
+    <span class="material-icons" (click)="onUpSpeed()"> fast_forward </span>
     <span class="material-icons disabledIcon"> skip_next </span>
   </div>
 

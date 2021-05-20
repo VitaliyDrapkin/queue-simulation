@@ -8,11 +8,20 @@
   >
   <span *ngIf="reception.currentOccupation === 'Getting order'"
     >Get order :
-    {{
-      reception.getOrderTime -
-        ((currentTime | async) - reception.startedGetOrderTime)
-    }}</span
-  >
+    <span
+      *ngIf="
+        reception.getOrderTime -
+          ((currentTime | async) - reception.startedGetOrderTime) >
+          0;
+        else showZero
+      "
+      >{{
+        reception.getOrderTime -
+          ((currentTime | async) - reception.startedGetOrderTime)
+      }}
+    </span>
+    <ng-template #showZero><span>0</span></ng-template>
+  </span>
 </div>
 
 <div

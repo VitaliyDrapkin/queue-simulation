@@ -6,6 +6,7 @@ import * as ReceptionsActions from "../store/receptions/receptions.actions";
 
 import * as fromApp from "../store/app.reducer";
 import { Injectable } from "@angular/core";
+import { Order } from "../models/order.model";
 
 @Injectable({
   providedIn: "root",
@@ -27,7 +28,8 @@ export class ReceptionService {
     );
     this.endGetOrder(
       simulationState.simulation.step,
-      simulationState.receptions.receptions
+      simulationState.receptions.receptions,
+      simulationState.orders.orders
     );
 
     this.moveQueue(simulationState.receptions.receptions);
@@ -63,14 +65,23 @@ export class ReceptionService {
     }
   }
 
-  private endGetOrder(currentTime: number, receptions: Reception[]) {
+  private endGetOrder(
+    currentTime: number,
+    receptions: Reception[],
+    orders: Order[]
+  ) {
     for (let i = 0; i < receptions.length; i++) {
       if (
         receptions[i].currentOccupation === ReceptionStatuses.GettingOrder &&
-        receptions[i].getOrderTime + receptions[i].startedGetOrderTime ===
-          currentTime - 1
+        receptions[i].getOrderTime + receptions[i].startedGetOrderTime <=
+          currentTime
       ) {
-        this.store.dispatch(new ReceptionsActions.endGetOrder(i));
+        const customerOrderId = receptions[i].customersInQueue[0].order.id;
+        orders.forEach((order) => {
+          if (order.id == customerOrderId) {
+            this.store.dispatch(new ReceptionsActions.endGetOrder(i));
+          }
+        });
       }
     }
   }
