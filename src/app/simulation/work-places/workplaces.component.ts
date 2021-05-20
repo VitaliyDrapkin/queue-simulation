@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { Workplace } from "../../models/workplace-model";
+import { Workplace } from "../../models/workPlace-model";
 import { Store } from "@ngrx/store";
 import { Component, OnInit } from "@angular/core";
 import { AppState } from "src/app/store/app.reducer";

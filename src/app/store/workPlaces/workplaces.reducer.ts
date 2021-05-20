@@ -1,4 +1,4 @@
-import { Workplace } from "./../../models/workplace-model";
+import { Workplace } from "./../../models/workPlace-model";
 import * as WorkplacesActions from "./workplaces.actions";
 
 export interface State {

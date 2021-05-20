@@ -3,7 +3,7 @@ import { ActionReducerMap } from "@ngrx/store";
 import * as fromReception from "./receptions/receptions.reducer";
 import * as fromSimulation from "./simulation/simulation.reducer";
 import * as fromOrders from "./orders/orders.reducer";
-import * as fromWorkPlaces from "./workplaces/workplaces.reducer";
+import * as fromWorkPlaces from "./workPlaces/workplaces.reducer";
 
 export interface AppState {
   receptions: fromReception.State;
