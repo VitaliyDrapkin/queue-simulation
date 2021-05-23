@@ -1,4 +1,4 @@
-import { mySchema } from "./scenarioJsonSchema";
+import { scenarioSchema } from "./scenarioJsonSchema";
 import { Injectable } from "@angular/core";
 import Ajv from "ajv";
 
@@ -20,7 +20,7 @@ export class ValidationsService {
   checkIfScenarioFieldsCorrect(jsonFile) {
     const ajv = new Ajv();
     try {
-      const valid = ajv.validate(mySchema, jsonFile);
+      const valid = ajv.validate(scenarioSchema, jsonFile);
       return valid;
     } catch (error) {
       return false;

@@ -1,4 +1,4 @@
-export const mySchema = {
+export const scenarioSchema = {
   type: "object",
   properties: {
     ingredients: {
@@ -39,12 +39,6 @@ export const mySchema = {
             ingredients: {
               type: "array",
               items: [
-                {
-                  type: "integer",
-                },
-                {
-                  type: "integer",
-                },
                 {
                   type: "integer",
                 },
@@ -120,7 +114,7 @@ export const mySchema = {
         },
       ],
     },
-    workPlaces: {
+    workplaces: {
       type: "integer",
     },
     delivers: {
@@ -134,7 +128,7 @@ export const mySchema = {
     "newCustomerFrequency",
     "receptionTypes",
     "receptions",
-    "workPlaces",
+    "workplaces",
     "delivers",
   ],
 };

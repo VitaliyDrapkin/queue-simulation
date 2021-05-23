@@ -109,6 +109,6 @@
     { "id": 1, "receptionType": 2 },
     { "id": 1, "receptionType": 1 }
   ],
-  "workPlaces": 3,
+  "workplaces": 3,
   "delivers": 3
 }

@@ -1,3 +1,4 @@
+import { ScenarioRequest } from "./../services/scenario-request.service";
 import { ValidationsService } from "./../services/validations.service";
 import * as scenario from "../../assets/scenario.json";
 import { SimulationService } from "../services/simulation.service";
@@ -16,7 +17,8 @@ export class StartPageComponent implements OnInit {
   constructor(
     private router: Router,
     public simulationService: SimulationService,
-    public validationsService: ValidationsService
+    public validationsService: ValidationsService,
+    public scenarioRequest: ScenarioRequest
   ) {}
 
   ngOnInit(): void {
@@ -38,8 +40,8 @@ export class StartPageComponent implements OnInit {
   }
 
   onLoadDemo() {
-    this.scenarioForm
-      .get("mainInput")
-      .setValue(this.simulationService.getDemoJson());
+    this.scenarioRequest.getJSON().subscribe((data) => {
+      this.scenarioForm.get("mainInput").setValue(JSON.stringify(data));
+    });
   }
 }
