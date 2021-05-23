@@ -1,22 +1,12 @@
 import { Reception } from "../../models/reception.model";
-import { ReceptionStatuses } from "../../enums/ReceptionStatuses";
-import { Order } from "src/app/models/order.model";
-import { Customer } from "../../models/customer.model";
-import { Ingredient } from "../../models/ingredient.model";
-import { Product } from "../../models/product.model";
+import * as _ from "lodash-es";
 
 export function addCustomerToQueue(state, payload) {
   const updatedCustomers = [...state.newCustomers];
   const newCustomer = updatedCustomers.shift();
 
   let smallestQueueIndex = getSmallestQueueIndex(state.receptions);
-
-  const updatedReceptions = [...state.receptions].map((reception) => {
-    return {
-      ...reception,
-      customersInQueue: [...reception.customersInQueue],
-    };
-  });
+  const updatedReceptions = _.cloneDeep(state.receptions);
   updatedReceptions[smallestQueueIndex].customersInQueue.push(newCustomer);
 
   return {

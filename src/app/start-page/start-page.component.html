@@ -1,8 +1,17 @@
 <div class="startPage">
   <h1>Queues manager simulation</h1>
-  <textarea name="" class="textarea" [(ngModel)]="inputValue"
-    placeholder="Enter company information JSON format"></textarea>
-  <button mat-raised-button color="primary" (click)="onStartSimulation()">
-    Start simulation
-  </button>
+  <textarea
+    name=""
+    class="textarea"
+    [(ngModel)]="inputValue"
+    placeholder="Enter company information JSON format"
+  ></textarea>
+  <div class="simulation-buttons">
+    <button mat-raised-button color="primary" (click)="onStartSimulation()">
+      Start simulation
+    </button>
+    <button mat-raised-button color="primary" (click)="onStartSimulation()">
+      Start demo
+    </button>
+  </div>
 </div>

@@ -29,7 +29,7 @@ export class PlayMenuComponent implements OnInit {
   }
 
   onStartSimulation() {
-    this.simulationService.startSimulation(jsonDefault);
+    this.simulationService.startSimulation();
   }
   onPause() {
     this.store.dispatch(new SimulationActions.PauseSimulation());

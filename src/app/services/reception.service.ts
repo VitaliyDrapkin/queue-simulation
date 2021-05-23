@@ -3,6 +3,7 @@ import { Reception } from "../models/reception.model";
 import { AppState } from "../store/app.reducer";
 import { Store } from "@ngrx/store";
 import * as ReceptionsActions from "../store/receptions/receptions.actions";
+import * as OrdersActions from "../store/orders/orders.actions";
 
 import * as fromApp from "../store/app.reducer";
 import { Injectable } from "@angular/core";
@@ -26,6 +27,12 @@ export class ReceptionService {
       appState.simulation.step,
       appState.receptions.receptions
     );
+    this.addNewOrder(
+      appState.receptions.receptions,
+      appState.simulation.step,
+      appState.orders.orders
+    );
+
     this.endGetOrder(
       appState.simulation.step,
       appState.receptions.receptions,
@@ -93,6 +100,32 @@ export class ReceptionService {
         ReceptionStatuses.WaitingNextCustomer
       ) {
         this.store.dispatch(new ReceptionsActions.moveQueue(i));
+      }
+    }
+  }
+
+  private addNewOrder(
+    receptions: Reception[],
+    currentTime: number,
+    orders: Order[]
+  ) {
+    for (let i = 0; i < receptions.length; i++) {
+      if (
+        receptions[i].currentOccupation === ReceptionStatuses.GettingOrder &&
+        receptions[i].getOrderTime + receptions[i].startedGetOrderTime <=
+          currentTime
+      ) {
+        let isOrderAlreadyExist = false;
+        orders.forEach((order) => {
+          if (order.id === receptions[i].customersInQueue[0].order.id) {
+            isOrderAlreadyExist = true;
+          }
+        });
+        if (!isOrderAlreadyExist) {
+          this.store.dispatch(
+            new OrdersActions.addOrder(receptions[i].customersInQueue[0].order)
+          );
+        }
       }
     }
   }

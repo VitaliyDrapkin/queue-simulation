@@ -23,9 +23,13 @@
     background-color: rgba(249, 252, 255, 0.87);
     outline: none;
   }
-  button {
-    margin-top: 2rem;
-    font-size: 2rem;
+  .simulation-buttons {
+    display: flex;
+    gap: 1rem;
+    button {
+      margin-top: 2rem;
+      font-size: 2rem;
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 <mat-card class="workplace card-secondary">
   <div
     class="workplace-empty"
-    *ngIf="workplace.isEmpty; else workplaceWithProduct"
+    *ngIf="!workplace.orderId; else workplaceWithProduct"
   >
     Empty workplace
   </div>

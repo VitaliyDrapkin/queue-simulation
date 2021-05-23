@@ -1,6 +1,6 @@
 import { Workplace } from "../../models/workplace-model";
 import { prepareWorkplaces } from "./prepare-workplaces-reduce";
-import { addOrderToProduction } from "./add-product-to-production.reduce";
+import { addOrderToProduction } from "./add-product-to-workplace.reduce";
 import * as WorkplacesActions from "./workplaces.actions";
 
 export interface State {
