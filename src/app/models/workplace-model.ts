@@ -1,9 +1,9 @@
-import { Product } from "./product.model";
+import { Order } from "src/app/models/order.model";
 export class Workplace {
   constructor(
     public id: number,
     public addedProductTime: number = -1,
-    public orderId?: number,
-    public product?: Product
+    public order?: Order,
+    public currentProductIndex?: number
   ) {}
 }

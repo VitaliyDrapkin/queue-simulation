@@ -17,29 +17,30 @@ export class OrdersService {
   constructor(public store: Store<fromApp.AppState>) {}
 
   checkMoves(appState: AppState) {
-    this.addProductToProduction(
+    this.addOrderToProduction(
       appState.orders.orders,
       appState.workplaces.workplaces,
       appState.simulation.step
     );
   }
 
-  private addProductToProduction(
+  private addOrderToProduction(
     orders: Order[],
     workplaces: Workplace[],
     currentTime: number
   ) {
-    const waitingForWorkplaceProducts = this.getWaitingProducts(orders);
+    const waitingForWorkplaceOrders = this.getWaitingForWorkplaceOrders(orders);
     const emptyWorkplaces = this.getEmptyWorkPlaces(workplaces);
+    console.log(waitingForWorkplaceOrders.length);
+    console.log(emptyWorkplaces.length);
     for (
       let i = 0;
-      i < waitingForWorkplaceProducts.length && i < emptyWorkplaces.length;
+      i < waitingForWorkplaceOrders.length && i < emptyWorkplaces.length;
       i++
     ) {
       this.store.dispatch(
         new WorkplacesActions.AddOrderToWorkplace({
-          product: waitingForWorkplaceProducts[i].product,
-          orderId: waitingForWorkplaceProducts[i].orderId,
+          order: waitingForWorkplaceOrders[i],
           workplaceId: emptyWorkplaces[i].id,
           currentTime: currentTime,
         })
@@ -47,45 +48,19 @@ export class OrdersService {
       this.store.dispatch(
         new OrdersActions.changeOrderStatus({
           status: OrderStatuses.Creating,
-          orderId: waitingForWorkplaceProducts[i].orderId,
+          orderId: waitingForWorkplaceOrders[i].id,
         })
       );
     }
   }
 
-  private getWaitingProducts(
-    orders: Order[]
-  ): { orderId: number; product: Product }[] {
-    const waitingOrders = this.getWaitingOrders(orders);
-    const waitingProducts: { orderId: number; product: Product }[] = [];
-
-    waitingOrders.forEach((order) => {
-      order.products.forEach((product) => {
-        if (!product.isCreated) {
-          waitingProducts.push({ orderId: order.id, product: { ...product } });
-        }
-      });
-    });
-    return waitingProducts;
-  }
-
-  private getWaitingOrders(orders: Order[]): Order[] {
-    const waitingOrders: Order[] = [];
-    orders.forEach((order) => {
-      if (order.status === "Waiting for workplace") {
-        waitingOrders.push(order);
-      }
-    });
-    return waitingOrders;
+  private getWaitingForWorkplaceOrders(orders: Order[]): Order[] {
+    return orders.filter(
+      (order) => order.status === OrderStatuses.WaitingForWorkPlace
+    );
   }
 
   private getEmptyWorkPlaces(workplaces: Workplace[]): Workplace[] {
-    const emptyWorkplaces: Workplace[] = [];
-    workplaces.forEach((workplace) => {
-      if (!workplace.orderId) {
-        emptyWorkplaces.push(workplace);
-      }
-    });
-    return emptyWorkplaces;
+    return workplaces.filter((workplace) => !workplace.order);
   }
 }

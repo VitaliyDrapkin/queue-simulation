@@ -19,8 +19,10 @@ export class WorkplaceComponent implements OnInit {
   }
 
   calculateCreatingTime() {
-    let timeLeft = 0;
-    this.workplace.product.ingredients.forEach((ingredient) => {
+    let timeLeft = 1; //+1 delay time for view
+    this.workplace.order.products[
+      this.workplace.currentProductIndex
+    ].ingredients.forEach((ingredient) => {
       timeLeft = timeLeft + ingredient.creatingTime;
     });
     return timeLeft;

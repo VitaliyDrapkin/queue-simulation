@@ -21,28 +21,54 @@ export class WorkplaceService {
       appState.workplaces.workplaces,
       appState.simulation.step
     );
+    this.finishCreatedOrder(appState.workplaces.workplaces);
   }
 
   private finishCreatingIngredient(workplaces: Workplace[], step: number) {
-    workplaces.forEach((workplace) => {
-      if (!workplace.orderId) {
+    workplaces.forEach((workplace, workplaceIndex) => {
+      if (!workplace.order) {
         return;
       }
-
       const timePassOfStartCreating = step - workplace.addedProductTime;
 
-      let timeForCreatingIngredient = 0;
-      for (let i = 0; i < workplace.product.ingredients.length; i++) {
-        timeForCreatingIngredient =
-          timeForCreatingIngredient +
-          workplace.product.ingredients[i].creatingTime;
+      let timeForIngredient = 0;
+      for (
+        let ingredientIndex = 0;
+        ingredientIndex <
+        workplace.order.products[workplace.currentProductIndex].ingredients
+          .length;
+        ingredientIndex++
+      ) {
+        timeForIngredient =
+          timeForIngredient +
+          workplace.order.products[workplace.currentProductIndex].ingredients[
+            ingredientIndex
+          ].creatingTime;
         if (
-          !workplace.product.ingredients[i].isCreated &&
-          timeForCreatingIngredient < timePassOfStartCreating
+          !workplace.order.products[workplace.currentProductIndex].isCreated &&
+          timeForIngredient < timePassOfStartCreating
         ) {
-          console.log("Ingredient Created");
+          this.store.dispatch(
+            new WorkplacesActions.FinishCreatingIngredient({
+              WorkplaceIndex: workplaceIndex,
+              productIndex: workplace.currentProductIndex,
+              ingredientIndex: ingredientIndex,
+            })
+          );
         }
       }
     });
+  }
+
+  finishCreatedOrder(workplaces: Workplace[]) {
+    // workplaces.forEach((workplace) => {
+    //   if (
+    //     workplace.order &&
+    //     workplace.order.products[workplace.order.products.length - 1]
+    //       .ingredients[2].isCreated
+    //   ) {
+    //     console.log("Order Created");
+    //   }
+    // });
   }
 }

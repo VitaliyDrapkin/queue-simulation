@@ -1,7 +1,9 @@
+import { Product } from "./../../models/product.model";
 import { Workplace } from "../../models/workplace-model";
 import { prepareWorkplaces } from "./prepare-workplaces-reduce";
 import { addOrderToProduction } from "./add-product-to-workplace.reduce";
 import * as WorkplacesActions from "./workplaces.actions";
+import * as _ from "lodash-es";
 
 export interface State {
   workplaces: Workplace[];
@@ -21,6 +23,33 @@ export function workplacesReducer(
 
     case WorkplacesActions.ADD_PRODUCT_TO_WORKPLACE:
       return addOrderToProduction(state, action.payload);
+
+    case WorkplacesActions.FINISH_CREATING_INGREDIENT:
+      const updatedWorkplaces = _.cloneDeep(state.workplaces);
+      updatedWorkplaces[action.payload.WorkplaceIndex].order.products[
+        action.payload.productIndex
+      ].ingredients[action.payload.ingredientIndex].isCreated = true;
+
+      return {
+        ...state,
+        workplaces: updatedWorkplaces,
+      };
+
+    case WorkplacesActions.FINISH_CREATING_ORDER:
+      return {
+        ...state,
+        workplaces: [...state.workplaces].map((workplace, index) => {
+          if (index === action.payload.workplaceIndex) {
+            return {
+              ...workplace,
+              order: null,
+              addedProductTime: -1,
+              currentProductIndex: -1,
+            };
+          }
+          return workplace;
+        }),
+      };
 
     default: {
       return state;
