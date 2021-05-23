@@ -7,6 +7,7 @@ export const PREPARE_SIMULATION = "@@workplaces/PREPARE_SIMULATION";
 export const ADD_PRODUCT_TO_WORKPLACE = "@@workplaces/ADD_PRODUCT_TO_WORKPLACE";
 export const FINISH_CREATING_INGREDIENT =
   "@@workplaces/FINISH_CREATING_INGREDIENT";
+export const FINISH_CREATING_PRODUCT = "@@workplaces/FINISH_CREATING_PRODUCT";
 export const FINISH_CREATING_ORDER = "@@workplaces/FINISH_CREATING_ORDER";
 
 export class PrepareSimulation implements Action {
@@ -15,6 +16,17 @@ export class PrepareSimulation implements Action {
   constructor(public payload: Simulation) {}
 }
 
+export class AddOrderToWorkplace implements Action {
+  readonly type = ADD_PRODUCT_TO_WORKPLACE;
+
+  constructor(
+    public payload: {
+      order: Order;
+      workplaceId: number;
+      currentTime: number;
+    }
+  ) {}
+}
 export class FinishCreatingIngredient implements Action {
   readonly type = FINISH_CREATING_INGREDIENT;
 
@@ -27,14 +39,13 @@ export class FinishCreatingIngredient implements Action {
   ) {}
 }
 
-export class AddOrderToWorkplace implements Action {
-  readonly type = ADD_PRODUCT_TO_WORKPLACE;
+export class FinishCreatingProduct implements Action {
+  readonly type = FINISH_CREATING_PRODUCT;
 
   constructor(
     public payload: {
-      order: Order;
-      workplaceId: number;
-      currentTime: number;
+      step: number;
+      workplaceIndex: number;
     }
   ) {}
 }
@@ -52,4 +63,5 @@ export type WorkplacesActions =
   | PrepareSimulation
   | AddOrderToWorkplace
   | FinishCreatingIngredient
+  | FinishCreatingProduct
   | FinishCreatingOrder;

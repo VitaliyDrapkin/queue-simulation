@@ -35,6 +35,20 @@ export function workplacesReducer(
         workplaces: updatedWorkplaces,
       };
 
+    case WorkplacesActions.FINISH_CREATING_PRODUCT:
+      return {
+        ...state,
+        workplaces: [...state.workplaces].map((workplace, index) => {
+          if (index === action.payload.workplaceIndex) {
+            return {
+              ...workplace,
+              addedProductTime: action.payload.step,
+              currentProductIndex: workplace.currentProductIndex + 1,
+            };
+          }
+          return workplace;
+        }),
+      };
     case WorkplacesActions.FINISH_CREATING_ORDER:
       return {
         ...state,

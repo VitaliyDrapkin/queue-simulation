@@ -1,14 +1,12 @@
-import { Ingredient } from "./../models/ingredient.model";
+import { FinishCreatingProduct } from "./../store/workplaces/workplaces.actions";
 import { Workplace } from "../models/workplace-model";
-import { OrderStatuses } from "./../enums/OrderStatuses";
-import { Product } from "./../models/product.model";
 import * as fromApp from "../store/app.reducer";
 import { Injectable } from "@angular/core";
-import { Order } from "./../models/order.model";
 import * as WorkplacesActions from "../store/workplaces/workplaces.actions";
 import * as OrdersActions from "../store/orders/orders.actions";
 import { AppState } from "../store/app.reducer";
 import { Store } from "@ngrx/store";
+import { OrderStatuses } from "../enums/OrderStatuses";
 
 @Injectable({
   providedIn: "root",
@@ -21,7 +19,11 @@ export class WorkplaceService {
       appState.workplaces.workplaces,
       appState.simulation.step
     );
-    this.finishCreatedOrder(appState.workplaces.workplaces);
+    this.finishCreatingProduct(
+      appState.simulation.step,
+      appState.workplaces.workplaces
+    );
+    this.finishCreatingOrder(appState.workplaces.workplaces);
   }
 
   private finishCreatingIngredient(workplaces: Workplace[], step: number) {
@@ -60,15 +62,48 @@ export class WorkplaceService {
     });
   }
 
-  finishCreatedOrder(workplaces: Workplace[]) {
-    // workplaces.forEach((workplace) => {
-    //   if (
-    //     workplace.order &&
+  finishCreatingProduct(step: number, workplaces: Workplace[]) {
+    // workplaces.forEach((workplace, index) => {
+    // if (
+    //   workplace.order &&
+    //   workplace.order.products[workplace.order.products.length - 1]
+    //     .ingredients[
     //     workplace.order.products[workplace.order.products.length - 1]
-    //       .ingredients[2].isCreated
-    //   ) {
-    //     console.log("Order Created");
-    //   }
+    //       .ingredients.length - 1
+    //   ].isCreated
+    // ) {
+    //   this.store.dispatch(
+    //     new WorkplacesActions.FinishCreatingOrder({ workplaceIndex: index })
+    //   );
+    //   this.store.dispatch(
+    //     new OrdersActions.changeOrderStatus({
+    //       status: OrderStatuses.Completed,
+    //       orderId: workplace.order.id,
+    //     })
+    //   );
+    // }
     // });
+  }
+  finishCreatingOrder(workplaces: Workplace[]) {
+    workplaces.forEach((workplace, index) => {
+      if (
+        workplace.order &&
+        workplace.order.products[workplace.order.products.length - 1]
+          .ingredients[
+          workplace.order.products[workplace.order.products.length - 1]
+            .ingredients.length - 1
+        ].isCreated
+      ) {
+        this.store.dispatch(
+          new WorkplacesActions.FinishCreatingOrder({ workplaceIndex: index })
+        );
+        this.store.dispatch(
+          new OrdersActions.changeOrderStatus({
+            status: OrderStatuses.Completed,
+            orderId: workplace.order.id,
+          })
+        );
+      }
+    });
   }
 }
