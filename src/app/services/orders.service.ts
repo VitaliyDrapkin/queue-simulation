@@ -31,8 +31,6 @@ export class OrdersService {
   ) {
     const waitingForWorkplaceOrders = this.getWaitingForWorkplaceOrders(orders);
     const emptyWorkplaces = this.getEmptyWorkPlaces(workplaces);
-    console.log(waitingForWorkplaceOrders.length);
-    console.log(emptyWorkplaces.length);
     for (
       let i = 0;
       i < waitingForWorkplaceOrders.length && i < emptyWorkplaces.length;

@@ -63,46 +63,46 @@ export class WorkplaceService {
   }
 
   finishCreatingProduct(step: number, workplaces: Workplace[]) {
-    // workplaces.forEach((workplace, index) => {
-    // if (
-    //   workplace.order &&
-    //   workplace.order.products[workplace.order.products.length - 1]
-    //     .ingredients[
-    //     workplace.order.products[workplace.order.products.length - 1]
-    //       .ingredients.length - 1
-    //   ].isCreated
-    // ) {
-    //   this.store.dispatch(
-    //     new WorkplacesActions.FinishCreatingOrder({ workplaceIndex: index })
-    //   );
-    //   this.store.dispatch(
-    //     new OrdersActions.changeOrderStatus({
-    //       status: OrderStatuses.Completed,
-    //       orderId: workplace.order.id,
-    //     })
-    //   );
-    // }
-    // });
+    workplaces.forEach((workplace, index) => {
+      if (workplace.order) {
+        const order = workplace.order;
+        if (order.products.length - 1 !== workplace.currentProductIndex) {
+          const currentProduct = order.products[workplace.currentProductIndex];
+          if (
+            currentProduct.ingredients[currentProduct.ingredients.length - 1]
+              .isCreated
+          ) {
+            this.store.dispatch(
+              new WorkplacesActions.FinishCreatingProduct({
+                step: step,
+                workplaceIndex: index,
+              })
+            );
+          }
+        }
+      }
+    });
   }
   finishCreatingOrder(workplaces: Workplace[]) {
     workplaces.forEach((workplace, index) => {
-      if (
-        workplace.order &&
-        workplace.order.products[workplace.order.products.length - 1]
-          .ingredients[
-          workplace.order.products[workplace.order.products.length - 1]
-            .ingredients.length - 1
-        ].isCreated
-      ) {
-        this.store.dispatch(
-          new WorkplacesActions.FinishCreatingOrder({ workplaceIndex: index })
-        );
-        this.store.dispatch(
-          new OrdersActions.changeOrderStatus({
-            status: OrderStatuses.Completed,
-            orderId: workplace.order.id,
-          })
-        );
+      if (workplace.order) {
+        const lastProductInOrder =
+          workplace.order.products[workplace.order.products.length - 1];
+        if (
+          lastProductInOrder.ingredients[
+            lastProductInOrder.ingredients.length - 1
+          ].isCreated
+        ) {
+          this.store.dispatch(
+            new WorkplacesActions.FinishCreatingOrder({ workplaceIndex: index })
+          );
+          this.store.dispatch(
+            new OrdersActions.changeOrderStatus({
+              status: OrderStatuses.Completed,
+              orderId: workplace.order.id,
+            })
+          );
+        }
       }
     });
   }

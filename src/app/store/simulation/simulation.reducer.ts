@@ -32,14 +32,12 @@ export function receptionsReducer(
         isSimulationPlaying: true,
       };
     case SimulationActions.PAUSE_SIMULATION:
-      console.log("[SimulationReducer]  pauseSimulation()");
       return {
         ...state,
         isSimulationPlaying: false,
       };
 
     case SimulationActions.MAKE_STEP:
-      console.log("[SimulationReducer]  makeTimeOutStep()");
       if (state.isSimulationPlaying) {
         return {
           ...state,
@@ -49,14 +47,12 @@ export function receptionsReducer(
       return { ...state };
 
     case SimulationActions.MAKE_ONE_STEP_BY_CLICK:
-      console.log("[SimulationReducer]  makeClickedStep()");
       return {
         ...state,
         step: state.step + 1,
       };
 
     case SimulationActions.CHECK_SIMULATION_MOVES:
-      console.log("[SimulationReducer]  checkSimulationMoves()");
       return {
         ...state,
       };

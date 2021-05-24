@@ -20,7 +20,6 @@ export function ordersReducer(
         orders: [],
       };
     case OrdersActions.ADD_NEW_ORDER:
-      console.log("add order", action.order);
       return {
         ...state,
         orders: [...state.orders, action.order],
