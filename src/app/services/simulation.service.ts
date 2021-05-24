@@ -1,3 +1,4 @@
+import { DeliveryService } from "./delivery.service";
 import { Simulation } from "./../models/simulation.model";
 import { delay } from "rxjs/operators";
 import { of } from "rxjs";
@@ -10,6 +11,7 @@ import * as SimulationActions from "../store/simulation/simulation.actions";
 import * as ReceptionsActions from "../store/receptions/receptions.actions";
 import * as WorkplacesActions from "../store/workplaces/workplaces.actions";
 import * as OrdersActions from "../store/orders/orders.actions";
+import * as DeliveriesActions from "../store/deliveries/deliveries.actions";
 
 import * as scenario from "../../assets/scenario.json";
 
@@ -25,7 +27,8 @@ export class SimulationService {
     public store: Store<fromApp.AppState>,
     public receptionService: ReceptionService,
     public ordersService: OrdersService,
-    public workplaceService: WorkplaceService
+    public workplaceService: WorkplaceService,
+    public deliveryService: DeliveryService
   ) {}
 
   getDefaultJson(jsonFile: any): Simulation {
@@ -39,6 +42,9 @@ export class SimulationService {
     if (!jsonSimulation) {
       this.store.dispatch(
         new ReceptionsActions.PrepareSimulation(this.getDefaultJson(scenario))
+      );
+      this.store.dispatch(
+        new DeliveriesActions.PrepareSimulation(this.getDefaultJson(scenario))
       );
       this.store.dispatch(
         new WorkplacesActions.PrepareSimulation(this.getDefaultJson(scenario))
@@ -63,6 +69,7 @@ export class SimulationService {
     this.receptionService.checkMoves(appState);
     this.ordersService.checkMoves(appState);
     this.workplaceService.checkMoves(appState);
+    this.deliveryService.checkMoves(appState);
   }
 
   delaySimulation(simulationSpeed: number, isSimulationPlaying: boolean) {

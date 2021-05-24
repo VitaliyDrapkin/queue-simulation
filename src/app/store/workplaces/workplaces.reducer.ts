@@ -49,6 +49,7 @@ export function workplacesReducer(
           return workplace;
         }),
       };
+
     case WorkplacesActions.FINISH_CREATING_ORDER:
       return {
         ...state,

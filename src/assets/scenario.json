@@ -114,5 +114,6 @@
     { "id": 2, "receptionType": 2 }
   ],
   "workplaces": 3,
-  "delivers": 3
+  "delivers": 3,
+  "deliveryTime": 10
 }

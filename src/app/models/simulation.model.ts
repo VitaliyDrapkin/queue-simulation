@@ -18,6 +18,6 @@ export class Simulation {
     public receptions: { id: number; receptionType: number }[],
     public receptionTypes: { getOrderTime: number }[],
     public workplaces: number,
-    public deliveries: number
+    public delivers: number
   ) {}
 }

@@ -98,7 +98,7 @@ export class WorkplaceService {
           );
           this.store.dispatch(
             new OrdersActions.changeOrderStatus({
-              status: OrderStatuses.Completed,
+              status: OrderStatuses.WaitingForDelivery,
               orderId: workplace.order.id,
             })
           );
