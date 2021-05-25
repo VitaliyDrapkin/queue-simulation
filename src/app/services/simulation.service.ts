@@ -1,3 +1,4 @@
+import { OrdersEditorService } from "./ordersEditor.service";
 import { DeliveryService } from "./delivery.service";
 import { Simulation } from "./../models/simulation.model";
 import { delay } from "rxjs/operators";
@@ -28,7 +29,8 @@ export class SimulationService {
     public receptionService: ReceptionService,
     public ordersService: OrdersService,
     public workplaceService: WorkplaceService,
-    public deliveryService: DeliveryService
+    public deliveryService: DeliveryService,
+    public ordersEditorService: OrdersEditorService
   ) {}
 
   getDefaultJson(jsonFile: any): Simulation {
@@ -51,6 +53,7 @@ export class SimulationService {
       );
       this.store.dispatch(new OrdersActions.PrepareSimulation());
       this.store.dispatch(new SimulationActions.FinishPrepareSimulation());
+      this.ordersEditorService.prepareSimulation(this.getDefaultJson(scenario));
       return;
     }
 
@@ -58,8 +61,14 @@ export class SimulationService {
       new ReceptionsActions.PrepareSimulation(JSON.parse(jsonSimulation))
     );
     this.store.dispatch(
+      new DeliveriesActions.PrepareSimulation(JSON.parse(jsonSimulation))
+    );
+    this.store.dispatch(
       new WorkplacesActions.PrepareSimulation(JSON.parse(jsonSimulation))
     );
+    this.ordersEditorService.prepareSimulation(JSON.parse(jsonSimulation));
+    this.store.dispatch(new OrdersActions.PrepareSimulation());
+
     this.store.dispatch(new SimulationActions.FinishPrepareSimulation());
   }
 

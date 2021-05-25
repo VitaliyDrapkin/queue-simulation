@@ -1,3 +1,4 @@
+import { OrdersEditorService } from "./../services/ordersEditor.service";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./simulation.component.scss"],
 })
 export class SimulationComponent implements OnInit {
-  constructor() {}
+  constructor(public orderEditorService: OrdersEditorService) {}
 
   ngOnInit(): void {}
 }

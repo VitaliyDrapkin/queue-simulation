@@ -1,0 +1,36 @@
+@import "../../../styles/variables";
+
+.modal-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .mat-dialog-content {
+    flex-grow: 1;
+    border-bottom: 1px dashed $color-grey-light-2;
+  }
+
+  .product-items {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    overflow-y: auto;
+
+    .product-empty {
+      flex-basis: 27rem;
+      flex-grow: 1;
+    }
+  }
+  .mat-dialog-actions {
+    margin-bottom: -1rem;
+    margin-right: 2rem;
+  }
+  h1 {
+    text-align: center;
+  }
+  .mat-raised-wrapper {
+    color: #fff;
+  }
+}

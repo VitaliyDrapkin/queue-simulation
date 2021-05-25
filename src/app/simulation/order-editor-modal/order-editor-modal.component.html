@@ -1,0 +1,17 @@
+<div class="modal-window">
+    <h1 mat-dialog-title>Add order</h1>
+    <div mat-dialog-content>
+        <app-order-information-form></app-order-information-form>
+        <div class="product-items">
+            <app-modal-product-item *ngFor="let product of products;let i = index" [product]="product"
+                [count]="productCount[i]" [index]="i" class="product">
+            </app-modal-product-item>
+            <div class="product-empty"></div>
+            <div class="product-empty"></div>
+        </div>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+    </div>
+</div>

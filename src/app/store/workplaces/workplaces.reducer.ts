@@ -3,7 +3,6 @@ import { Workplace } from "../../models/workplace-model";
 import { prepareWorkplaces } from "./prepare-workplaces-reduce";
 import { addOrderToProduction } from "./add-product-to-workplace.reduce";
 import * as WorkplacesActions from "./workplaces.actions";
-import * as _ from "lodash-es";
 
 export interface State {
   workplaces: Workplace[];
@@ -25,7 +24,7 @@ export function workplacesReducer(
       return addOrderToProduction(state, action.payload);
 
     case WorkplacesActions.FINISH_CREATING_INGREDIENT:
-      const updatedWorkplaces = _.cloneDeep(state.workplaces);
+      const updatedWorkplaces = JSON.parse(JSON.stringify(state.workplaces));
       updatedWorkplaces[action.payload.WorkplaceIndex].order.products[
         action.payload.productIndex
       ].ingredients[action.payload.ingredientIndex].isCreated = true;

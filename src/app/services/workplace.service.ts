@@ -72,6 +72,7 @@ export class WorkplaceService {
             currentProduct.ingredients[currentProduct.ingredients.length - 1]
               .isCreated
           ) {
+            console.log("here");
             this.store.dispatch(
               new WorkplacesActions.FinishCreatingProduct({
                 step: step,

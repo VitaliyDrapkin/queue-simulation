@@ -37,25 +37,6 @@
       </div>
     </mat-card>
   </div>
-  <!-- <div class="simulationButtons">
-    <div *ngIf="isSimulationInit | async; else startSimulationButton">
-      <button
-        class="pauseButton"
-        *ngIf="isSimulationPlaying | async; else simulationOnPause"
-        (click)="onPause()"
-      >
-        Pause
-      </button>
-      <ng-template #simulationOnPause>
-        <button class="playButton" (click)="onPlay()">Play</button>
-        <button class="nextButton" (click)="onNextStep()">Next step</button>
-      </ng-template>
-    </div>
+  <div class="test" (click)="openDialog()">TEST</div>
 
-    <ng-template #startSimulationButton>
-      <button class="startSimulationButton" (click)="onStartSimulation()">
-        Start simulation
-      </button>
-    </ng-template>
-  </div> -->
 </mat-card>

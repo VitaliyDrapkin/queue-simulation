@@ -1,3 +1,4 @@
+import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { Order } from "./../../../models/order.model";
 import { Component, OnInit, Input } from "@angular/core";
@@ -10,7 +11,13 @@ import { AppState } from "src/app/store/app.reducer";
 })
 export class OrderItemComponent implements OnInit {
   @Input() order: Order;
+  isHover: boolean;
+  isSimulationPlaying: Observable<boolean>;
   constructor(private store: Store<AppState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isSimulationPlaying = this.store.select(
+      (state) => state.simulation.isSimulationPlaying
+    );
+  }
 }
