@@ -1,3 +1,4 @@
+import { ScenarioRequest } from "./scenario-request.service";
 import { Simulation } from "./../models/simulation.model";
 import { delay } from "rxjs/operators";
 import { of } from "rxjs";
@@ -9,9 +10,6 @@ import { Store } from "@ngrx/store";
 import * as SimulationActions from "../store/simulation/simulation.actions";
 import * as ReceptionsActions from "../store/receptions/receptions.actions";
 import * as WorkplacesActions from "../store/workplaces/workplaces.actions";
-
-import * as scenario from "../../assets/scenario.json";
-
 import * as fromApp from "../store/app.reducer";
 import { Injectable, OnInit } from "@angular/core";
 
@@ -24,32 +22,34 @@ export class SimulationService {
     public store: Store<fromApp.AppState>,
     public receptionService: ReceptionService,
     public ordersService: OrdersService,
-    public workplaceService: WorkplaceService
+    public workplaceService: WorkplaceService,
+    public scenarioRequest: ScenarioRequest
   ) {}
 
-  getDefaultJson(jsonFile: any): string {
-    return jsonFile.default;
-  }
-
-  getDemoJson() {
-    return JSON.stringify(this.getDefaultJson(scenario));
-  }
-
-  startSimulation(jsonSimulation?: string) {
+  startSimulation(jsonSimulation: string) {
     if (this.timeOut) {
       clearTimeout(this.timeOut);
     }
+    const scenarioSimulation: Simulation = JSON.parse(jsonSimulation);
+
     this.store.dispatch(new SimulationActions.PrepareSimulation());
     this.store.dispatch(
-      new ReceptionsActions.PrepareSimulation(JSON.parse(jsonSimulation))
+      new ReceptionsActions.PrepareSimulation({
+        products: scenarioSimulation.products,
+        customers: scenarioSimulation.customers,
+        receptions: scenarioSimulation.receptions,
+        receptionTypes: scenarioSimulation.receptionTypes,
+        ingredients: scenarioSimulation.ingredients,
+        newCustomerFrequency: scenarioSimulation.newCustomerFrequency,
+      })
     );
     this.store.dispatch(
-      new WorkplacesActions.PrepareSimulation(JSON.parse(jsonSimulation))
+      new WorkplacesActions.PrepareSimulation({
+        workplaces: scenarioSimulation.workplaces,
+      })
     );
     this.store.dispatch(new SimulationActions.FinishPrepareSimulation());
   }
-
-  stopSimulation() {}
 
   checkSimulationMoves(appState: AppState) {
     this.receptionService.checkMoves(appState);
@@ -74,6 +74,8 @@ export class SimulationService {
   }
 
   startDemo() {
-    this.startSimulation(this.getDemoJson());
+    const scenario = this.scenarioRequest
+      .getDemoScenarioJson()
+      .subscribe((data) => this.startSimulation(data));
   }
 }

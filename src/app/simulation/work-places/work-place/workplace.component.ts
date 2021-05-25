@@ -21,7 +21,7 @@ export class WorkplaceComponent implements OnInit {
   calculateCreatingTime() {
     let timeLeft = 0;
     this.workplace.product.ingredients.forEach((ingredient) => {
-      timeLeft = timeLeft + ingredient.creatingTime;
+      timeLeft = timeLeft + ingredient.delayTime;
     });
     return timeLeft;
   }

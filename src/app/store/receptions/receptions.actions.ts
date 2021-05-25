@@ -1,4 +1,10 @@
-import { Simulation } from "./../../models/simulation.model";
+import { Ingredient } from "./../../models/ingredient.model";
+import {
+  scenarioProduct,
+  scenarioCustomer,
+  scenarioReception,
+  scenarioReceptionType,
+} from "./../../models/simulation.model";
 import { Action } from "@ngrx/store";
 
 export const PREPARE_SIMULATION = "@@receptions/PREPARE_SIMULATION";
@@ -10,7 +16,16 @@ export const MOVE_QUEUE = "@@receptions/MOVE_QUEUE";
 
 export class PrepareSimulation implements Action {
   readonly type = PREPARE_SIMULATION;
-  constructor(public payload: Simulation) {}
+  constructor(
+    public payload: {
+      products: scenarioProduct[];
+      customers: scenarioCustomer[];
+      receptions: scenarioReception[];
+      receptionTypes: scenarioReceptionType[];
+      ingredients: Ingredient[];
+      newCustomerFrequency: number;
+    }
+  ) {}
 }
 
 export class addCustomerToQueue implements Action {

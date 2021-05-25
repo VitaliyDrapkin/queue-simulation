@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
@@ -8,7 +8,7 @@ import { HttpClient } from "@angular/common/http";
 export class ScenarioRequest {
   constructor(private http: HttpClient) {}
 
-  getJSON(): Observable<any> {
-    return this.http.get("./assets/scenario.json");
+  getDemoScenarioJson(): Observable<any> {
+    return this.http.get("./assets/scenario.json", { responseType: "text" });
   }
 }

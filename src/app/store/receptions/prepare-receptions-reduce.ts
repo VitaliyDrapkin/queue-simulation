@@ -1,3 +1,9 @@
+import {
+  scenarioProduct,
+  scenarioCustomer,
+  scenarioReception,
+  scenarioReceptionType,
+} from "./../../models/simulation.model";
 import { ReceptionStatuses } from "./../../enums/ReceptionStatuses";
 import { Reception } from "./../../models/reception.model";
 import { Order } from "src/app/models/order.model";
@@ -5,14 +11,23 @@ import { Customer } from "./../../models/customer.model";
 import { Ingredient } from "./../../models/ingredient.model";
 import { Product } from "./../../models/product.model";
 
-export function prepareReception(state, payload) {
+interface payload {
+  products: scenarioProduct[];
+  ingredients: Ingredient[];
+  customers: scenarioCustomer[];
+  receptions: scenarioReception[];
+  receptionTypes: scenarioReceptionType[];
+  newCustomerFrequency: number;
+}
+
+export function prepareReception(state, payload: payload) {
   const allProducts: Product[] = payload.products.map((product) => {
     const productIngredients = product.ingredients.map((ingredient) => {
       return new Ingredient(
         payload.ingredients[ingredient].id,
         payload.ingredients[ingredient].name,
         payload.ingredients[ingredient].image,
-        payload.ingredients[ingredient].cookingTime
+        payload.ingredients[ingredient].delayTime
       );
     });
     return new Product(
@@ -31,10 +46,14 @@ export function prepareReception(state, payload) {
     return new Customer(customer.id, new Order(customer.order.id, products));
   });
   const receptions = payload.receptions.map((reception) => {
+    const getOrderTime = payload.receptionTypes.filter(
+      (receptionType) => reception.receptionTypeId === receptionType.id
+    )[0].getOrderTime;
+
     return new Reception(
       reception.id,
-      payload.receptionTypes[reception.receptionType].getOrderTime,
-      -1,
+      0,
+      getOrderTime,
       [],
       false,
       ReceptionStatuses.Empty

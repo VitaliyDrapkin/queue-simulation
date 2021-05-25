@@ -13,11 +13,11 @@ export const scenarioSchema = {
             name: {
               type: "string",
             },
-            cookingTime: {
+            delayTime: {
               type: "integer",
             },
           },
-          required: ["id", "name", "cookingTime"],
+          required: ["id", "name", "delayTime"],
         },
       ],
     },
@@ -89,6 +89,9 @@ export const scenarioSchema = {
         {
           type: "object",
           properties: {
+            id: {
+              type: "integer",
+            },
             getOrderTime: {
               type: "integer",
             },
@@ -106,11 +109,11 @@ export const scenarioSchema = {
             id: {
               type: "integer",
             },
-            receptionType: {
+            receptionTypeId: {
               type: "integer",
             },
           },
-          required: ["id", "receptionType"],
+          required: ["id", "receptionTypeId"],
         },
       ],
     },

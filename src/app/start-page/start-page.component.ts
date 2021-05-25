@@ -13,7 +13,6 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 export class StartPageComponent implements OnInit {
   scenarioForm: FormGroup;
-  inputValue: string;
   constructor(
     private router: Router,
     public simulationService: SimulationService,
@@ -29,19 +28,21 @@ export class StartPageComponent implements OnInit {
 
   onStartSimulation() {
     const isJsonValid = this.validationsService.isJsonValid(
-      this.scenarioForm.get("mainInput").value
+      this.scenarioForm.controls.mainInput.value
     );
     if (!isJsonValid) {
-      this.scenarioForm.get("mainInput").setErrors({ incorrect: true });
+      this.scenarioForm.controls.mainInput.setErrors({ incorrect: true });
       return;
     }
-    this.simulationService.startSimulation(this.inputValue);
+    this.simulationService.startSimulation(
+      this.scenarioForm.controls.mainInput.value
+    );
     this.router.navigate(["simulation"]);
   }
 
   onLoadDemo() {
-    this.scenarioRequest.getJSON().subscribe((data) => {
-      this.scenarioForm.get("mainInput").setValue(JSON.stringify(data));
+    this.scenarioRequest.getDemoScenarioJson().subscribe((data) => {
+      this.scenarioForm.controls.mainInput.setValue(data);
     });
   }
 }
