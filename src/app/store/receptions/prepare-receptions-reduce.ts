@@ -19,7 +19,8 @@ export function prepareReception(state, payload) {
       product.id,
       product.productName,
       product.image,
-      productIngredients
+      productIngredients,
+      product.delayTime
     );
   });
 

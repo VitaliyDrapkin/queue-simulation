@@ -5,7 +5,7 @@ export class Product {
     public productName: string,
     public image: string,
     public ingredients: Ingredient[],
-    public delayTime?: number,
+    public delayTime: number = 0,
     public isCreated: boolean = false
   ) {}
 }

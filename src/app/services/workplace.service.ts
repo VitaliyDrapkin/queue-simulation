@@ -23,7 +23,10 @@ export class WorkplaceService {
       appState.simulation.step,
       appState.workplaces.workplaces
     );
-    this.finishCreatingOrder(appState.workplaces.workplaces);
+    this.finishCreatingOrder(
+      appState.workplaces.workplaces,
+      appState.simulation.step
+    );
   }
 
   private finishCreatingIngredient(workplaces: Workplace[], step: number) {
@@ -64,49 +67,59 @@ export class WorkplaceService {
 
   finishCreatingProduct(step: number, workplaces: Workplace[]) {
     workplaces.forEach((workplace, index) => {
-      if (workplace.order) {
-        const order = workplace.order;
-        if (order.products.length - 1 !== workplace.currentProductIndex) {
-          const currentProduct = order.products[workplace.currentProductIndex];
-          if (
-            currentProduct.ingredients.length &&
+      if (
+        workplace.order &&
+        workplace.currentProductIndex !== workplace.order.products.length - 1
+      ) {
+        const currentProduct =
+          workplace.order.products[workplace.currentProductIndex];
+        if (
+          (currentProduct.ingredients.length &&
             currentProduct.ingredients[currentProduct.ingredients.length - 1]
-              .isCreated
-          ) {
-            this.store.dispatch(
-              new WorkplacesActions.FinishCreatingProduct({
-                step: step,
-                workplaceIndex: index,
-              })
-            );
-          }
+              .isCreated) ||
+          (!currentProduct.ingredients.length &&
+            workplace.addedProductTime + currentProduct.delayTime <= step)
+        ) {
+          this.store.dispatch(
+            new WorkplacesActions.FinishCreatingProduct({
+              step: step,
+              workplaceIndex: index,
+            })
+          );
         }
       }
     });
   }
-  finishCreatingOrder(workplaces: Workplace[]) {
+
+  finishCreatingOrder(workplaces: Workplace[], step: number) {
     workplaces.forEach((workplace, index) => {
       if (workplace.order) {
-        const lastProductInOrder =
-          workplace.order.products[workplace.order.products.length - 1];
-        console.log("index", index);
-        console.log(lastProductInOrder.ingredients.length);
         if (
-          (lastProductInOrder.ingredients.length &&
-            lastProductInOrder.ingredients[
-              lastProductInOrder.ingredients.length - 1
-            ].isCreated) ||
-          (lastProductInOrder.delayTime && lastProductInOrder.isCreated)
+          workplace.currentProductIndex ===
+          workplace.order.products.length - 1
         ) {
-          this.store.dispatch(
-            new WorkplacesActions.FinishCreatingOrder({ workplaceIndex: index })
-          );
-          this.store.dispatch(
-            new OrdersActions.changeOrderStatus({
-              status: OrderStatuses.WaitingForDelivery,
-              orderId: workplace.order.id,
-            })
-          );
+          const currentProduct =
+            workplace.order.products[workplace.currentProductIndex];
+
+          if (
+            (currentProduct.ingredients.length &&
+              currentProduct.ingredients[currentProduct.ingredients.length - 1]
+                .isCreated) ||
+            (!currentProduct.ingredients.length &&
+              workplace.addedProductTime + currentProduct.delayTime <= step)
+          ) {
+            this.store.dispatch(
+              new WorkplacesActions.FinishCreatingOrder({
+                workplaceIndex: index,
+              })
+            );
+            this.store.dispatch(
+              new OrdersActions.changeOrderStatus({
+                status: OrderStatuses.WaitingForDelivery,
+                orderId: workplace.order.id,
+              })
+            );
+          }
         }
       }
     });
