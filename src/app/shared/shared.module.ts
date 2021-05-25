@@ -8,10 +8,12 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { DemoMaterialModule } from "./../material/material-module";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [],
   imports: [
+    HttpClientModule,
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -22,6 +24,7 @@ import { DemoMaterialModule } from "./../material/material-module";
     RouterModule,
   ],
   exports: [
+    HttpClientModule,
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,

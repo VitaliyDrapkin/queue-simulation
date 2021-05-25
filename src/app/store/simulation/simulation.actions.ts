@@ -14,7 +14,6 @@ export const REDUCE_SPEED_TIME = "@@simulation/REDUCE_SPEED_TIME";
 
 export class PrepareSimulation implements Action {
   readonly type = PREPARE_SIMULATION;
-  constructor(public payload: Simulation) {}
 }
 export class FinishPrepareSimulation implements Action {
   readonly type = FINISH_PREPARE_SIMULATION;
@@ -46,6 +45,7 @@ export class reduceSpeed implements Action {
 }
 
 export type SimulationActions =
+  | PrepareSimulation
   | FinishPrepareSimulation
   | PauseSimulation
   | MakeStep

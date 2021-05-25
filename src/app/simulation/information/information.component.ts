@@ -1,5 +1,3 @@
-import { jsonDefault } from "../../../assets/JSON";
-
 import { SimulationService } from "./../../services/simulation.service";
 import { Observable } from "rxjs";
 import * as SimulationActions from "./../../store/simulation/simulation.actions";

@@ -1,5 +1,4 @@
 import * as SimulationActions from "./../../../store/simulation/simulation.actions";
-import { jsonDefault } from "./../../../../assets/JSON";
 import { Store } from "@ngrx/store";
 import { SimulationService } from "./../../../services/simulation.service";
 import { Observable } from "rxjs";
@@ -28,8 +27,8 @@ export class PlayMenuComponent implements OnInit {
     );
   }
 
-  onStartSimulation() {
-    this.simulationService.startSimulation();
+  onStartDemo() {
+    this.simulationService.startDemo();
   }
   onPause() {
     this.store.dispatch(new SimulationActions.PauseSimulation());

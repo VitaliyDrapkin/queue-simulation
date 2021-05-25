@@ -35,7 +35,7 @@ export class WorkplaceService {
       for (let i = 0; i < workplace.product.ingredients.length; i++) {
         timeForCreatingIngredient =
           timeForCreatingIngredient +
-          workplace.product.ingredients[i].creatingTime;
+          workplace.product.ingredients[i].delayTime;
         if (
           !workplace.product.ingredients[i].isCreated &&
           timeForCreatingIngredient < timePassOfStartCreating

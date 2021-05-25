@@ -19,6 +19,12 @@ export function receptionsReducer(
   action: SimulationActions.SimulationActions
 ) {
   switch (action.type) {
+    case SimulationActions.PREPARE_SIMULATION:
+      return {
+        ...state,
+        step: 0,
+        speedMilliseconds: 1000,
+      };
     case SimulationActions.FINISH_PREPARE_SIMULATION:
       return {
         ...state,

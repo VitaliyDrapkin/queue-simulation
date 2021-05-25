@@ -10,7 +10,7 @@ export const FINISH_CREATING_INGREDIENT =
 export class PrepareSimulation implements Action {
   readonly type = PREPARE_SIMULATION;
 
-  constructor(public payload: Simulation) {}
+  constructor(public payload: { workplaces: number }) {}
 }
 
 export class FinishCreatingIngredient implements Action {
