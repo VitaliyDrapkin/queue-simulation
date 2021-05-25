@@ -69,10 +69,10 @@ export class WorkplaceService {
         if (order.products.length - 1 !== workplace.currentProductIndex) {
           const currentProduct = order.products[workplace.currentProductIndex];
           if (
+            currentProduct.ingredients.length &&
             currentProduct.ingredients[currentProduct.ingredients.length - 1]
               .isCreated
           ) {
-            console.log("here");
             this.store.dispatch(
               new WorkplacesActions.FinishCreatingProduct({
                 step: step,
@@ -89,10 +89,14 @@ export class WorkplaceService {
       if (workplace.order) {
         const lastProductInOrder =
           workplace.order.products[workplace.order.products.length - 1];
+        console.log("index", index);
+        console.log(lastProductInOrder.ingredients.length);
         if (
-          lastProductInOrder.ingredients[
-            lastProductInOrder.ingredients.length - 1
-          ].isCreated
+          (lastProductInOrder.ingredients.length &&
+            lastProductInOrder.ingredients[
+              lastProductInOrder.ingredients.length - 1
+            ].isCreated) ||
+          (lastProductInOrder.delayTime && lastProductInOrder.isCreated)
         ) {
           this.store.dispatch(
             new WorkplacesActions.FinishCreatingOrder({ workplaceIndex: index })
