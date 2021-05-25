@@ -26,26 +26,26 @@ export class SimulationService {
     public scenarioRequest: ScenarioRequest
   ) {}
 
-  startSimulation(jsonSimulation: string) {
+  startSimulation(scenarioJson: string) {
     if (this.timeOut) {
       clearTimeout(this.timeOut);
     }
-    const scenarioSimulation: Simulation = JSON.parse(jsonSimulation);
+    const scenario: Simulation = JSON.parse(scenarioJson);
 
     this.store.dispatch(new SimulationActions.PrepareSimulation());
     this.store.dispatch(
       new ReceptionsActions.PrepareSimulation({
-        products: scenarioSimulation.products,
-        customers: scenarioSimulation.customers,
-        receptions: scenarioSimulation.receptions,
-        receptionTypes: scenarioSimulation.receptionTypes,
-        ingredients: scenarioSimulation.ingredients,
-        newCustomerFrequency: scenarioSimulation.newCustomerFrequency,
+        products: scenario.products,
+        customers: scenario.customers,
+        receptions: scenario.receptions,
+        receptionTypes: scenario.receptionTypes,
+        ingredients: scenario.ingredients,
+        newCustomerFrequency: scenario.newCustomerFrequency,
       })
     );
     this.store.dispatch(
       new WorkplacesActions.PrepareSimulation({
-        workplaces: scenarioSimulation.workplaces,
+        workplaces: scenario.workplaces,
       })
     );
     this.store.dispatch(new SimulationActions.FinishPrepareSimulation());

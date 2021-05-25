@@ -1,15 +1,15 @@
 <div class="startPage">
   <h1>Queues manager simulation</h1>
   <form [formGroup]="scenarioForm" (ngSubmit)="onStartSimulation()" class="start-page-form">
-    <textarea name="mainInput" class="textarea" formControlName="mainInput"
+    <textarea name="scenarioInput" class="textarea" formControlName="scenarioInput"
       placeholder="Enter company information JSON format"></textarea>
-    <span class="textarea-error" *ngIf="scenarioForm.controls.mainInput.errors
-       && scenarioForm.controls.mainInput.errors.required
-       && (scenarioForm.controls.mainInput.touched || scenarioForm.controls.mainInput.dirty)">
+    <span class="textarea-error" *ngIf="scenarioForm.controls.scenarioInput.errors
+       && scenarioForm.controls.scenarioInput.errors.required
+       && (scenarioForm.controls.scenarioInput.touched || scenarioForm.controls.scenarioInput.dirty)">
       The field cannot be empty.
     </span>
-    <span class="textarea-error" *ngIf="scenarioForm.controls.mainInput.errors
-    && scenarioForm.controls.mainInput.errors.incorrect">
+    <span class="textarea-error" *ngIf="scenarioForm.controls.scenarioInput.errors
+    && scenarioForm.controls.scenarioInput.errors.incorrect">
       Wrong JSON format. Try again.
     </span>
     <div class="simulation-buttons">

@@ -22,27 +22,27 @@ export class StartPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.scenarioForm = new FormGroup({
-      mainInput: new FormControl(null, Validators.required),
+      scenarioInput: new FormControl(null, Validators.required),
     });
   }
 
   onStartSimulation() {
     const isJsonValid = this.validationsService.isJsonValid(
-      this.scenarioForm.controls.mainInput.value
+      this.scenarioForm.controls.scenarioInput.value
     );
     if (!isJsonValid) {
-      this.scenarioForm.controls.mainInput.setErrors({ incorrect: true });
+      this.scenarioForm.controls.scenarioInput.setErrors({ incorrect: true });
       return;
     }
     this.simulationService.startSimulation(
-      this.scenarioForm.controls.mainInput.value
+      this.scenarioForm.controls.scenarioInput.value
     );
     this.router.navigate(["simulation"]);
   }
 
   onLoadDemo() {
-    this.scenarioRequest.getDemoScenarioJson().subscribe((data) => {
-      this.scenarioForm.controls.mainInput.setValue(data);
+    this.scenarioRequest.getDemoScenarioJson().subscribe((scenarioJson) => {
+      this.scenarioForm.controls.scenarioInput.setValue(scenarioJson);
     });
   }
 }
