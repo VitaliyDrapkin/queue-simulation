@@ -1,13 +1,13 @@
 @import "../../../../styles/variables";
 
 :host {
-  flex-basis: 27rem;
-  flex-grow: 1;
-  height: 17rem;
+  width: 27rem;
+  height: 14rem;
   z-index: 10;
 }
 
 .product {
+  width: 27rem;
   display: flex;
   border-radius: 0.5rem;
   border: 1px solid $color-grey-light-2;
@@ -45,46 +45,5 @@
         height: 3.3rem;
       }
     }
-  }
-}
-.product-counter {
-  margin-top: 1rem;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  font-size: 2rem;
-
-  .left-icon {
-    padding-left: 0.5rem;
-    cursor: pointer;
-  }
-  .right-icon {
-    cursor: pointer;
-  }
-
-  .left-icon:hover,
-  .right-icon:hover {
-    background-color: $color-grey-light-2;
-  }
-
-  .disabled {
-    cursor: auto;
-
-    span {
-      color: $color-grey-light-2;
-    }
-  }
-  .disabled:hover {
-    background-color: #fff;
-  }
-
-  .material-icons {
-    margin-right: -0.5rem;
-  }
-
-  .count {
-    display: flex;
-    justify-content: center;
-    width: 2.5rem;
   }
 }

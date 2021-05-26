@@ -13,8 +13,7 @@ import { SimulationRoutingModule } from "./simulation-routing.module";
 import { SharedModule } from "./../shared/shared.module";
 import { NgModule } from "@angular/core";
 import { PlayMenuComponent } from "./information/play-menu/play-menu.component";
-import { ModalProductItemComponent } from './order-editor-modal/modal-product-item/modal-product-item.component';
-import { OrderInformationFormComponent } from './order-editor-modal/order-information-form/order-information-form.component';
+import { ModalProductItemComponent } from "./order-editor-modal/modal-product-item/modal-product-item.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { OrderInformationFormComponent } from './order-editor-modal/order-inform
     PlayMenuComponent,
     OrderEditorModal,
     ModalProductItemComponent,
-    OrderInformationFormComponent,
   ],
   imports: [SharedModule, SimulationRoutingModule],
 })

@@ -1,4 +1,4 @@
-<mat-card class="card no-padding">
+<mat-card class="card no-padding" (click)="onClick()">
     <div class="product">
         <div class="product-image">
             <img src="{{product.image}}" alt="{{product.productName}}">
@@ -12,13 +12,5 @@
             </div>
         </div>
     </div>
-    <div class="product-counter">
-        <div class="left-icon" [ngClass]="{'disabled': !count}" (click)="decrease()"><span class=" material-icons ">
-                arrow_back_ios
-            </span></div>
-        <div class=" count">{{count}}</div>
-        <div class="right-icon" (click)="increase()"><span class="material-icons ">
-                arrow_forward_ios
-            </span></div>
-    </div>
+
 </mat-card>

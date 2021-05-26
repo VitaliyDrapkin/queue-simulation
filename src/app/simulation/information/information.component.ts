@@ -13,6 +13,8 @@ import { AppState } from "src/app/store/app.reducer";
   styleUrls: ["./information.component.scss"],
 })
 export class InformationComponent implements OnInit {
+  isSimulationPlaying: Observable<boolean>;
+  isSimulationInit: Observable<boolean>;
   orders: Observable<Order[]>;
 
   constructor(
@@ -22,15 +24,22 @@ export class InformationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isSimulationPlaying = this.store.select(
+      (state) => state.simulation.isSimulationPlaying
+    );
+    this.isSimulationInit = this.store.select(
+      (state) => state.simulation.isSimulationInit
+    );
+
     // this.store.subscribe((data) =>
     //   console.log("[InformationComponent]  changeState()", data)
     // );
   }
 
-  openModalEditOrders(): void {
+  onAddOrder(): void {
     const dialogRef = this.dialog.open(OrderEditorModal, {
       width: "100rem",
-      height: "60rem",
+      height: "80rem",
       data: { orders: this.orders },
     });
 
