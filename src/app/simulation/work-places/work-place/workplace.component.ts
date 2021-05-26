@@ -23,7 +23,7 @@ export class WorkplaceComponent implements OnInit {
     this.workplace.order.products[
       this.workplace.currentProductIndex
     ].ingredients.forEach((ingredient) => {
-      timeLeft = timeLeft + ingredient.creatingTime;
+      timeLeft = timeLeft + ingredient.delayTime;
     });
     return timeLeft;
   }

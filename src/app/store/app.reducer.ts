@@ -5,6 +5,7 @@ import * as fromSimulation from "./simulation/simulation.reducer";
 import * as fromOrders from "./orders/orders.reducer";
 import * as fromWorkPlaces from "./workplaces/workplaces.reducer";
 import * as fromDeliveries from "./deliveries/deliveries.reducer";
+import * as businessData from "./businessData/businessData.reducer";
 
 export interface AppState {
   receptions: fromReception.State;
@@ -12,6 +13,7 @@ export interface AppState {
   orders: fromOrders.State;
   workplaces: fromWorkPlaces.State;
   deliveries: fromDeliveries.State;
+  businessData: businessData.State;
   logs: any;
 }
 
@@ -21,6 +23,7 @@ export const appReducer: ActionReducerMap<AppState> = {
   orders: fromOrders.ordersReducer,
   workplaces: fromWorkPlaces.workplacesReducer,
   deliveries: fromDeliveries.deliveriesReducer,
+  businessData: businessData.businessDataReducer,
   logs: logsReducer,
 };
 

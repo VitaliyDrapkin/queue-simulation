@@ -13,6 +13,7 @@ import * as ReceptionsActions from "../store/receptions/receptions.actions";
 import * as WorkplacesActions from "../store/workplaces/workplaces.actions";
 import * as OrdersActions from "../store/orders/orders.actions";
 import * as DeliveriesActions from "../store/deliveries/deliveries.actions";
+import * as BusinessDataActions from "../store/businessData/businessData.actions";
 
 import * as scenario from "../../assets/scenario.json";
 
@@ -41,6 +42,7 @@ export class SimulationService {
     if (this.timeOut) {
       clearTimeout(this.timeOut);
     }
+    const newScenarioForTest = this.getDefaultJson(scenario);
     if (!jsonSimulation) {
       this.store.dispatch(
         new ReceptionsActions.PrepareSimulation(this.getDefaultJson(scenario))
@@ -54,6 +56,13 @@ export class SimulationService {
       this.store.dispatch(new OrdersActions.PrepareSimulation());
       this.store.dispatch(new SimulationActions.FinishPrepareSimulation());
       this.ordersEditorService.prepareSimulation(this.getDefaultJson(scenario));
+
+      this.store.dispatch(
+        new BusinessDataActions.PrepareSimulation({
+          products: newScenarioForTest.products,
+          ingredients: newScenarioForTest.ingredients,
+        })
+      );
       return;
     }
 

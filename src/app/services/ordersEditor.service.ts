@@ -22,7 +22,7 @@ export class OrdersEditorService {
           scenario.ingredients[ingredient].id,
           scenario.ingredients[ingredient].name,
           scenario.ingredients[ingredient].image,
-          scenario.ingredients[ingredient].creatingTime
+          scenario.ingredients[ingredient].delayTime
         );
       });
       return new Product(

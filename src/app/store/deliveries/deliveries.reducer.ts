@@ -16,7 +16,7 @@ export function deliveriesReducer(
   switch (action.type) {
     case DeliveriesActions.PREPARE_SIMULATION:
       const deliveries = [];
-      for (let i = 0; i < action.payload.delivers; i++) {
+      for (let i = 0; i < action.payload.deliveries; i++) {
         const newDelivery = new Delivery(i + 1, -1);
         deliveries.push(newDelivery);
       }

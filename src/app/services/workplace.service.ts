@@ -48,7 +48,7 @@ export class WorkplaceService {
           timeForIngredient +
           workplace.order.products[workplace.currentProductIndex].ingredients[
             ingredientIndex
-          ].creatingTime;
+          ].delayTime;
         if (
           !workplace.order.products[workplace.currentProductIndex].isCreated &&
           timeForIngredient < timePassOfStartCreating
