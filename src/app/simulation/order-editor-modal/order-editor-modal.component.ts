@@ -27,8 +27,8 @@ export class OrderEditorModal implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.products = this.ordersEditorService.productsInSimulation;
-    this.productCount = this.ordersEditorService.productsCount;
+    // this.products = this.ordersEditorService.productsInSimulation;
+    // this.productCount = this.ordersEditorService.productsCount;
     console.log(this.productCount);
   }
 

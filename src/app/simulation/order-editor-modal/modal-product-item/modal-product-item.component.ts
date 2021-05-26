@@ -17,11 +17,11 @@ export class ModalProductItemComponent implements OnInit {
   ngOnInit(): void {}
 
   increase() {
-    this.orderEditorService.productsCount[this.index]++;
+    // this.orderEditorService.productsCount[this.index]++;
   }
   decrease() {
     if (this.count) {
-      this.orderEditorService.productsCount[this.index]--;
+      // this.orderEditorService.productsCount[this.index]--;
     }
   }
 }

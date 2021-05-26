@@ -65,12 +65,16 @@ export class SimulationService {
       })
     );
 
+    this.store.dispatch(
+      new BusinessDataActions.PrepareSimulation({
+        products: scenario.products,
+        ingredients: scenario.ingredients,
+      })
+    );
+
     this.store.dispatch(new OrdersActions.PrepareSimulation());
 
     this.store.dispatch(new SimulationActions.FinishPrepareSimulation());
-
-    //Need change
-    this.ordersEditorService.prepareSimulation(scenario);
   }
 
   checkSimulationMoves(appState: AppState) {

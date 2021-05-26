@@ -4,7 +4,7 @@ import { Customer } from "./customer.model";
 
 export class Simulation {
   constructor(
-    public customers: scenarioCustomer[],
+    public customers: Customer[],
     public ingredients: Ingredient[],
     public products: scenarioProduct[],
     public newCustomerFrequency: number,
@@ -15,10 +15,6 @@ export class Simulation {
   ) {}
 }
 
-export interface scenarioCustomer {
-  id: number;
-  order: { id: number; products: number[] };
-}
 export interface scenarioProduct {
   id: number;
   productName: string;

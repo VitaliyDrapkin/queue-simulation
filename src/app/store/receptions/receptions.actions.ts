@@ -1,7 +1,7 @@
+import { Customer } from "./../../models/customer.model";
 import { Ingredient } from "./../../models/ingredient.model";
 import {
   scenarioProduct,
-  scenarioCustomer,
   scenarioReception,
   scenarioReceptionType,
 } from "./../../models/simulation.model";
@@ -19,7 +19,7 @@ export class PrepareSimulation implements Action {
   constructor(
     public payload: {
       products: scenarioProduct[];
-      customers: scenarioCustomer[];
+      customers: Customer[];
       receptions: scenarioReception[];
       receptionTypes: scenarioReceptionType[];
       ingredients: Ingredient[];

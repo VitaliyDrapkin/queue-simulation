@@ -1,3 +1,4 @@
+import { Product } from "./../models/product.model";
 import { ReceptionStatuses } from "./../enums/ReceptionStatuses";
 import { Reception } from "../models/reception.model";
 import { AppState } from "../store/app.reducer";
@@ -30,7 +31,8 @@ export class ReceptionService {
     this.addNewOrder(
       appState.receptions.receptions,
       appState.simulation.currentTime,
-      appState.orders.orders
+      appState.orders.orders,
+      appState.businessData.products
     );
 
     this.endGetOrderFromCustomer(
@@ -86,9 +88,11 @@ export class ReceptionService {
         receptions[i].getOrderTime + receptions[i].startedGetOrderTime <=
           currentTime
       ) {
-        const customerOrderId = receptions[i].customersInQueue[0].order.id;
+        const firstCustomerOrderId =
+          receptions[i].customersInQueue[0].customerOrder.id;
+
         orders.forEach((order) => {
-          if (order.id == customerOrderId) {
+          if (order.id == firstCustomerOrderId) {
             this.store.dispatch(new ReceptionsActions.endGetOrder(i));
           }
         });
@@ -110,7 +114,8 @@ export class ReceptionService {
   private addNewOrder(
     receptions: Reception[],
     currentTime: number,
-    orders: Order[]
+    orders: Order[],
+    products: Product[]
   ) {
     for (let i = 0; i < receptions.length; i++) {
       if (
@@ -119,15 +124,25 @@ export class ReceptionService {
           currentTime
       ) {
         let isOrderAlreadyExist = false;
+        const firstCustomerOrder =
+          receptions[i].customersInQueue[0].customerOrder;
         orders.forEach((order) => {
-          if (order.id === receptions[i].customersInQueue[0].order.id) {
+          if (order.id === firstCustomerOrder.id) {
             isOrderAlreadyExist = true;
           }
         });
         if (!isOrderAlreadyExist) {
-          this.store.dispatch(
-            new OrdersActions.addOrder(receptions[i].customersInQueue[0].order)
+          const orderProducts = firstCustomerOrder.productsIds.map(
+            (productId) => {
+              const productFromBusinessData = products.filter(
+                (product) => product.id === productId
+              );
+              return productFromBusinessData[0];
+            }
           );
+          const newOrder = new Order(firstCustomerOrder.id, orderProducts);
+          // const order = receptions[i].customersInQueue[0].order;
+          this.store.dispatch(new OrdersActions.addOrder(newOrder));
         }
       }
     }

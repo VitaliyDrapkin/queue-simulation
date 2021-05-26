@@ -58,13 +58,13 @@ export const scenarioSchema = {
             id: {
               type: "integer",
             },
-            order: {
+            customerOrder: {
               type: "object",
               properties: {
                 id: {
                   type: "integer",
                 },
-                products: {
+                productsIds: {
                   type: "array",
                   items: [
                     {
@@ -73,10 +73,10 @@ export const scenarioSchema = {
                   ],
                 },
               },
-              required: ["id", "products"],
+              required: ["id", "productsIds"],
             },
           },
-          required: ["id", "order"],
+          required: ["id", "customerOrder"],
         },
       ],
     },

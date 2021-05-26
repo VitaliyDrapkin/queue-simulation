@@ -1,4 +1,7 @@
-import { Order } from "./order.model";
 export class Customer {
-  constructor(public id: number, public order: Order) {}
+  constructor(public id: number, public customerOrder: customerOrder) {}
+}
+
+export class customerOrder {
+  constructor(public id: number, public productsIds: number[]) {}
 }
