@@ -41,7 +41,7 @@ export function workplacesReducer(
           if (index === action.payload.workplaceIndex) {
             return {
               ...workplace,
-              addedProductTime: action.payload.step,
+              addedProductTime: action.payload.currentTime,
               currentProductIndex: workplace.currentProductIndex + 1,
             };
           }

@@ -4,56 +4,51 @@
       "id": 1,
       "name": "Meat",
       "image": "https://cdn2.vectorstock.com/i/1000x1000/66/86/burger-meat-slice-icon-cartoon-style-vector-23436686.jpg",
-      "cookingTime": 4
+      "delayTime": 4
     },
     {
       "id": 2,
       "name": "Tomato",
       "image": "https://t3.ftcdn.net/jpg/01/90/58/04/360_F_190580407_aFBwIL3rRe5un8oowIz7b4sHpeSSAp2b.jpg",
-      "cookingTime": 1
+      "delayTime": 1
     },
     {
       "id": 3,
       "name": "Bun",
       "image": "https://www.jing.fm/clipimg/detail/165-1658580_burger-bun-png-top-hamburger-bun-png.png",
-      "cookingTime": 3
+      "delayTime": 3
     },
     {
       "id": 4,
       "name": "Beef",
       "image": "https://image.shutterstock.com/image-vector/beef-steak-icon-cartoon-vector-260nw-1754048249.jpg",
-      "cookingTime": 4
+      "delayTime": 4
     },
     {
       "id": 5,
       "name": "Salat",
       "image": "https://www.clipartmax.com/png/full/195-1956858_cartoon-salat-vektor-clipart-bild-lettuce-clipart-free.png",
-      "cookingTime": 1
+      "delayTime": 1
     },
     {
       "id": 6,
       "name": "Bread",
       "image": "https://image.shutterstock.com/image-vector/illustration-isolated-sliced-bread-on-260nw-49516915.jpg",
-      "cookingTime": 2
+      "delayTime": 2
     },
     {
       "id": 7,
       "name": "Shawarma Meat",
       "image": "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX28353959.jpg",
-      "cookingTime": 4
+      "delayTime": 4
     },
     {
       "id": 8,
       "name": "Taboon bread",
-      "image": "https://lh3.googleusercontent.com/proxy/RBqw4adieKlff9rRbmfRNITFMU2kIww4DMa6bNOjUkQeSszytFVQQbi5ofK_-Tjm4jfJMI_jRATDniYqCtaBmIJ-2Aj-4GrrPrGabeWBjoAoaKyD_pi8BiRR0DZ2SC2zffYz47Jto4DHtij194nWCZlcDfkK89PHsPXG4-gAVwb0Jlsr",
-      "cookingTime": 2
+      "image": "https://thefooddoctor.files.wordpress.com/2012/09/taboon.jpg?w=940",
+      "delayTime": 2
     },
-    {
-      "id": 9,
-      "name": "Coca-cola",
-      "image": "https://cdn2.vectorstock.com/i/thumb-large/07/81/drawing-classic-bottle-coca-cola-on-white-vector-29970781.jpg",
-      "cookingTime": 1
-    }
+    { "id": 9, "name": "Coca-cola", "delayTime": 3 }
   ],
   "products": [
     {
@@ -104,17 +99,18 @@
     { "id": 19, "order": { "id": 19, "products": [2] } },
     { "id": 20, "order": { "id": 20, "products": [2, 3] } }
   ],
-  "newCustomerFrequency": 1,
+  "newCustomerFrequency": 3,
   "receptionTypes": [
-    { "getOrderTime": 4 },
-    { "getOrderTime": 4 },
-    { "getOrderTime": 4 }
+    { "id": 1, "getOrderTime": 14 },
+    { "id": 2, "getOrderTime": 15 },
+    { "id": 3, "getOrderTime": 16 }
   ],
   "receptions": [
-    { "id": 1, "receptionType": 0 },
-    { "id": 2, "receptionType": 2 }
+    { "id": 1, "receptionTypeId": 1 },
+    { "id": 1, "receptionTypeId": 3 },
+    { "id": 1, "receptionTypeId": 2 }
   ],
   "workplaces": 3,
-  "delivers": 3,
+  "deliveries": 3,
   "deliveryTime": 10
 }

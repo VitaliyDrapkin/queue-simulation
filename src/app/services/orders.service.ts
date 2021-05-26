@@ -22,13 +22,13 @@ export class OrdersService {
     this.addOrderToProduction(
       appState.orders.orders,
       appState.workplaces.workplaces,
-      appState.simulation.step
+      appState.simulation.currentTime
     );
 
     this.addOrderToDelivery(
       appState.orders.orders,
       appState.deliveries.deliveries,
-      appState.simulation.step
+      appState.simulation.currentTime
     );
   }
 
@@ -70,7 +70,11 @@ export class OrdersService {
     return workplaces.filter((workplace) => !workplace.order);
   }
 
-  addOrderToDelivery(orders: Order[], deliveries: Delivery[], step: number) {
+  addOrderToDelivery(
+    orders: Order[],
+    deliveries: Delivery[],
+    currentTime: number
+  ) {
     const waitingForDeliveryOrders = this.getWaitingForDeliveriesOrders(orders);
     const emptyDeliveries = this.getEmptyDeliveries(deliveries);
     for (
@@ -82,7 +86,7 @@ export class OrdersService {
         new DeliveryActions.addOrderToDelivery({
           order: waitingForDeliveryOrders[i],
           deliveryId: emptyDeliveries[i].id,
-          currentTime: step,
+          currentTime: currentTime,
         })
       );
       this.store.dispatch(

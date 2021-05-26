@@ -1,5 +1,6 @@
 import { OrdersEditorService } from "./ordersEditor.service";
 import { DeliveryService } from "./delivery.service";
+import { ScenarioRequest } from "./scenario-request.service";
 import { Simulation } from "./../models/simulation.model";
 import { delay } from "rxjs/operators";
 import { of } from "rxjs";
@@ -15,8 +16,6 @@ import * as OrdersActions from "../store/orders/orders.actions";
 import * as DeliveriesActions from "../store/deliveries/deliveries.actions";
 import * as BusinessDataActions from "../store/businessData/businessData.actions";
 
-import * as scenario from "../../assets/scenario.json";
-
 import * as fromApp from "../store/app.reducer";
 import { Injectable, OnInit } from "@angular/core";
 
@@ -31,57 +30,48 @@ export class SimulationService {
     public ordersService: OrdersService,
     public workplaceService: WorkplaceService,
     public deliveryService: DeliveryService,
-    public ordersEditorService: OrdersEditorService
+    public ordersEditorService: OrdersEditorService,
+    public scenarioRequest: ScenarioRequest
   ) {}
 
-  getDefaultJson(jsonFile: any): Simulation {
-    return jsonFile.default;
-  }
-
-  startSimulation(jsonSimulation?: string) {
+  startSimulation(scenarioJson: string) {
     if (this.timeOut) {
       clearTimeout(this.timeOut);
     }
-    const newScenarioForTest = this.getDefaultJson(scenario);
-    if (!jsonSimulation) {
-      this.store.dispatch(
-        new ReceptionsActions.PrepareSimulation(this.getDefaultJson(scenario))
-      );
-      this.store.dispatch(
-        new DeliveriesActions.PrepareSimulation(this.getDefaultJson(scenario))
-      );
-      this.store.dispatch(
-        new WorkplacesActions.PrepareSimulation(this.getDefaultJson(scenario))
-      );
-      this.store.dispatch(new OrdersActions.PrepareSimulation());
-      this.store.dispatch(new SimulationActions.FinishPrepareSimulation());
-      this.ordersEditorService.prepareSimulation(this.getDefaultJson(scenario));
+    const scenario: Simulation = JSON.parse(scenarioJson);
 
-      this.store.dispatch(
-        new BusinessDataActions.PrepareSimulation({
-          products: newScenarioForTest.products,
-          ingredients: newScenarioForTest.ingredients,
-        })
-      );
-      return;
-    }
+    this.store.dispatch(new SimulationActions.PrepareSimulation());
 
     this.store.dispatch(
-      new ReceptionsActions.PrepareSimulation(JSON.parse(jsonSimulation))
+      new ReceptionsActions.PrepareSimulation({
+        products: scenario.products,
+        customers: scenario.customers,
+        receptions: scenario.receptions,
+        receptionTypes: scenario.receptionTypes,
+        ingredients: scenario.ingredients,
+        newCustomerFrequency: scenario.newCustomerFrequency,
+      })
     );
+
     this.store.dispatch(
-      new DeliveriesActions.PrepareSimulation(JSON.parse(jsonSimulation))
+      new DeliveriesActions.PrepareSimulation({
+        deliveries: scenario.deliveries,
+      })
     );
+
     this.store.dispatch(
-      new WorkplacesActions.PrepareSimulation(JSON.parse(jsonSimulation))
+      new WorkplacesActions.PrepareSimulation({
+        workplaces: scenario.workplaces,
+      })
     );
-    this.ordersEditorService.prepareSimulation(JSON.parse(jsonSimulation));
+
     this.store.dispatch(new OrdersActions.PrepareSimulation());
 
     this.store.dispatch(new SimulationActions.FinishPrepareSimulation());
-  }
 
-  stopSimulation() {}
+    //Need change
+    this.ordersEditorService.prepareSimulation(scenario);
+  }
 
   checkSimulationMoves(appState: AppState) {
     this.receptionService.checkMoves(appState);
@@ -104,5 +94,12 @@ export class SimulationService {
       () => this.store.dispatch(new SimulationActions.MakeStep()),
       speedMilliseconds
     );
+  }
+
+  //For developer tests
+  startDemo() {
+    this.scenarioRequest
+      .getDemoScenarioJson()
+      .subscribe((data) => this.startSimulation(data));
   }
 }

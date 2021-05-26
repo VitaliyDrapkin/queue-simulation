@@ -8,8 +8,6 @@ import { startGetOrder } from "./start-get-order.reduce";
 import { endGetOrder } from "./end-get-order.reduce";
 import { moveQueue } from "./move-queue.reduce";
 
-import { ReceptionStatuses } from "src/app/enums/ReceptionStatuses";
-
 export interface State {
   lastCustomerInTime: number;
   newCustomers: Customer[];

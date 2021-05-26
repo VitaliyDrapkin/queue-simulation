@@ -3,14 +3,14 @@ import * as SimulationActions from "./simulation.actions";
 export interface State {
   isSimulationInit: boolean;
   isSimulationPlaying: boolean;
-  step: number;
+  currentTime: number;
   speedMilliseconds: number;
 }
 
 const initialState: State = {
   isSimulationInit: false,
   isSimulationPlaying: false,
-  step: 0,
+  currentTime: 0,
   speedMilliseconds: 1000,
 };
 
@@ -19,6 +19,12 @@ export function receptionsReducer(
   action: SimulationActions.SimulationActions
 ) {
   switch (action.type) {
+    case SimulationActions.PREPARE_SIMULATION:
+      return {
+        ...state,
+        currentTime: 0,
+        speedMilliseconds: 1000,
+      };
     case SimulationActions.FINISH_PREPARE_SIMULATION:
       return {
         ...state,
@@ -41,7 +47,7 @@ export function receptionsReducer(
       if (state.isSimulationPlaying) {
         return {
           ...state,
-          step: state.step + 1,
+          currentTime: state.currentTime + 1,
         };
       }
       return { ...state };
@@ -49,7 +55,7 @@ export function receptionsReducer(
     case SimulationActions.MAKE_ONE_STEP_BY_CLICK:
       return {
         ...state,
-        step: state.step + 1,
+        currentTime: state.currentTime + 1,
       };
 
     case SimulationActions.CHECK_SIMULATION_MOVES:

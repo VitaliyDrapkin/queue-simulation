@@ -15,7 +15,9 @@ export class WorkplaceComponent implements OnInit {
   constructor(public store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.currentTime = this.store.select((state) => state.simulation.step);
+    this.currentTime = this.store.select(
+      (state) => state.simulation.currentTime
+    );
   }
 
   calculateCreatingTime() {

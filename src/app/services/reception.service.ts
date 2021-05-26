@@ -17,24 +17,24 @@ export class ReceptionService {
 
   checkMoves(appState: AppState) {
     this.addNewCustomer(
-      appState.simulation.step,
+      appState.simulation.currentTime,
       appState.receptions.lastCustomerInTime,
       appState.receptions.newCustomerFrequency,
       !!appState.receptions.newCustomers.length
     );
 
-    this.startGetOrder(
-      appState.simulation.step,
+    this.startGetOrderFromCustomer(
+      appState.simulation.currentTime,
       appState.receptions.receptions
     );
     this.addNewOrder(
       appState.receptions.receptions,
-      appState.simulation.step,
+      appState.simulation.currentTime,
       appState.orders.orders
     );
 
-    this.endGetOrder(
-      appState.simulation.step,
+    this.endGetOrderFromCustomer(
+      appState.simulation.currentTime,
       appState.receptions.receptions,
       appState.orders.orders
     );
@@ -58,7 +58,10 @@ export class ReceptionService {
     }
   }
 
-  private startGetOrder(currentTime: number, receptions: Reception[]) {
+  private startGetOrderFromCustomer(
+    currentTime: number,
+    receptions: Reception[]
+  ) {
     for (let i = 0; i < receptions.length; i++) {
       if (
         receptions[i].customersInQueue.length &&
@@ -72,7 +75,7 @@ export class ReceptionService {
     }
   }
 
-  private endGetOrder(
+  private endGetOrderFromCustomer(
     currentTime: number,
     receptions: Reception[],
     orders: Order[]

@@ -1,7 +1,7 @@
 <mat-card class="delivery-item card-secondary">
   <div class="delivery-information" *ngIf="delivery.order; else emptyDelivery">
     <div class="order-id">Order id : {{delivery.order.id}}</div>
-    <div class="time-left">Time left : {{10 - ((step | async) - delivery.deliveryStartTime)}}</div>
+    <div class="time-left">Time left : {{10 - ((currentTime | async) - delivery.deliveryStartTime)}}</div>
   </div>
   <ng-template #emptyDelivery>
     <div class="empty-delivery">

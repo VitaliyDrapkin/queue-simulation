@@ -18,15 +18,15 @@ export class DeliveryService {
   checkMoves(appState: AppState) {
     this.finishDelivery(
       appState.deliveries.deliveries,
-      appState.simulation.step
+      appState.simulation.currentTime
     );
   }
 
-  finishDelivery(deliveries: Delivery[], step: number) {
+  finishDelivery(deliveries: Delivery[], currentTime: number) {
     deliveries.forEach((delivery, index) => {
       if (
         delivery.order &&
-        delivery.deliveryTime + delivery.deliveryStartTime < step
+        delivery.deliveryTime + delivery.deliveryStartTime < currentTime
       ) {
         this.store.dispatch(
           new DeliveriesActions.removeOrderFromDelivery({

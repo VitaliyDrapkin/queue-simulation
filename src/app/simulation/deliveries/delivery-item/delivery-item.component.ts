@@ -11,10 +11,12 @@ import { AppState } from "src/app/store/app.reducer";
 })
 export class DeliveryItemComponent implements OnInit {
   @Input() delivery: Delivery;
-  step: Observable<number>;
+  currentTime: Observable<number>;
   constructor(public store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.step = this.store.select((state) => state.simulation.step);
+    this.currentTime = this.store.select(
+      (state) => state.simulation.currentTime
+    );
   }
 }

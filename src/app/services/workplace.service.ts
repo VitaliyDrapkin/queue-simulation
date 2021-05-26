@@ -1,4 +1,3 @@
-import { FinishCreatingProduct } from "./../store/workplaces/workplaces.actions";
 import { Workplace } from "../models/workplace-model";
 import * as fromApp from "../store/app.reducer";
 import { Injectable } from "@angular/core";
@@ -17,26 +16,30 @@ export class WorkplaceService {
   checkMoves(appState: AppState) {
     this.finishCreatingIngredient(
       appState.workplaces.workplaces,
-      appState.simulation.step
+      appState.simulation.currentTime
     );
     this.finishCreatingProduct(
-      appState.simulation.step,
-      appState.workplaces.workplaces
+      appState.workplaces.workplaces,
+      appState.simulation.currentTime
     );
     this.finishCreatingOrder(
       appState.workplaces.workplaces,
-      appState.simulation.step
+      appState.simulation.currentTime
     );
   }
 
-  private finishCreatingIngredient(workplaces: Workplace[], step: number) {
+  private finishCreatingIngredient(
+    workplaces: Workplace[],
+    currentTime: number
+  ) {
     workplaces.forEach((workplace, workplaceIndex) => {
       if (!workplace.order) {
         return;
       }
-      const timePassOfStartCreating = step - workplace.addedProductTime;
 
-      let timeForIngredient = 0;
+      const timePassOfStartCreating = currentTime - workplace.addedProductTime;
+
+      let timeNeededForIngredient = 0;
       for (
         let ingredientIndex = 0;
         ingredientIndex <
@@ -44,14 +47,14 @@ export class WorkplaceService {
           .length;
         ingredientIndex++
       ) {
-        timeForIngredient =
-          timeForIngredient +
+        timeNeededForIngredient =
+          timeNeededForIngredient +
           workplace.order.products[workplace.currentProductIndex].ingredients[
             ingredientIndex
           ].delayTime;
         if (
           !workplace.order.products[workplace.currentProductIndex].isCreated &&
-          timeForIngredient < timePassOfStartCreating
+          timeNeededForIngredient < timePassOfStartCreating
         ) {
           this.store.dispatch(
             new WorkplacesActions.FinishCreatingIngredient({
@@ -65,7 +68,7 @@ export class WorkplaceService {
     });
   }
 
-  finishCreatingProduct(step: number, workplaces: Workplace[]) {
+  finishCreatingProduct(workplaces: Workplace[], currentTime: number) {
     workplaces.forEach((workplace, index) => {
       if (
         workplace.order &&
@@ -78,11 +81,12 @@ export class WorkplaceService {
             currentProduct.ingredients[currentProduct.ingredients.length - 1]
               .isCreated) ||
           (!currentProduct.ingredients.length &&
-            workplace.addedProductTime + currentProduct.delayTime <= step)
+            workplace.addedProductTime + currentProduct.delayTime <=
+              currentTime)
         ) {
           this.store.dispatch(
             new WorkplacesActions.FinishCreatingProduct({
-              step: step,
+              currentTime: currentTime,
               workplaceIndex: index,
             })
           );
@@ -91,7 +95,7 @@ export class WorkplaceService {
     });
   }
 
-  finishCreatingOrder(workplaces: Workplace[], step: number) {
+  finishCreatingOrder(workplaces: Workplace[], currentTime: number) {
     workplaces.forEach((workplace, index) => {
       if (workplace.order) {
         if (
@@ -106,7 +110,8 @@ export class WorkplaceService {
               currentProduct.ingredients[currentProduct.ingredients.length - 1]
                 .isCreated) ||
             (!currentProduct.ingredients.length &&
-              workplace.addedProductTime + currentProduct.delayTime <= step)
+              workplace.addedProductTime + currentProduct.delayTime <=
+                currentTime)
           ) {
             this.store.dispatch(
               new WorkplacesActions.FinishCreatingOrder({

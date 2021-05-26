@@ -1,8 +1,5 @@
 <div *ngIf="isSimulationInit | async; else startNewSimulation">
-  <div
-    class="play-menu playing"
-    *ngIf="isSimulationPlaying | async; else simulationOnPause"
-  >
+  <div class="play-menu playing" *ngIf="isSimulationPlaying | async; else simulationOnPause">
     <span class="material-icons" (click)="onReduceSpeed()"> fast_rewind </span>
     <span class="material-icons" (click)="onPause()"> pause </span>
     <span class="material-icons" (click)="onUpSpeed()"> fast_forward </span>
@@ -20,7 +17,7 @@
 </div>
 
 <ng-template #startNewSimulation>
-  <button mat-raised-button color="primary" (click)="onStartSimulation()">
+  <button mat-raised-button color="primary" (click)="onStartDemo()">
     Start simulation
   </button>
 </ng-template>

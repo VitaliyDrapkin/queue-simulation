@@ -13,7 +13,7 @@ export const FINISH_CREATING_ORDER = "@@workplaces/FINISH_CREATING_ORDER";
 export class PrepareSimulation implements Action {
   readonly type = PREPARE_SIMULATION;
 
-  constructor(public payload: Simulation) {}
+  constructor(public payload: { workplaces: number }) {}
 }
 
 export class AddOrderToWorkplace implements Action {
@@ -44,7 +44,7 @@ export class FinishCreatingProduct implements Action {
 
   constructor(
     public payload: {
-      step: number;
+      currentTime: number;
       workplaceIndex: number;
     }
   ) {}

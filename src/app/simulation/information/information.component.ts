@@ -27,7 +27,7 @@ export class InformationComponent implements OnInit {
     // );
   }
 
-  openDialog(): void {
+  openModalEditOrders(): void {
     const dialogRef = this.dialog.open(OrderEditorModal, {
       width: "100rem",
       height: "60rem",

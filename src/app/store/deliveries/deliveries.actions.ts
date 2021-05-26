@@ -1,6 +1,4 @@
 import { Order } from "src/app/models/order.model";
-import { Product } from "../../models/product.model";
-import { Simulation } from "../../models/simulation.model";
 import { Action } from "@ngrx/store";
 
 export const PREPARE_SIMULATION = "@@deliveries/PREPARE_SIMULATION";
@@ -11,7 +9,7 @@ export const REMOVE_ORDER_FROM_DELIVERY =
 export class PrepareSimulation implements Action {
   readonly type = PREPARE_SIMULATION;
 
-  constructor(public payload: Simulation) {}
+  constructor(public payload: { deliveries: number }) {}
 }
 
 export class addOrderToDelivery implements Action {

@@ -1,3 +1,4 @@
+import { zip } from "rxjs";
 import { SimulationService } from "./../../services/simulation.service";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
@@ -5,6 +6,9 @@ import { AppState } from "./../app.reducer";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import * as SimulationActions from "./simulation.actions";
 import { withLatestFrom, tap } from "rxjs/operators";
+
+import * as WorkplacesActions from "../workplaces/workplaces.actions";
+import * as ReceptionsActions from "../receptions/receptions.actions";
 
 @Injectable()
 export class SimulationEffects {
