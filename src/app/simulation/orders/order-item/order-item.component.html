@@ -2,7 +2,7 @@
   <div class="order-status">
     Status : <span>{{ order.status }}</span>
   </div>
-  <span class="material-icons edit-icon"
+  <span class="material-icons edit-icon" (click)="onEditOrder()"
     *ngIf="isHover && order.status === 'Waiting for workplace' && !(isSimulationPlaying | async)"> edit </span>
   <div class="product" *ngFor="let product of order.products">
     <img src="{{ product.image }}" alt="product" />

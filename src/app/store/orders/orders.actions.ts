@@ -4,6 +4,7 @@ import { Action } from "@ngrx/store";
 
 export const PREPARE_SIMULATION = "@@orders/PREPARE_SIMULATION";
 export const ADD_NEW_ORDER = "@@orders/ADD_NEW_ORDER";
+export const EDIT_ORDER = "@@orders/EDIT_ORDER";
 export const CHANGE_ORDER_STATUS = "@@orders/CHANGE_ORDER_STATUS";
 
 export class PrepareSimulation implements Action {
@@ -12,6 +13,11 @@ export class PrepareSimulation implements Action {
 export class addOrder implements Action {
   readonly type = ADD_NEW_ORDER;
   constructor(public order: Order) {}
+}
+
+export class editOrder implements Action {
+  readonly type = EDIT_ORDER;
+  constructor(public payload: { newOrder: Order; editedOrderId: number }) {}
 }
 
 export class changeOrderStatus implements Action {
@@ -24,4 +30,8 @@ export class changeOrderStatus implements Action {
   ) {}
 }
 
-export type OrdersActions = PrepareSimulation | addOrder | changeOrderStatus;
+export type OrdersActions =
+  | PrepareSimulation
+  | addOrder
+  | changeOrderStatus
+  | editOrder;

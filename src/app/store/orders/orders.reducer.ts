@@ -24,6 +24,19 @@ export function ordersReducer(
         ...state,
         orders: [...state.orders, action.order],
       };
+
+    case OrdersActions.EDIT_ORDER:
+      const editedOrders = [...state.orders].map((order) => {
+        if (order.id === action.payload.editedOrderId) {
+          return action.payload.newOrder;
+        }
+        return order;
+      });
+      return {
+        ...state,
+        orders: editedOrders,
+      };
+
     case OrdersActions.CHANGE_ORDER_STATUS:
       return {
         ...state,

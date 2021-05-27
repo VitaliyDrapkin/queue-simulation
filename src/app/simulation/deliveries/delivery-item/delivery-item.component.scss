@@ -17,7 +17,8 @@
   .delivery-information {
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 0 3rem;
   }
   .empty-delivery {
     display: inline-block;

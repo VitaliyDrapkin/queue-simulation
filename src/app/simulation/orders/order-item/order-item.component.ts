@@ -1,3 +1,4 @@
+import { OrdersEditorService } from "./../../../services/ordersEditor.service";
 import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { Order } from "./../../../models/order.model";
@@ -13,11 +14,18 @@ export class OrderItemComponent implements OnInit {
   @Input() order: Order;
   isHover: boolean;
   isSimulationPlaying: Observable<boolean>;
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private store: Store<AppState>,
+    private orderEditorService: OrdersEditorService
+  ) {}
 
   ngOnInit(): void {
     this.isSimulationPlaying = this.store.select(
       (state) => state.simulation.isSimulationPlaying
     );
+  }
+
+  onEditOrder() {
+    this.orderEditorService.startEditOrder(this.order.products, this.order.id);
   }
 }

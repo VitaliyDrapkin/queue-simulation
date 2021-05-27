@@ -37,14 +37,6 @@ export class InformationComponent implements OnInit {
   }
 
   onAddOrder(): void {
-    const dialogRef = this.dialog.open(OrderEditorModal, {
-      width: "100rem",
-      height: "80rem",
-      data: { orders: this.orders },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log("The dialog was closed");
-    });
+    this.orderEditorService.startCreateOrder();
   }
 }

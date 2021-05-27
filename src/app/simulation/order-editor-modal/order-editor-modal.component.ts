@@ -15,7 +15,9 @@ import {
 import { AppState } from "src/app/store/app.reducer";
 import { map, take } from "rxjs/operators";
 
-export interface DialogData {}
+export interface DialogData {
+  isSaveClicked: boolean;
+}
 
 @Component({
   selector: "app-order-editor",
@@ -26,9 +28,9 @@ export class OrderEditorModal implements OnInit {
   products: Observable<Product[]>;
   orderEditorProducts: Observable<Product[]>;
   orderEditForm: FormGroup;
+  test: string = "qwe";
 
   constructor(
-    public ordersEditorService: OrdersEditorService,
     public dialogRef: MatDialogRef<OrderEditorModal>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public store: Store<AppState>
@@ -61,25 +63,16 @@ export class OrderEditorModal implements OnInit {
       })
     );
   }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 
   onSave(): void {
     if (!Number.isSafeInteger(+this.orderEditForm.controls.phone.value)) {
       this.orderEditForm.controls.phone.setErrors({ incorrect: true });
       return;
     }
-    this.store
-      .select("businessData")
-      .pipe(take(1))
-      .subscribe((state) => {
-        const newOrder = new Order(
-          +new Date().toString,
-          state.orderEditorProducts
-        );
-        this.store.dispatch(new OrdersActions.addOrder(newOrder));
-      });
-    this.dialogRef.close();
+    this.dialogRef.close({ isSave: true });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close({ isSave: false });
   }
 }

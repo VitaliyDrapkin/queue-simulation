@@ -49,7 +49,8 @@
             <div class="product-empty"></div>
         </div>
         <div class="buttons">
-            <button mat-raised-button color="warn" (click)="onNoClick()" class="cancelButton">Cancel</button>
+            <button mat-raised-button color="warn" type="button" (click)="onNoClick()"
+                class="cancelButton">Cancel</button>
             <button mat-raised-button color="primary" type="submit"
                 [disabled]='!orderEditForm.valid || (orderEditorProducts | async).length === 0'>Save</button>
         </div>

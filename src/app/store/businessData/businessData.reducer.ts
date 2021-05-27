@@ -11,12 +11,16 @@ export interface State {
   products: Product[];
   ingredients: Ingredient[];
   orderEditorProducts: Product[];
+  isEditMode: boolean;
+  editOrderId: number;
 }
 
 const initialState: State = {
   products: [],
   ingredients: [],
   orderEditorProducts: [],
+  isEditMode: false,
+  editOrderId: -1,
 };
 
 export function businessDataReducer(
@@ -60,6 +64,17 @@ export function businessDataReducer(
         products: products,
         ingredients: ingredients,
         productsEditorCounter: productsEditorCounter,
+      };
+
+    case BusinessDataActions.START_CREATE_ORDER:
+      return { ...state, isEditMode: false, orderEditorProducts: [] };
+
+    case BusinessDataActions.START_EDIT_ORDER:
+      return {
+        ...state,
+        isEditMode: true,
+        editOrderId: action.payload.editOrderId,
+        orderEditorProducts: [...action.payload.orderProducts],
       };
 
     case BusinessDataActions.ADD_SELECTED_PRODUCT_TO_ORDER_EDITOR:
