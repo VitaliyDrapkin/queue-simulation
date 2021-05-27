@@ -35,7 +35,7 @@ export class startEditOrder implements Action {
   ) {}
 }
 
-export class addProductToSelected implements Action {
+export class addSelectedProductToOrderEditor implements Action {
   readonly type = ADD_SELECTED_PRODUCT_TO_ORDER_EDITOR;
   constructor(
     public payload: {
@@ -55,7 +55,7 @@ export class RemoveSelectedProductFromOrderEditor implements Action {
 
 export type BusinessDataActions =
   | PrepareSimulation
-  | addProductToSelected
+  | addSelectedProductToOrderEditor
   | RemoveSelectedProductFromOrderEditor
   | startCreateOrder
   | startEditOrder;

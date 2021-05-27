@@ -1,25 +1,26 @@
 <div class="modal-window">
 
-    <h1 mat-dialog-title>Add order</h1>
+    <h1 mat-dialog-title *ngIf="!(isEditMode | async)">Add order</h1>
+    <h1 mat-dialog-title *ngIf="isEditMode | async">Edit order</h1>
     <form class="order-edit-form" [formGroup]="orderEditForm" (ngSubmit)="onSave()">
         <div class="inputFields">
             <div class="customer-information">
                 <div class="inputField">
                     <input type="text" placeholder="name" formControlName="name">
-                    <span class="error" *ngIf="orderEditForm.controls.name.errors && orderEditForm.controls.name.errors.required 
+                    <span class="error" *ngIf="!(isEditMode | async) && orderEditForm.controls.name.errors && orderEditForm.controls.name.errors.required 
                             && (orderEditForm.controls.name.touched || orderEditForm.controls.name.dirty)
                             ">Name
                         cannot be empty</span>
                 </div>
                 <div class="inputField">
                     <input type="text" placeholder="address" formControlName="address">
-                    <span class="error" *ngIf="orderEditForm.controls.address.errors && orderEditForm.controls.address.errors.required 
+                    <span class="error" *ngIf="!(isEditMode | async) && orderEditForm.controls.address.errors && orderEditForm.controls.address.errors.required 
                                 && (orderEditForm.controls.address.touched || orderEditForm.controls.address.dirty)
                                 ">Address cannot be empty</span>
                 </div>
                 <div class="inputField">
                     <input type="text" placeholder="phone" formControlName="phone">
-                    <span class="error" *ngIf="orderEditForm.controls.phone.errors && orderEditForm.controls.phone.errors.required 
+                    <span class="error" *ngIf="!(isEditMode | async) && orderEditForm.controls.phone.errors && orderEditForm.controls.phone.errors.required 
                                 && (orderEditForm.controls.phone.touched || orderEditForm.controls.phone.dirty)
                                 ">Phone cannot be empty</span>
                     <span class="error" *ngIf="orderEditForm.controls.phone.errors && orderEditForm.controls.phone.errors.incorrect 
@@ -51,8 +52,10 @@
         <div class="buttons">
             <button mat-raised-button color="warn" type="button" (click)="onNoClick()"
                 class="cancelButton">Cancel</button>
-            <button mat-raised-button color="primary" type="submit"
-                [disabled]='!orderEditForm.valid || (orderEditorProducts | async).length === 0'>Save</button>
+            <button mat-raised-button color="primary" type="submit" *ngIf="!(isEditMode | async)"
+                [disabled]='!orderEditForm.valid || (orderEditorProducts | async).length === 0'>Add</button>
+            <button mat-raised-button color="primary" type="submit" *ngIf="isEditMode | async"
+                [disabled]='(orderEditorProducts | async).length === 0'>Save</button>
         </div>
     </form>
 

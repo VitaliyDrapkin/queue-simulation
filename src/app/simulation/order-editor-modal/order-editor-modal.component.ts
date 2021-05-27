@@ -28,7 +28,7 @@ export class OrderEditorModal implements OnInit {
   products: Observable<Product[]>;
   orderEditorProducts: Observable<Product[]>;
   orderEditForm: FormGroup;
-  test: string = "qwe";
+  isEditMode: Observable<boolean>;
 
   constructor(
     public dialogRef: MatDialogRef<OrderEditorModal>,
@@ -48,11 +48,16 @@ export class OrderEditorModal implements OnInit {
     this.orderEditorProducts = this.store.select(
       (state) => state.businessData.orderEditorProducts
     );
+    this.isEditMode = this.store.select(
+      (state) => state.businessData.isEditMode
+    );
   }
 
   addProductToSelected(productId: number) {
     this.store.dispatch(
-      new BusinessDataActions.addProductToSelected({ productId: productId })
+      new BusinessDataActions.addSelectedProductToOrderEditor({
+        productId: productId,
+      })
     );
   }
 
