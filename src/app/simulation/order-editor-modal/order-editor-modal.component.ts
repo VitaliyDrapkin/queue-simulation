@@ -26,7 +26,7 @@ export interface DialogData {
 })
 export class OrderEditorModal implements OnInit {
   products: Observable<Product[]>;
-  orderEditorProducts: Observable<Product[]>;
+  editOrderProducts: Observable<{ count: number; product: Product }[]>;
   orderEditForm: FormGroup;
   isEditMode: Observable<boolean>;
 
@@ -39,18 +39,29 @@ export class OrderEditorModal implements OnInit {
   ngOnInit(): void {
     this.orderEditForm = new FormGroup({
       name: new FormControl(null, Validators.required),
-      address: new FormControl(null, Validators.required),
-      phone: new FormControl(null, Validators.required),
+      address: new FormControl(null),
+      phone: new FormControl(null),
       comment: new FormControl(null),
     });
-
     this.products = this.store.select((state) => state.businessData.products);
-    this.orderEditorProducts = this.store.select(
-      (state) => state.businessData.orderEditorProducts
+    this.editOrderProducts = this.store.select(
+      (state) => state.businessData.editOrderProducts
     );
     this.isEditMode = this.store.select(
       (state) => state.businessData.isEditMode
     );
+    this.store.select((state) =>
+      this.orderEditForm.controls.name.setValue(
+        state.businessData.editOrderCustomerName
+      )
+    );
+
+    this.store
+      .select("businessData")
+      .pipe(take(1))
+      .subscribe((state) => {
+        this.orderEditForm.controls.name.setValue(state.editOrderCustomerName);
+      });
   }
 
   addProductToSelected(productId: number) {
@@ -70,14 +81,20 @@ export class OrderEditorModal implements OnInit {
   }
 
   onSave(): void {
-    if (!Number.isSafeInteger(+this.orderEditForm.controls.phone.value)) {
+    if (
+      this.orderEditForm.controls.phone.value &&
+      !Number.isSafeInteger(+this.orderEditForm.controls.phone.value)
+    ) {
       this.orderEditForm.controls.phone.setErrors({ incorrect: true });
       return;
     }
-    this.dialogRef.close({ isSave: true });
+    this.dialogRef.close({
+      doSave: true,
+      customerName: this.orderEditForm.controls.name.value,
+    });
   }
 
   onNoClick(): void {
-    this.dialogRef.close({ isSave: false });
+    this.dialogRef.close({ doSave: false });
   }
 }

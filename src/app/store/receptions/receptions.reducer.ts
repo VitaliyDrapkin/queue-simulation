@@ -1,4 +1,4 @@
-import { Customer } from "./../../models/customer.model";
+import { Customer } from "./../../models/Customer.model";
 import { Reception } from "./../../models/reception.model";
 import * as ReceptionsActions from "./receptions.actions";
 import { prepareReception } from "./prepare-receptions-reduce";

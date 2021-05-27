@@ -58,6 +58,9 @@ export const scenarioSchema = {
             id: {
               type: "integer",
             },
+            name: {
+              type: "string",
+            },
             customerOrder: {
               type: "object",
               properties: {
@@ -76,7 +79,7 @@ export const scenarioSchema = {
               required: ["id", "productsIds"],
             },
           },
-          required: ["id", "customerOrder"],
+          required: ["id", "name", "customerOrder"],
         },
       ],
     },

@@ -78,26 +78,106 @@
     }
   ],
   "customers": [
-    { "id": 1, "customerOrder": { "id": 1, "productsIds": [1, 4, 1] } },
-    { "id": 2, "customerOrder": { "id": 2, "productsIds": [2] } },
-    { "id": 3, "customerOrder": { "id": 3, "productsIds": [2, 4] } },
-    { "id": 4, "customerOrder": { "id": 4, "productsIds": [3] } },
-    { "id": 5, "customerOrder": { "id": 5, "productsIds": [3, 4] } },
-    { "id": 6, "customerOrder": { "id": 6, "productsIds": [2, 4] } },
-    { "id": 7, "customerOrder": { "id": 7, "productsIds": [3] } },
-    { "id": 8, "customerOrder": { "id": 8, "productsIds": [3, 4] } },
-    { "id": 9, "customerOrder": { "id": 9, "productsIds": [3] } },
-    { "id": 10, "customerOrder": { "id": 10, "productsIds": [3, 4] } },
-    { "id": 11, "customerOrder": { "id": 11, "productsIds": [1] } },
-    { "id": 12, "customerOrder": { "id": 12, "productsIds": [2] } },
-    { "id": 13, "customerOrder": { "id": 13, "productsIds": [2, 4] } },
-    { "id": 14, "customerOrder": { "id": 14, "productsIds": [3] } },
-    { "id": 15, "customerOrder": { "id": 15, "productsIds": [3, 4] } },
-    { "id": 16, "customerOrder": { "id": 16, "productsIds": [2, 4] } },
-    { "id": 17, "customerOrder": { "id": 17, "productsIds": [3] } },
-    { "id": 18, "customerOrder": { "id": 18, "productsIds": [3, 4] } },
-    { "id": 19, "customerOrder": { "id": 19, "productsIds": [3] } },
-    { "id": 20, "customerOrder": { "id": 20, "productsIds": [3, 4] } }
+    {
+      "id": 1,
+      "name": "Alex",
+      "customerOrder": { "id": 1, "productsIds": [1, 4, 1] }
+    },
+    {
+      "id": 2,
+      "name": "Shmulik",
+      "customerOrder": { "id": 2, "productsIds": [2] }
+    },
+    {
+      "id": 3,
+      "name": "Yossi",
+      "customerOrder": { "id": 3, "productsIds": [2, 4] }
+    },
+    {
+      "id": 4,
+      "name": "Avi",
+      "customerOrder": { "id": 4, "productsIds": [3] }
+    },
+    {
+      "id": 5,
+      "name": "Anna",
+      "customerOrder": { "id": 5, "productsIds": [3, 4] }
+    },
+    {
+      "id": 6,
+      "name": "Rotem",
+      "customerOrder": { "id": 6, "productsIds": [2, 4] }
+    },
+    {
+      "id": 7,
+      "name": "Shahar",
+      "customerOrder": { "id": 7, "productsIds": [3] }
+    },
+    {
+      "id": 8,
+      "name": "QWE",
+      "customerOrder": { "id": 8, "productsIds": [3, 4] }
+    },
+    {
+      "id": 9,
+      "name": "TEST1",
+      "customerOrder": { "id": 9, "productsIds": [3] }
+    },
+    {
+      "id": 10,
+      "name": "TEST2",
+      "customerOrder": { "id": 10, "productsIds": [3, 4] }
+    },
+    {
+      "id": 11,
+      "name": "TEST3",
+      "customerOrder": { "id": 11, "productsIds": [1] }
+    },
+    {
+      "id": 12,
+      "name": "TEST4",
+      "customerOrder": { "id": 12, "productsIds": [2] }
+    },
+    {
+      "id": 13,
+      "name": "TEST5",
+      "customerOrder": { "id": 13, "productsIds": [2, 4] }
+    },
+    {
+      "id": 14,
+      "name": "TEST6",
+      "customerOrder": { "id": 14, "productsIds": [3] }
+    },
+    {
+      "id": 15,
+      "name": "TEST7",
+      "customerOrder": { "id": 15, "productsIds": [3, 4] }
+    },
+    {
+      "id": 16,
+      "name": "TEST8",
+      "customerOrder": { "id": 16, "productsIds": [2, 4] }
+    },
+    {
+      "id": 17,
+      "name": "TEST9",
+      "customerOrder": { "id": 17, "productsIds": [3] }
+    },
+    {
+      "id": 18,
+      "name": "TEST10",
+      "customerOrder": { "id": 18, "productsIds": [3, 4] }
+    },
+    {
+      "id": 19,
+      "name": "TEST11",
+      "customerOrder": { "id": 19, "productsIds": [3] }
+    },
+    {
+      "id": 20,
+      "name": "TEST12",
+      "customerOrder": { "id": 20, "productsIds": [3, 4] }
+    }
   ],
   "newCustomerFrequency": 3,
   "receptionTypes": [

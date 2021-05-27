@@ -49,12 +49,7 @@ export class OrdersService {
           order: waitingForWorkplaceOrders[i],
           workplaceId: emptyWorkplaces[i].id,
           currentTime: currentTime,
-        })
-      );
-      this.store.dispatch(
-        new OrdersActions.changeOrderStatus({
           status: OrderStatuses.Creating,
-          orderId: waitingForWorkplaceOrders[i].id,
         })
       );
     }
@@ -87,12 +82,7 @@ export class OrdersService {
           order: waitingForDeliveryOrders[i],
           deliveryId: emptyDeliveries[i].id,
           currentTime: currentTime,
-        })
-      );
-      this.store.dispatch(
-        new OrdersActions.changeOrderStatus({
           status: OrderStatuses.InDelivery,
-          orderId: waitingForDeliveryOrders[i].id,
         })
       );
     }

@@ -1,6 +1,7 @@
+import { OrderStatuses } from "src/app/enums/OrderStatuses";
 import { Order } from "src/app/models/order.model";
 import { Product } from "./../../models/product.model";
-import { Simulation } from "../../models/simulation.model";
+import { Scenario } from "../../models/Scenario.model";
 import { Action } from "@ngrx/store";
 
 export const PREPARE_SIMULATION = "@@workplaces/PREPARE_SIMULATION";
@@ -24,6 +25,7 @@ export class AddOrderToWorkplace implements Action {
       order: Order;
       workplaceId: number;
       currentTime: number;
+      status: OrderStatuses;
     }
   ) {}
 }

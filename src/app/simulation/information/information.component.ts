@@ -13,30 +13,13 @@ import { AppState } from "src/app/store/app.reducer";
   styleUrls: ["./information.component.scss"],
 })
 export class InformationComponent implements OnInit {
-  isSimulationPlaying: Observable<boolean>;
-  isSimulationInit: Observable<boolean>;
   orders: Observable<Order[]>;
 
-  constructor(
-    private orderEditorService: OrdersEditorService,
-    public dialog: MatDialog,
-    public store: Store<AppState>
-  ) {}
+  constructor(public dialog: MatDialog, public store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.isSimulationPlaying = this.store.select(
-      (state) => state.simulation.isSimulationPlaying
-    );
-    this.isSimulationInit = this.store.select(
-      (state) => state.simulation.isSimulationInit
-    );
-
     // this.store.subscribe((data) =>
     //   console.log("[InformationComponent]  changeState()", data)
     // );
-  }
-
-  onAddOrder(): void {
-    this.orderEditorService.startCreateOrder();
   }
 }

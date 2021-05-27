@@ -10,17 +10,19 @@ import { prepareBusinessData } from "./prepare-businessData-reduce";
 export interface State {
   products: Product[];
   ingredients: Ingredient[];
-  orderEditorProducts: Product[];
+  editOrderProducts: { count: number; product: Product }[];
   isEditMode: boolean;
   editOrderId: number;
+  editOrderCustomerName: string;
 }
 
 const initialState: State = {
   products: [],
   ingredients: [],
-  orderEditorProducts: [],
+  editOrderProducts: [],
   isEditMode: false,
   editOrderId: -1,
+  editOrderCustomerName: "",
 };
 
 export function businessDataReducer(
@@ -32,13 +34,19 @@ export function businessDataReducer(
       return prepareBusinessData(state, action.payload);
 
     case BusinessDataActions.START_CREATE_ORDER:
-      return { ...state, isEditMode: false, orderEditorProducts: [] };
+      return {
+        ...state,
+        isEditMode: false,
+        editOrderProducts: [],
+        editOrderCustomerName: "",
+      };
 
     case BusinessDataActions.START_EDIT_ORDER:
       return {
         ...state,
         isEditMode: true,
         editOrderId: action.payload.editOrderId,
+        editOrderCustomerName: action.payload.customerName,
         orderEditorProducts: [...action.payload.orderProducts],
       };
 

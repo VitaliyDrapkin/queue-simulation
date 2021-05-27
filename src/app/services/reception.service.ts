@@ -124,15 +124,14 @@ export class ReceptionService {
           currentTime
       ) {
         let isOrderAlreadyExist = false;
-        const firstCustomerOrder =
-          receptions[i].customersInQueue[0].customerOrder;
+        const firstCustomer = receptions[i].customersInQueue[0];
         orders.forEach((order) => {
-          if (order.id === firstCustomerOrder.id) {
+          if (order.id === firstCustomer.id) {
             isOrderAlreadyExist = true;
           }
         });
         if (!isOrderAlreadyExist) {
-          const orderProducts = firstCustomerOrder.productsIds.map(
+          const orderProducts = firstCustomer.customerOrder.productsIds.map(
             (productId) => {
               const productFromBusinessData = products.filter(
                 (product) => product.id === productId
@@ -140,8 +139,11 @@ export class ReceptionService {
               return productFromBusinessData[0];
             }
           );
-          const newOrder = new Order(firstCustomerOrder.id, orderProducts);
-          // const order = receptions[i].customersInQueue[0].order;
+          const newOrder = new Order(
+            firstCustomer.id,
+            firstCustomer.name,
+            orderProducts
+          );
           this.store.dispatch(new OrdersActions.addOrder(newOrder));
         }
       }

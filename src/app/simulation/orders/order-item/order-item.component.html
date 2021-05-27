@@ -1,9 +1,10 @@
-<mat-card class="order card-secondary" (mouseenter)="isHover=true" (mouseleave)="isHover=false">
-  <div class="order-status">
-    Status : <span>{{ order.status }}</span>
+<mat-card class="order card-secondary">
+  <div class="order-info">
+    <div> Customer name : <span>{{ order.customerName }}</span></div>
+    <div>Status : <span>{{ order.status }}</span></div>
   </div>
   <span class="material-icons edit-icon" (click)="onEditOrder()"
-    *ngIf="isHover && order.status === 'Waiting for workplace' && !(isSimulationPlaying | async)"> edit </span>
+    *ngIf="order.status === 'Waiting for workplace' && !(isSimulationPlaying | async)"> edit </span>
   <div class="product" *ngFor="let product of order.products">
     <img src="{{ product.image }}" alt="product" />
     <div class="order-information">

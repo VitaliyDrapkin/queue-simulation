@@ -1,10 +1,9 @@
-import {
-  scenarioReception,
-  scenarioReceptionType,
-} from "./../../models/simulation.model";
+import { scenarioReceptionType } from "./../../models/ScenarioReceptionType.model";
+import { scenarioReception } from "./../../models/ScenarioReception.model";
+import { customerOrder } from "./../../models/CustomerOrder.model";
+import { Customer } from "./../../models/Customer.model";
 import { ReceptionStatuses } from "./../../enums/ReceptionStatuses";
 import { Reception } from "./../../models/reception.model";
-import { Customer, customerOrder } from "./../../models/customer.model";
 
 interface payload {
   customers: Customer[];
@@ -20,7 +19,8 @@ export function prepareReception(state, payload: payload) {
       new customerOrder(
         customer.customerOrder.id,
         customer.customerOrder.productsIds
-      )
+      ),
+      customer.name
     );
   });
   const receptions = payload.receptions.map((reception) => {

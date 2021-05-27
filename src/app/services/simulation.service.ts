@@ -1,7 +1,7 @@
 import { OrdersEditorService } from "./ordersEditor.service";
 import { DeliveryService } from "./delivery.service";
 import { ScenarioRequest } from "./scenario-request.service";
-import { Simulation } from "./../models/simulation.model";
+import { Scenario } from "../models/Scenario.model";
 import { delay } from "rxjs/operators";
 import { of } from "rxjs";
 import { WorkplaceService } from "./workplace.service";
@@ -38,7 +38,7 @@ export class SimulationService {
     if (this.timeOut) {
       clearTimeout(this.timeOut);
     }
-    const scenario: Simulation = JSON.parse(scenarioJson);
+    const scenario: Scenario = JSON.parse(scenarioJson);
 
     this.store.dispatch(new SimulationActions.PrepareSimulation());
 

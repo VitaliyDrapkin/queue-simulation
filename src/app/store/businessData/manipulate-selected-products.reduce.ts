@@ -1,26 +1,38 @@
 export function addSelectedProductToOrderEditor(state, payload) {
-  const newProduct = {
-    ...state.products.find((product) => product.id === payload.productId),
-  };
-
-  const updatedEditorProducts = [...state.orderEditorProducts, newProduct];
+  let isOrderExist = false;
+  const updatedEditOrderProducts = [...state.editOrderProducts].map(
+    (product) => {
+      if (product.product.id === payload.productId) {
+        isOrderExist = true;
+        return { ...product, count: product.count + 1 };
+      }
+      return product;
+    }
+  );
+  if (!isOrderExist) {
+    const newProduct = {
+      ...state.products.find((product) => product.id === payload.productId),
+    };
+    updatedEditOrderProducts.push({ count: 1, product: newProduct });
+  }
   return {
     ...state,
-    orderEditorProducts: updatedEditorProducts,
+    editOrderProducts: updatedEditOrderProducts,
   };
 }
 
 export function removeSelectedProductFromEditor(state, payload) {
-  const updatedRemovedProducts = [...state.orderEditorProducts];
-  for (let i = 0; i < updatedRemovedProducts.length; i++) {
-    if (updatedRemovedProducts[i].id == payload.productId) {
-      updatedRemovedProducts.splice(i, 1);
-      break;
-    }
-  }
+  const updatedEditOrderProducts = [...state.editOrderProducts]
+    .map((product) => {
+      if (product.product.id === payload.productId) {
+        return { ...product, count: product.count - 1 };
+      }
+      return product;
+    })
+    .filter((product) => product.count);
 
   return {
     ...state,
-    orderEditorProducts: updatedRemovedProducts,
+    editOrderProducts: updatedEditOrderProducts,
   };
 }

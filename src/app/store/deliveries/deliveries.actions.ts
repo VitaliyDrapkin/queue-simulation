@@ -1,3 +1,4 @@
+import { OrderStatuses } from "src/app/enums/OrderStatuses";
 import { Order } from "src/app/models/order.model";
 import { Action } from "@ngrx/store";
 
@@ -16,7 +17,12 @@ export class addOrderToDelivery implements Action {
   readonly type = ADD_ORDER_TO_DELIVERY;
 
   constructor(
-    public payload: { order: Order; deliveryId: number; currentTime: number }
+    public payload: {
+      order: Order;
+      deliveryId: number;
+      currentTime: number;
+      status: OrderStatuses;
+    }
   ) {}
 }
 

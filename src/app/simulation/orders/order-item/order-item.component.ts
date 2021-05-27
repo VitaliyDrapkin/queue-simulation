@@ -12,7 +12,6 @@ import { AppState } from "src/app/store/app.reducer";
 })
 export class OrderItemComponent implements OnInit {
   @Input() order: Order;
-  isHover: boolean;
   isSimulationPlaying: Observable<boolean>;
   constructor(
     private store: Store<AppState>,
@@ -26,6 +25,10 @@ export class OrderItemComponent implements OnInit {
   }
 
   onEditOrder() {
-    this.orderEditorService.startEditOrder(this.order.products, this.order.id);
+    this.orderEditorService.changeOrder(
+      this.order.products,
+      this.order.id,
+      this.order.customerName
+    );
   }
 }

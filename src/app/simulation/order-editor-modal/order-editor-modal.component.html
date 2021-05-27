@@ -7,22 +7,17 @@
             <div class="customer-information">
                 <div class="inputField">
                     <input type="text" placeholder="name" formControlName="name">
-                    <span class="error" *ngIf="!(isEditMode | async) && orderEditForm.controls.name.errors && orderEditForm.controls.name.errors.required 
+                    <span class="error" *ngIf=" orderEditForm.controls.name.errors && orderEditForm.controls.name.errors.required 
                             && (orderEditForm.controls.name.touched || orderEditForm.controls.name.dirty)
                             ">Name
                         cannot be empty</span>
                 </div>
                 <div class="inputField">
                     <input type="text" placeholder="address" formControlName="address">
-                    <span class="error" *ngIf="!(isEditMode | async) && orderEditForm.controls.address.errors && orderEditForm.controls.address.errors.required 
-                                && (orderEditForm.controls.address.touched || orderEditForm.controls.address.dirty)
-                                ">Address cannot be empty</span>
+
                 </div>
                 <div class="inputField">
                     <input type="text" placeholder="phone" formControlName="phone">
-                    <span class="error" *ngIf="!(isEditMode | async) && orderEditForm.controls.phone.errors && orderEditForm.controls.phone.errors.required 
-                                && (orderEditForm.controls.phone.touched || orderEditForm.controls.phone.dirty)
-                                ">Phone cannot be empty</span>
                     <span class="error" *ngIf="orderEditForm.controls.phone.errors && orderEditForm.controls.phone.errors.incorrect 
                                 && (orderEditForm.controls.phone.touched || orderEditForm.controls.phone.dirty)
                                 ">Incorrect phone</span>
@@ -43,19 +38,18 @@
 
         <h2>Selected products</h2>
         <div class="product-items">
-            <app-modal-product-item *ngFor=" let product of orderEditorProducts | async;" [product]="product"
-                class="product" (clickEvent)="removeProductFromSelected($event)">
+            <app-modal-product-item *ngFor=" let editOrderProduct of editOrderProducts | async;"
+                [product]="editOrderProduct.product" [count]="editOrderProduct.count" class=" product"
+                (clickEvent)="removeProductFromSelected($event)">
             </app-modal-product-item>
-            <div class="product-empty"></div>
-            <div class="product-empty"></div>
         </div>
         <div class="buttons">
             <button mat-raised-button color="warn" type="button" (click)="onNoClick()"
                 class="cancelButton">Cancel</button>
             <button mat-raised-button color="primary" type="submit" *ngIf="!(isEditMode | async)"
-                [disabled]='!orderEditForm.valid || (orderEditorProducts | async).length === 0'>Add</button>
+                [disabled]='!orderEditForm.valid || (editOrderProducts | async).length === 0'>Add</button>
             <button mat-raised-button color="primary" type="submit" *ngIf="isEditMode | async"
-                [disabled]='(orderEditorProducts | async).length === 0'>Save</button>
+                [disabled]='(editOrderProducts | async).length === 0'>Save</button>
         </div>
     </form>
 

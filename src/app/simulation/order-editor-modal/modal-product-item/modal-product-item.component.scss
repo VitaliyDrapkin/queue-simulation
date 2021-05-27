@@ -2,7 +2,7 @@
 
 :host {
   width: 27rem;
-  height: 14rem;
+  height: fit fit-content;
   z-index: 10;
 }
 
@@ -45,5 +45,15 @@
         height: 3.3rem;
       }
     }
+  }
+}
+
+.counter {
+  margin: 1rem 0;
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  span {
+    font-weight: bold;
   }
 }

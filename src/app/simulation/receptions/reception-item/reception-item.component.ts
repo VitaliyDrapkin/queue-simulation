@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
-import { Customer } from "./../../../models/customer.model";
+import { Customer } from "./../../../models/Customer.model";
 import { Reception } from "./../../../models/reception.model";
 import { Component, Input, OnInit } from "@angular/core";
 import { AppState } from "src/app/store/app.reducer";

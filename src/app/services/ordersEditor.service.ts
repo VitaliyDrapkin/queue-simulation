@@ -21,14 +21,22 @@ export class OrdersEditorService {
     public dialog: MatDialog
   ) {}
 
-  startCreateOrder() {
+  newOrder() {
     this.store.dispatch(new BusinessDataActions.startCreateOrder());
     this.openModalWindowEditorOrder();
   }
 
-  startEditOrder(orderProducts: Product[], editOrderId: number) {
+  changeOrder(
+    orderProducts: Product[],
+    editOrderId: number,
+    customerName: string
+  ) {
     this.store.dispatch(
-      new BusinessDataActions.startEditOrder({ orderProducts, editOrderId })
+      new BusinessDataActions.startEditOrder({
+        orderProducts,
+        editOrderId,
+        customerName,
+      })
     );
     this.openModalWindowEditorOrder();
   }
@@ -39,21 +47,28 @@ export class OrdersEditorService {
       height: "80rem",
     });
     dialogRef.afterClosed().subscribe((data) => {
-      if (data && data.isSave) {
-        this.saveChanges();
+      if (data && data.doSave) {
+        this.saveChanges(data.customerName);
       }
     });
   }
 
-  saveChanges(): void {
+  saveChanges(customerName): void {
     this.store
       .select("businessData")
       .pipe(take(1))
       .subscribe((state) => {
+        let newProducts: Product[] = [];
+        state.editOrderProducts.forEach((editorProduct) => {
+          for (let i = 0; i < editorProduct.count; i++) {
+            newProducts.push(editorProduct.product);
+          }
+        });
         if (state.isEditMode) {
           const newOrder = new Order(
             state.editOrderId,
-            state.orderEditorProducts
+            customerName,
+            newProducts
           );
           this.store.dispatch(
             new OrdersActions.editOrder({
@@ -64,7 +79,8 @@ export class OrdersEditorService {
         } else {
           const newOrder = new Order(
             new Date().getTime(),
-            state.orderEditorProducts
+            customerName,
+            newProducts
           );
           this.store.dispatch(new OrdersActions.addOrder(newOrder));
         }

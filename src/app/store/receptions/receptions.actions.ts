@@ -1,11 +1,9 @@
-import { Customer } from "./../../models/customer.model";
+import { scenarioReception } from "./../../models/ScenarioReception.model";
+import { scenarioProduct } from "./../../models/ScenarioProduct.model";
+import { Customer } from "./../../models/Customer.model";
 import { Ingredient } from "./../../models/ingredient.model";
-import {
-  scenarioProduct,
-  scenarioReception,
-  scenarioReceptionType,
-} from "./../../models/simulation.model";
 import { Action } from "@ngrx/store";
+import { scenarioReceptionType } from "src/app/models/ScenarioReceptionType.model";
 
 export const PREPARE_SIMULATION = "@@receptions/PREPARE_SIMULATION";
 export const ADD_CUSTOMER_TO_QUEUE = "@@receptions/ADD_CUSTOMER_TO_QUEUE";

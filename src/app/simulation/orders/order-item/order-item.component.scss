@@ -7,12 +7,17 @@
   overflow: hidden;
   position: relative;
 
-  .order-status {
-    font-size: 2rem;
+  .order-info {
+    font-size: 1.7rem;
     text-align: center;
+    display: flex;
+    justify-content: center;
 
-    span {
-      font-weight: bold;
+    div {
+      margin: 0 1rem;
+      span {
+        font-weight: bold;
+      }
     }
   }
   .edit-icon {
@@ -110,18 +115,3 @@
     }
   }
 }
-
-// @media screen and (max-width: 768px) {
-//   .order {
-//     .product {
-//       img {
-//         width: 10rem;
-//         height: 10rem;
-//       }
-
-//       .product-information {
-//         height: 10rem;
-//       }
-//     }
-//   }
-// }

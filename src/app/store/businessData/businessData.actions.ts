@@ -1,7 +1,7 @@
 import { Ingredient } from "./../../models/ingredient.model";
-import { scenarioProduct } from "./../../models/simulation.model";
 import { Action } from "@ngrx/store";
 import { Product } from "src/app/models/product.model";
+import { scenarioProduct } from "src/app/models/ScenarioProduct.model";
 
 export const PREPARE_SIMULATION = "@@businessData/PREPARE_SIMULATION";
 export const START_CREATE_ORDER = "@@businessData/START_CREATE_ORDER";
@@ -31,7 +31,11 @@ export class startCreateOrder implements Action {
 export class startEditOrder implements Action {
   readonly type = START_EDIT_ORDER;
   constructor(
-    public payload: { orderProducts: Product[]; editOrderId: number }
+    public payload: {
+      orderProducts: Product[];
+      editOrderId: number;
+      customerName: string;
+    }
   ) {}
 }
 
