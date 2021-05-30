@@ -55,48 +55,129 @@
       "id": 1,
       "productName": "Burger",
       "image": "https://i.pinimg.com/736x/01/1d/1d/011d1d429a11a56939f6b4c2831f1061.jpg",
-      "ingredients": [0, 1, 2]
+      "ingredients": [0, 2, 1]
     },
     {
       "id": 2,
       "productName": "Sandwich",
       "image": "https://thumbs.dreamstime.com/b/cartoon-illustration-children-sandwich-vector-189192705.jpg",
-      "ingredients": [1, 3, 4, 5]
+      "ingredients": [3, 5, 1, 4]
     },
     {
       "id": 3,
       "productName": "Shawarma",
       "image": "https://image.shutterstock.com/image-vector/shawarma-food-delicious-arabic-roll-260nw-1499612798.jpg",
-      "ingredients": [5, 6, 7]
+      "ingredients": [7, 6, 4, 1]
     },
     {
       "id": 4,
       "productName": "Coca-cola",
       "image": "https://cdn2.vectorstock.com/i/thumb-large/07/81/drawing-classic-bottle-coca-cola-on-white-vector-29970781.jpg",
-      "ingredients": [8]
+      "delayTime": 2,
+      "ingredients": []
     }
   ],
   "customers": [
-    { "id": 1, "order": { "id": 1, "products": [0] } },
-    { "id": 2, "order": { "id": 2, "products": [1] } },
-    { "id": 3, "order": { "id": 3, "products": [1, 3] } },
-    { "id": 4, "order": { "id": 4, "products": [2] } },
-    { "id": 5, "order": { "id": 5, "products": [2, 3] } },
-    { "id": 6, "order": { "id": 6, "products": [1, 3] } },
-    { "id": 7, "order": { "id": 7, "products": [2] } },
-    { "id": 8, "order": { "id": 8, "products": [2, 3] } },
-    { "id": 9, "order": { "id": 9, "products": [2] } },
-    { "id": 10, "order": { "id": 10, "products": [2, 3] } },
-    { "id": 11, "order": { "id": 11, "products": [0] } },
-    { "id": 12, "order": { "id": 12, "products": [1] } },
-    { "id": 13, "order": { "id": 13, "products": [1, 3] } },
-    { "id": 14, "order": { "id": 14, "products": [2] } },
-    { "id": 15, "order": { "id": 15, "products": [2, 3] } },
-    { "id": 16, "order": { "id": 16, "products": [1, 3] } },
-    { "id": 17, "order": { "id": 17, "products": [2] } },
-    { "id": 18, "order": { "id": 18, "products": [2, 3] } },
-    { "id": 19, "order": { "id": 19, "products": [2] } },
-    { "id": 20, "order": { "id": 20, "products": [2, 3] } }
+    {
+      "id": 1,
+      "name": "Alex",
+      "customerOrder": { "id": 1, "productsIds": [1, 4, 1] }
+    },
+    {
+      "id": 2,
+      "name": "Shmulik",
+      "customerOrder": { "id": 2, "productsIds": [2] }
+    },
+    {
+      "id": 3,
+      "name": "Yossi",
+      "customerOrder": { "id": 3, "productsIds": [2, 4] }
+    },
+    {
+      "id": 4,
+      "name": "Avi",
+      "customerOrder": { "id": 4, "productsIds": [3] }
+    },
+    {
+      "id": 5,
+      "name": "Anna",
+      "customerOrder": { "id": 5, "productsIds": [3, 4] }
+    },
+    {
+      "id": 6,
+      "name": "Rotem",
+      "customerOrder": { "id": 6, "productsIds": [2, 4] }
+    },
+    {
+      "id": 7,
+      "name": "Shahar",
+      "customerOrder": { "id": 7, "productsIds": [3] }
+    },
+    {
+      "id": 8,
+      "name": "QWE",
+      "customerOrder": { "id": 8, "productsIds": [3, 4] }
+    },
+    {
+      "id": 9,
+      "name": "TEST1",
+      "customerOrder": { "id": 9, "productsIds": [3] }
+    },
+    {
+      "id": 10,
+      "name": "TEST2",
+      "customerOrder": { "id": 10, "productsIds": [3, 4] }
+    },
+    {
+      "id": 11,
+      "name": "TEST3",
+      "customerOrder": { "id": 11, "productsIds": [1] }
+    },
+    {
+      "id": 12,
+      "name": "TEST4",
+      "customerOrder": { "id": 12, "productsIds": [2] }
+    },
+    {
+      "id": 13,
+      "name": "TEST5",
+      "customerOrder": { "id": 13, "productsIds": [2, 4] }
+    },
+    {
+      "id": 14,
+      "name": "TEST6",
+      "customerOrder": { "id": 14, "productsIds": [3] }
+    },
+    {
+      "id": 15,
+      "name": "TEST7",
+      "customerOrder": { "id": 15, "productsIds": [3, 4] }
+    },
+    {
+      "id": 16,
+      "name": "TEST8",
+      "customerOrder": { "id": 16, "productsIds": [2, 4] }
+    },
+    {
+      "id": 17,
+      "name": "TEST9",
+      "customerOrder": { "id": 17, "productsIds": [3] }
+    },
+    {
+      "id": 18,
+      "name": "TEST10",
+      "customerOrder": { "id": 18, "productsIds": [3, 4] }
+    },
+    {
+      "id": 19,
+      "name": "TEST11",
+      "customerOrder": { "id": 19, "productsIds": [3] }
+    },
+    {
+      "id": 20,
+      "name": "TEST12",
+      "customerOrder": { "id": 20, "productsIds": [3, 4] }
+    }
   ],
   "newCustomerFrequency": 3,
   "receptionTypes": [
@@ -110,5 +191,6 @@
     { "id": 1, "receptionTypeId": 2 }
   ],
   "workplaces": 3,
-  "delivers": 3
+  "deliveries": 3,
+  "deliveryTime": 10
 }

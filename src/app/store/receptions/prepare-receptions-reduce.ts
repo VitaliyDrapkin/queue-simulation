@@ -1,49 +1,27 @@
-import {
-  scenarioProduct,
-  scenarioCustomer,
-  scenarioReception,
-  scenarioReceptionType,
-} from "./../../models/simulation.model";
+import { scenarioReceptionType } from "./../../models/ScenarioReceptionType.model";
+import { scenarioReception } from "./../../models/ScenarioReception.model";
+import { customerOrder } from "./../../models/CustomerOrder.model";
+import { Customer } from "./../../models/Customer.model";
 import { ReceptionStatuses } from "./../../enums/ReceptionStatuses";
 import { Reception } from "./../../models/reception.model";
-import { Order } from "src/app/models/order.model";
-import { Customer } from "./../../models/customer.model";
-import { Ingredient } from "./../../models/ingredient.model";
-import { Product } from "./../../models/product.model";
 
 interface payload {
-  products: scenarioProduct[];
-  ingredients: Ingredient[];
-  customers: scenarioCustomer[];
+  customers: Customer[];
   receptions: scenarioReception[];
   receptionTypes: scenarioReceptionType[];
   newCustomerFrequency: number;
 }
 
 export function prepareReception(state, payload: payload) {
-  const allProducts: Product[] = payload.products.map((product) => {
-    const productIngredients = product.ingredients.map((ingredient) => {
-      return new Ingredient(
-        payload.ingredients[ingredient].id,
-        payload.ingredients[ingredient].name,
-        payload.ingredients[ingredient].image,
-        payload.ingredients[ingredient].delayTime
-      );
-    });
-    return new Product(
-      product.id,
-      product.productName,
-      product.image,
-      productIngredients
-    );
-  });
-
   const newCustomers: Customer[] = payload.customers.map((customer) => {
-    const products: Product[] = customer.order.products.map((product) => {
-      return allProducts[product];
-    });
-
-    return new Customer(customer.id, new Order(customer.order.id, products));
+    return new Customer(
+      customer.id,
+      new customerOrder(
+        customer.customerOrder.id,
+        customer.customerOrder.productsIds
+      ),
+      customer.name
+    );
   });
   const receptions = payload.receptions.map((reception) => {
     const getOrderTime = payload.receptionTypes.filter(

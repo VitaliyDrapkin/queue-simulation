@@ -15,12 +15,16 @@ export class WorkplaceComponent implements OnInit {
   constructor(public store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.currentTime = this.store.select((state) => state.simulation.step);
+    this.currentTime = this.store.select(
+      (state) => state.simulation.currentTime
+    );
   }
 
   calculateCreatingTime() {
-    let timeLeft = 0;
-    this.workplace.product.ingredients.forEach((ingredient) => {
+    let timeLeft = 1; //+1 delay time for view
+    this.workplace.order.products[
+      this.workplace.currentProductIndex
+    ].ingredients.forEach((ingredient) => {
       timeLeft = timeLeft + ingredient.delayTime;
     });
     return timeLeft;

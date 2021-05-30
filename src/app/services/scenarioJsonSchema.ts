@@ -58,13 +58,16 @@ export const scenarioSchema = {
             id: {
               type: "integer",
             },
-            order: {
+            name: {
+              type: "string",
+            },
+            customerOrder: {
               type: "object",
               properties: {
                 id: {
                   type: "integer",
                 },
-                products: {
+                productsIds: {
                   type: "array",
                   items: [
                     {
@@ -73,10 +76,10 @@ export const scenarioSchema = {
                   ],
                 },
               },
-              required: ["id", "products"],
+              required: ["id", "productsIds"],
             },
           },
-          required: ["id", "order"],
+          required: ["id", "name", "customerOrder"],
         },
       ],
     },
@@ -120,7 +123,7 @@ export const scenarioSchema = {
     workplaces: {
       type: "integer",
     },
-    delivers: {
+    deliveries: {
       type: "integer",
     },
   },
@@ -132,6 +135,6 @@ export const scenarioSchema = {
     "receptionTypes",
     "receptions",
     "workplaces",
-    "delivers",
+    "deliveries",
   ],
 };

@@ -1,6 +1,6 @@
 import * as SimulationActions from "./../../../store/simulation/simulation.actions";
 import { Store } from "@ngrx/store";
-import { SimulationService } from "./../../../services/simulation.service";
+import { SimulationService } from "../../../services/simulation.service";
 import { Observable } from "rxjs";
 import { Component, OnInit } from "@angular/core";
 import { AppState } from "src/app/store/app.reducer";

@@ -1,21 +1,19 @@
 <mat-card class="order card-secondary">
-  <div class="order-status">
-    Status : <span>{{ order.status }}</span>
+  <div class="order-info">
+    <div> Customer name : <span>{{ order.customerName }}</span></div>
+    <div>Status : <span>{{ order.status }}</span></div>
   </div>
+  <span class="material-icons edit-icon" (click)="onEditOrder()"
+    *ngIf="order.status === 'Waiting for workplace' && !(isSimulationPlaying | async)"> edit </span>
   <div class="product" *ngFor="let product of order.products">
     <img src="{{ product.image }}" alt="product" />
     <div class="order-information">
       <div class="product-name">{{ product.productName }}</div>
       <div class="product-state">
-        <div class="product-action">Wait for workplace</div>
         <div class="product-time-left"></div>
       </div>
       <div class="product-ingredients">
-        <img
-          *ngFor="let ingredient of product.ingredients"
-          src="{{ ingredient.image }}"
-          alt="ingredient"
-        />
+        <img *ngFor="let ingredient of product.ingredients" src="{{ ingredient.image }}" alt="ingredient" />
       </div>
     </div>
   </div>

@@ -5,10 +5,9 @@ export function addOrderToProduction(state, payload) {
     (workplace): Workplace => {
       if (workplace.id === payload.workplaceId) {
         const updatedWorkplace = { ...workplace };
-        updatedWorkplace.isEmpty = false;
-        updatedWorkplace.orderId = payload.orderId;
-        updatedWorkplace.product = payload.product;
+        updatedWorkplace.order = payload.order;
         updatedWorkplace.addedProductTime = payload.currentTime;
+        updatedWorkplace.currentProductIndex = 0;
         return updatedWorkplace;
       }
       return workplace;

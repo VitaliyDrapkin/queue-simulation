@@ -1,0 +1,17 @@
+<mat-card class="card no-padding" (click)="onClick()">
+    <div class="product">
+        <div class="product-image">
+            <img src="{{product.image}}" alt="{{product.productName}}">
+        </div>
+        <div class="product-information">
+            <div class="product-name">{{product.productName}}</div>
+            <div class="product-ingredients">
+                <img src="{{ingredient.image}}" *ngFor="let ingredient of product.ingredients"
+                    alt="{{ingredient.name}}">
+
+            </div>
+        </div>
+    </div>
+    <div class="counter" *ngIf="count">pc : <span>{{count}}</span></div>
+
+</mat-card>

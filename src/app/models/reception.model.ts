@@ -1,5 +1,5 @@
 import { ReceptionStatuses } from "./../enums/ReceptionStatuses";
-import { Customer } from "./customer.model";
+import { Customer } from "./Customer.model";
 export class Reception {
   constructor(
     public id: number,

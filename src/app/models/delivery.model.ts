@@ -2,7 +2,8 @@ import { Order } from "./order.model";
 export class Delivery {
   constructor(
     public id: number,
-    public isEmpty: boolean,
+    public deliveryStartTime: number,
+    public deliveryTime: number = 10,
     public order?: Order
   ) {}
 }

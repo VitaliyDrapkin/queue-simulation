@@ -7,13 +7,23 @@
 }
 
 .delivery-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   box-shadow: none;
   font-size: 2rem;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
+  display: flex;
+  align-items: center;
+
+  .delivery-information {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 3rem;
+  }
+  .empty-delivery {
+    display: inline-block;
+    margin: 0 auto;
+  }
 }
 
 @media screen and (max-width: 1440px) {

@@ -14,6 +14,8 @@ export class WorkplacesComponent implements OnInit {
   constructor(public store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.workplaces = this.store.select((state) => state.workplaces.workplaces);
+    this.workplaces = this.store.select((state) => {
+      return state.workplaces.workplaces;
+    });
   }
 }

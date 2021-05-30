@@ -1,4 +1,4 @@
-import { Simulation } from "./../../models/simulation.model";
+import { Scenario } from "../../models/Scenario.model";
 import { Action } from "@ngrx/store";
 
 export const PREPARE_SIMULATION = "@@simulation/PREPARE_SIMULATION";

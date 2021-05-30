@@ -1,0 +1,59 @@
+@import "../../../../styles/variables";
+
+:host {
+  width: 27rem;
+  height: fit fit-content;
+  z-index: 10;
+}
+
+.product {
+  width: 27rem;
+  display: flex;
+  border-radius: 0.5rem;
+  border: 1px solid $color-grey-light-2;
+
+  .product-image {
+    height: 11rem;
+    width: 11rem;
+    img {
+      height: 11rem;
+      width: 11rem;
+    }
+  }
+
+  .product-information {
+    width: 100%;
+
+    .product-name {
+      margin-left: 1rem;
+      margin-top: 0.5rem;
+      overflow-y: auto;
+      font-size: 2rem;
+      line-height: 2.5rem;
+    }
+    .product-ingredients {
+      margin-top: 0.7rem;
+      margin-left: 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: auto;
+      height: 7rem;
+      gap: 0.3rem;
+
+      img {
+        width: 3.3rem;
+        height: 3.3rem;
+      }
+    }
+  }
+}
+
+.counter {
+  margin: 1rem 0;
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  span {
+    font-weight: bold;
+  }
+}

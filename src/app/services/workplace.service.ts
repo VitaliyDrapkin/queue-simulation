@@ -1,14 +1,11 @@
-import { Ingredient } from "./../models/ingredient.model";
 import { Workplace } from "../models/workplace-model";
-import { OrderStatuses } from "./../enums/OrderStatuses";
-import { Product } from "./../models/product.model";
 import * as fromApp from "../store/app.reducer";
 import { Injectable } from "@angular/core";
-import { Order } from "./../models/order.model";
 import * as WorkplacesActions from "../store/workplaces/workplaces.actions";
 import * as OrdersActions from "../store/orders/orders.actions";
 import { AppState } from "../store/app.reducer";
 import { Store } from "@ngrx/store";
+import { OrderStatuses } from "../enums/OrderStatuses";
 
 @Injectable({
   providedIn: "root",
@@ -19,28 +16,115 @@ export class WorkplaceService {
   checkMoves(appState: AppState) {
     this.finishCreatingIngredient(
       appState.workplaces.workplaces,
-      appState.simulation.step
+      appState.simulation.currentTime
+    );
+    this.finishCreatingProduct(
+      appState.workplaces.workplaces,
+      appState.simulation.currentTime
+    );
+    this.finishCreatingOrder(
+      appState.workplaces.workplaces,
+      appState.simulation.currentTime
     );
   }
 
-  private finishCreatingIngredient(workplaces: Workplace[], step: number) {
-    workplaces.forEach((workplace) => {
-      if (!workplace.orderId) {
+  private finishCreatingIngredient(
+    workplaces: Workplace[],
+    currentTime: number
+  ) {
+    workplaces.forEach((workplace, workplaceIndex) => {
+      if (!workplace.order) {
         return;
       }
 
-      const timePassOfStartCreating = step - workplace.addedProductTime;
+      const timePassOfStartCreating = currentTime - workplace.addedProductTime;
 
-      let timeForCreatingIngredient = 0;
-      for (let i = 0; i < workplace.product.ingredients.length; i++) {
-        timeForCreatingIngredient =
-          timeForCreatingIngredient +
-          workplace.product.ingredients[i].delayTime;
+      let timeNeededForIngredient = 0;
+      for (
+        let ingredientIndex = 0;
+        ingredientIndex <
+        workplace.order.products[workplace.currentProductIndex].ingredients
+          .length;
+        ingredientIndex++
+      ) {
+        timeNeededForIngredient =
+          timeNeededForIngredient +
+          workplace.order.products[workplace.currentProductIndex].ingredients[
+            ingredientIndex
+          ].delayTime;
         if (
-          !workplace.product.ingredients[i].isCreated &&
-          timeForCreatingIngredient < timePassOfStartCreating
+          !workplace.order.products[workplace.currentProductIndex].isCreated &&
+          timeNeededForIngredient < timePassOfStartCreating
         ) {
-          console.log("Ingredient Created");
+          this.store.dispatch(
+            new WorkplacesActions.FinishCreatingIngredient({
+              WorkplaceIndex: workplaceIndex,
+              productIndex: workplace.currentProductIndex,
+              ingredientIndex: ingredientIndex,
+            })
+          );
+        }
+      }
+    });
+  }
+
+  finishCreatingProduct(workplaces: Workplace[], currentTime: number) {
+    workplaces.forEach((workplace, index) => {
+      if (
+        workplace.order &&
+        workplace.currentProductIndex !== workplace.order.products.length - 1
+      ) {
+        const currentProduct =
+          workplace.order.products[workplace.currentProductIndex];
+        if (
+          (currentProduct.ingredients.length &&
+            currentProduct.ingredients[currentProduct.ingredients.length - 1]
+              .isCreated) ||
+          (!currentProduct.ingredients.length &&
+            workplace.addedProductTime + currentProduct.delayTime <=
+              currentTime)
+        ) {
+          this.store.dispatch(
+            new WorkplacesActions.FinishCreatingProduct({
+              currentTime: currentTime,
+              workplaceIndex: index,
+            })
+          );
+        }
+      }
+    });
+  }
+
+  finishCreatingOrder(workplaces: Workplace[], currentTime: number) {
+    workplaces.forEach((workplace, index) => {
+      if (workplace.order) {
+        if (
+          workplace.currentProductIndex ===
+          workplace.order.products.length - 1
+        ) {
+          const currentProduct =
+            workplace.order.products[workplace.currentProductIndex];
+
+          if (
+            (currentProduct.ingredients.length &&
+              currentProduct.ingredients[currentProduct.ingredients.length - 1]
+                .isCreated) ||
+            (!currentProduct.ingredients.length &&
+              workplace.addedProductTime + currentProduct.delayTime <=
+                currentTime)
+          ) {
+            this.store.dispatch(
+              new WorkplacesActions.FinishCreatingOrder({
+                workplaceIndex: index,
+              })
+            );
+            this.store.dispatch(
+              new OrdersActions.changeOrderStatus({
+                status: OrderStatuses.WaitingForDelivery,
+                orderId: workplace.order.id,
+              })
+            );
+          }
         }
       }
     });

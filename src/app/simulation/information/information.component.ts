@@ -1,9 +1,10 @@
-import { SimulationService } from "./../../services/simulation.service";
-import { Observable } from "rxjs";
-import * as SimulationActions from "./../../store/simulation/simulation.actions";
 import { Store } from "@ngrx/store";
-import { ReceptionService } from "../../services/reception.service";
+import { Order } from "src/app/models/order.model";
+import { Observable } from "rxjs";
+import { OrderEditorModal } from "./../order-editor-modal/order-editor-modal.component";
+import { OrdersEditorService } from "../../services/ordersEditor.service";
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { AppState } from "src/app/store/app.reducer";
 
 @Component({
@@ -12,10 +13,9 @@ import { AppState } from "src/app/store/app.reducer";
   styleUrls: ["./information.component.scss"],
 })
 export class InformationComponent implements OnInit {
-  constructor(
-    private simulationService: SimulationService,
-    private store: Store<AppState>
-  ) {}
+  orders: Observable<Order[]>;
+
+  constructor(public dialog: MatDialog, public store: Store<AppState>) {}
 
   ngOnInit(): void {
     // this.store.subscribe((data) =>

@@ -1,3 +1,4 @@
+import { Product } from "./../models/product.model";
 import { ReceptionStatuses } from "./../enums/ReceptionStatuses";
 import { Reception } from "../models/reception.model";
 import { AppState } from "../store/app.reducer";
@@ -17,24 +18,25 @@ export class ReceptionService {
 
   checkMoves(appState: AppState) {
     this.addNewCustomer(
-      appState.simulation.step,
+      appState.simulation.currentTime,
       appState.receptions.lastCustomerInTime,
       appState.receptions.newCustomerFrequency,
       !!appState.receptions.newCustomers.length
     );
 
-    this.startGetOrder(
-      appState.simulation.step,
+    this.startGetOrderFromCustomer(
+      appState.simulation.currentTime,
       appState.receptions.receptions
     );
     this.addNewOrder(
       appState.receptions.receptions,
-      appState.simulation.step,
-      appState.orders.orders
+      appState.simulation.currentTime,
+      appState.orders.orders,
+      appState.businessData.products
     );
 
-    this.endGetOrder(
-      appState.simulation.step,
+    this.endGetOrderFromCustomer(
+      appState.simulation.currentTime,
       appState.receptions.receptions,
       appState.orders.orders
     );
@@ -58,7 +60,10 @@ export class ReceptionService {
     }
   }
 
-  private startGetOrder(currentTime: number, receptions: Reception[]) {
+  private startGetOrderFromCustomer(
+    currentTime: number,
+    receptions: Reception[]
+  ) {
     for (let i = 0; i < receptions.length; i++) {
       if (
         receptions[i].customersInQueue.length &&
@@ -72,7 +77,7 @@ export class ReceptionService {
     }
   }
 
-  private endGetOrder(
+  private endGetOrderFromCustomer(
     currentTime: number,
     receptions: Reception[],
     orders: Order[]
@@ -83,9 +88,11 @@ export class ReceptionService {
         receptions[i].getOrderTime + receptions[i].startedGetOrderTime <=
           currentTime
       ) {
-        const customerOrderId = receptions[i].customersInQueue[0].order.id;
+        const firstCustomerOrderId =
+          receptions[i].customersInQueue[0].customerOrder.id;
+
         orders.forEach((order) => {
-          if (order.id == customerOrderId) {
+          if (order.id == firstCustomerOrderId) {
             this.store.dispatch(new ReceptionsActions.endGetOrder(i));
           }
         });
@@ -107,7 +114,8 @@ export class ReceptionService {
   private addNewOrder(
     receptions: Reception[],
     currentTime: number,
-    orders: Order[]
+    orders: Order[],
+    products: Product[]
   ) {
     for (let i = 0; i < receptions.length; i++) {
       if (
@@ -116,15 +124,27 @@ export class ReceptionService {
           currentTime
       ) {
         let isOrderAlreadyExist = false;
+        const firstCustomer = receptions[i].customersInQueue[0];
         orders.forEach((order) => {
-          if (order.id === receptions[i].customersInQueue[0].order.id) {
+          if (order.id === firstCustomer.id) {
             isOrderAlreadyExist = true;
           }
         });
         if (!isOrderAlreadyExist) {
-          this.store.dispatch(
-            new OrdersActions.addOrder(receptions[i].customersInQueue[0].order)
+          const orderProducts = firstCustomer.customerOrder.productsIds.map(
+            (productId) => {
+              const productFromBusinessData = products.filter(
+                (product) => product.id === productId
+              );
+              return productFromBusinessData[0];
+            }
           );
+          const newOrder = new Order(
+            firstCustomer.id,
+            firstCustomer.name,
+            orderProducts
+          );
+          this.store.dispatch(new OrdersActions.addOrder(newOrder));
         }
       }
     }

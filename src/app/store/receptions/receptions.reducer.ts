@@ -1,4 +1,4 @@
-import { Customer } from "./../../models/customer.model";
+import { Customer } from "./../../models/Customer.model";
 import { Reception } from "./../../models/reception.model";
 import * as ReceptionsActions from "./receptions.actions";
 import { prepareReception } from "./prepare-receptions-reduce";
@@ -7,8 +7,6 @@ import { removeCustomerByIndex } from "./remove-customer.reduce";
 import { startGetOrder } from "./start-get-order.reduce";
 import { endGetOrder } from "./end-get-order.reduce";
 import { moveQueue } from "./move-queue.reduce";
-
-import { ReceptionStatuses } from "src/app/enums/ReceptionStatuses";
 
 export interface State {
   lastCustomerInTime: number;

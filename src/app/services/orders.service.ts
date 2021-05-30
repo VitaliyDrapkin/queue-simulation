@@ -1,8 +1,10 @@
+import { Delivery } from "./../models/delivery.model";
 import { OrderStatuses } from "./../enums/OrderStatuses";
 import { Product } from "./../models/product.model";
 import { Workplace } from "./../models/workplace-model";
 import * as OrdersActions from "./../store/orders/orders.actions";
 import * as WorkplacesActions from "./../store/workplaces/workplaces.actions";
+import * as DeliveryActions from "./../store/deliveries/deliveries.actions";
 import { AppState } from "../store/app.reducer";
 import { Store } from "@ngrx/store";
 
@@ -17,75 +19,82 @@ export class OrdersService {
   constructor(public store: Store<fromApp.AppState>) {}
 
   checkMoves(appState: AppState) {
-    this.addProductToProduction(
+    this.addOrderToProduction(
       appState.orders.orders,
       appState.workplaces.workplaces,
-      appState.simulation.step
+      appState.simulation.currentTime
+    );
+
+    this.addOrderToDelivery(
+      appState.orders.orders,
+      appState.deliveries.deliveries,
+      appState.simulation.currentTime
     );
   }
 
-  private addProductToProduction(
+  private addOrderToProduction(
     orders: Order[],
     workplaces: Workplace[],
     currentTime: number
   ) {
-    const waitingForWorkplaceProducts = this.getWaitingProducts(orders);
+    const waitingForWorkplaceOrders = this.getWaitingForWorkplaceOrders(orders);
     const emptyWorkplaces = this.getEmptyWorkPlaces(workplaces);
     for (
       let i = 0;
-      i < waitingForWorkplaceProducts.length && i < emptyWorkplaces.length;
+      i < waitingForWorkplaceOrders.length && i < emptyWorkplaces.length;
       i++
     ) {
       this.store.dispatch(
         new WorkplacesActions.AddOrderToWorkplace({
-          product: waitingForWorkplaceProducts[i].product,
-          orderId: waitingForWorkplaceProducts[i].orderId,
+          order: waitingForWorkplaceOrders[i],
           workplaceId: emptyWorkplaces[i].id,
           currentTime: currentTime,
-        })
-      );
-      this.store.dispatch(
-        new OrdersActions.changeOrderStatus({
           status: OrderStatuses.Creating,
-          orderId: waitingForWorkplaceProducts[i].orderId,
         })
       );
     }
   }
 
-  private getWaitingProducts(
-    orders: Order[]
-  ): { orderId: number; product: Product }[] {
-    const waitingOrders = this.getWaitingOrders(orders);
-    const waitingProducts: { orderId: number; product: Product }[] = [];
-
-    waitingOrders.forEach((order) => {
-      order.products.forEach((product) => {
-        if (!product.isCreated) {
-          waitingProducts.push({ orderId: order.id, product: { ...product } });
-        }
-      });
-    });
-    return waitingProducts;
-  }
-
-  private getWaitingOrders(orders: Order[]): Order[] {
-    const waitingOrders: Order[] = [];
-    orders.forEach((order) => {
-      if (order.status === "Waiting for workplace") {
-        waitingOrders.push(order);
-      }
-    });
-    return waitingOrders;
+  private getWaitingForWorkplaceOrders(orders: Order[]): Order[] {
+    return orders.filter(
+      (order) => order.status === OrderStatuses.WaitingForWorkPlace
+    );
   }
 
   private getEmptyWorkPlaces(workplaces: Workplace[]): Workplace[] {
-    const emptyWorkplaces: Workplace[] = [];
-    workplaces.forEach((workplace) => {
-      if (!workplace.orderId) {
-        emptyWorkplaces.push(workplace);
-      }
-    });
-    return emptyWorkplaces;
+    return workplaces.filter((workplace) => !workplace.order);
+  }
+
+  addOrderToDelivery(
+    orders: Order[],
+    deliveries: Delivery[],
+    currentTime: number
+  ) {
+    const waitingForDeliveryOrders = this.getWaitingForDeliveriesOrders(orders);
+    const emptyDeliveries = this.getEmptyDeliveries(deliveries);
+    for (
+      let i = 0;
+      i < waitingForDeliveryOrders.length && i < emptyDeliveries.length;
+      i++
+    ) {
+      this.store.dispatch(
+        new DeliveryActions.addOrderToDelivery({
+          order: waitingForDeliveryOrders[i],
+          deliveryId: emptyDeliveries[i].id,
+          currentTime: currentTime,
+          status: OrderStatuses.InDelivery,
+        })
+      );
+    }
+  }
+
+  private getWaitingForDeliveriesOrders(orders: Order[]): Order[] {
+    return orders.filter(
+      (order) => order.status === OrderStatuses.WaitingForDelivery
+    );
+  }
+
+  private getEmptyDeliveries(deliveries: Delivery[]): Delivery[] {
+    return deliveries.filter((delivery) => !delivery.order);
   }
 }
