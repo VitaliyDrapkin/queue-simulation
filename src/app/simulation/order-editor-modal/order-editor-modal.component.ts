@@ -44,9 +44,9 @@ export class OrderEditorModal implements OnInit {
       comment: new FormControl(null),
     });
     this.products = this.store.select((state) => state.businessData.products);
-    this.editOrderProducts = this.store.select(
-      (state) => state.businessData.editOrderProducts
-    );
+    this.editOrderProducts = this.store.select((state) => {
+      return state.businessData.editOrderProducts;
+    });
     this.isEditMode = this.store.select(
       (state) => state.businessData.isEditMode
     );

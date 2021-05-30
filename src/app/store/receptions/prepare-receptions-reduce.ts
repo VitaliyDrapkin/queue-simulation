@@ -30,8 +30,8 @@ export function prepareReception(state, payload: payload) {
 
     return new Reception(
       reception.id,
-      0,
       getOrderTime,
+      0,
       [],
       false,
       ReceptionStatuses.Empty

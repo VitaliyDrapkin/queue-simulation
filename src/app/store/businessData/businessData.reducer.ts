@@ -42,12 +42,17 @@ export function businessDataReducer(
       };
 
     case BusinessDataActions.START_EDIT_ORDER:
+      const newEditorOrders = action.payload.orderProducts.map(
+        (orderProduct) => {
+          return { counter: 1, product: orderProduct };
+        }
+      );
       return {
         ...state,
         isEditMode: true,
         editOrderId: action.payload.editOrderId,
         editOrderCustomerName: action.payload.customerName,
-        orderEditorProducts: [...action.payload.orderProducts],
+        editOrderProducts: newEditorOrders,
       };
 
     case BusinessDataActions.ADD_SELECTED_PRODUCT_TO_ORDER_EDITOR:
