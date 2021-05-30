@@ -1,20 +1,36 @@
 .orders {
   height: 50vh;
-  width: 48vw;
+  width: 46vw;
   overflow-y: auto;
 
+  .add-order {
+    text-align: center;
+    height: 4.8rem;
+  }
+
   .orders-items {
-    max-height: 88%;
+    max-height: 86%;
     overflow: auto;
   }
 }
 
+@media screen and (max-width: 1200px) {
+  :host {
+    order: 1;
+  }
+
+  .orders {
+    width: 70vw;
+    margin: 0 auto;
+  }
+}
 @media screen and (max-width: 768px) {
   :host {
     order: 1;
   }
 
   .orders {
-    width: 99vw;
+    width: 97vw;
+    margin: 0 auto;
   }
 }

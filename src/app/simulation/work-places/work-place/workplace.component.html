@@ -1,0 +1,28 @@
+<mat-card class="workplace card-secondary">
+  <div class="workplace-empty" *ngIf="!workplace.order; else workplaceWithProduct">
+    Empty workplace
+  </div>
+  <ng-template #workplaceWithProduct>
+    <div class="product">
+      <div class="product-information">
+        <img src="{{ workplace.order.products[workplace.currentProductIndex].image }}" alt="product" />
+        <div class="product-description">
+          <div class="product-name">{{ workplace.order.products[workplace.currentProductIndex].productName }}</div>
+          <div class="product-time-left">
+            Time left:
+            {{
+            calculateCreatingTime() -
+            ((currentTime | async) - workplace.addedProductTime)
+            }}
+            Sec
+          </div>
+        </div>
+      </div>
+      <div class="product-ingredients">
+        <img *ngFor="let ingredient of workplace.order.products[workplace.currentProductIndex].ingredients"
+          class="created" [ngClass]="ingredient.isCreated ? 'created' : 'onCreating'" src="{{ ingredient.image }}"
+          alt="ingredient" />
+      </div>
+    </div>
+  </ng-template>
+</mat-card>

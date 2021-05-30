@@ -1,3 +1,4 @@
+import { OrdersEditorService } from "./../services/ordersEditor.service";
 import { Component, OnInit } from "@angular/core";
 
 @Component({

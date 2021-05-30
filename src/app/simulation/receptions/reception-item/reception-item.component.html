@@ -1,5 +1,34 @@
-<div class="reception-window">Get order : 18</div>
-<div class="reception-customer"></div>
-<div class="reception-customer"></div>
-<div class="reception-customer"></div>
-<div class="reception-customer"></div>
+<div class="reception-window">
+  <span
+    *ngIf="
+      reception.currentOccupation === 'Empty' ||
+      reception.currentOccupation === 'Waiting next customer'
+    "
+    >Empty</span
+  >
+  <span *ngIf="reception.currentOccupation === 'Getting order'"
+    >Get order :
+    <span
+      *ngIf="
+        reception.getOrderTime -
+          ((currentTime | async) - reception.startedGetOrderTime) >
+          0;
+        else showZero
+      "
+      >{{
+        reception.getOrderTime -
+          ((currentTime | async) - reception.startedGetOrderTime)
+      }}
+    </span>
+    <ng-template #showZero><span>0</span></ng-template>
+  </span>
+</div>
+
+<div
+  *ngIf="reception.currentOccupation === 'Waiting next customer'"
+  class="reception-empty-place"
+></div>
+<div
+  class="reception-customer"
+  *ngFor="let customer of reception.customersInQueue"
+></div>

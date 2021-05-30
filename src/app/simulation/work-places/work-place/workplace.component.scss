@@ -1,7 +1,13 @@
-.work-place {
+.workplace {
   height: 100%;
   border-radius: 1rem;
   overflow: hidden;
+}
+
+.workplace-empty {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .product {
@@ -41,6 +47,13 @@
       height: 3.5rem;
       margin-right: 1rem;
       margin-bottom: 0.5rem;
+      border-radius: 30rem;
+    }
+    .created {
+      border: 3px solid rgb(7, 211, 7);
+    }
+    .onCreating {
+      border: 3px solid red;
     }
   }
 }

@@ -1,4 +1,11 @@
 <mat-card class="delivery-item card-secondary">
-    <div class="order-id">Order id : 15</div>
-    <div class="time-left">Time left : 10</div>
+  <div class="delivery-information" *ngIf="delivery.order; else emptyDelivery">
+    <div class="order-id">Order id : {{delivery.order.id}}</div>
+    <div class="time-left">Time left : {{10 - ((currentTime | async) - delivery.deliveryStartTime)}}</div>
+  </div>
+  <ng-template #emptyDelivery>
+    <div class="empty-delivery">
+      Empty delivery place
+    </div>
+  </ng-template>
 </mat-card>

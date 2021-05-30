@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  justify-content: center;
+
+  .play-menu {
+    display: flex;
+    gap: 1rem;
+    span {
+      cursor: pointer;
+      border-radius: 3px;
+      border: 1px solid #000;
+    }
+  }
+
+  .start-simulation-button {
+    padding: 0.5rem 1rem;
+  }
+
+  .disabledIcon {
+    color: grey;
+    cursor: default !important;
+  }
+}

@@ -1,17 +1,15 @@
 :host {
-  margin-top: 6vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-right: 2rem;
-  margin-bottom: 2rem;
+  margin: 6vh 2rem 2rem;
 
   .widget {
     margin: 1rem 0;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
   :host {
     flex-direction: column;
   }

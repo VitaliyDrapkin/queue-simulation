@@ -1,9 +1,12 @@
-import { Customer } from "./customer.model";
+import { ReceptionStatuses } from "./../enums/ReceptionStatuses";
+import { Customer } from "./Customer.model";
 export class Reception {
   constructor(
     public id: number,
     public getOrderTime: number,
+    public startedGetOrderTime: number,
     public customersInQueue: Customer[],
-    public currentOccupation: "Empty" | "Getting order" = "Empty" // | "Wait new customer"
+    public hasCompletedCustomer: boolean,
+    public currentOccupation: ReceptionStatuses
   ) {}
 }

@@ -1,7 +1,6 @@
 .startPage {
   margin-top: 5vh;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
 
@@ -11,21 +10,37 @@
     font-weight: bold;
     color: #fff;
   }
+  .start-page-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+  }
 
   textarea {
-    width: 50%;
-    height: 30vh;
+    width: 60%;
+    height: 60vh;
     padding: 1rem;
     margin-top: 2rem;
-    font-size: 2rem;
+    font-size: 1.4rem;
     border-radius: 5px;
     box-shadow: 2px 3px 4px #40476b;
     background-color: rgba(249, 252, 255, 0.87);
     outline: none;
   }
-  button {
-    margin-top: 2rem;
-    font-size: 2rem;
+  .textarea-error {
+    color: red;
+    margin-top: 1rem;
+  }
+  .simulation-buttons {
+    display: flex;
+    gap: 1rem;
+    button {
+      margin-top: 2rem;
+      font-size: 2rem;
+    }
   }
 }
 

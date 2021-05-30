@@ -1,6 +1,6 @@
 .information {
   height: 36vh;
-  width: 32vw;
+  width: 30vw;
   overflow-y: auto;
 
   .all-information {
@@ -8,11 +8,14 @@
     padding: 0 2rem;
     justify-content: space-between;
     gap: 1rem;
+    font-size: 1.3rem;
+    margin-top: 1rem;
 
     .main-information,
     .active-information {
       flex: 1;
     }
+
     .main-information div,
     .active-information div {
       display: flex;
@@ -33,11 +36,21 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1440px) {
   .information {
     .all-information {
       flex-direction: column;
     }
+  }
+}
+@media screen and (max-width: 1200px) {
+  :host {
+    order: 4;
+  }
+
+  .information {
+    width: 70vw;
+    margin: 0 auto;
   }
 }
 @media screen and (max-width: 768px) {
@@ -47,6 +60,28 @@
   }
 
   .information {
-    width: 99vw;
+    width: 97vw;
+    margin: 0 auto;
   }
+}
+
+.simulationButtons {
+  display: flex;
+  margin-top: 1rem;
+
+  .upSpeedButton,
+  .reduceSpeedButton,
+  .playButton,
+  .pauseButton,
+  .nextButton,
+  .startSimulationButton {
+    width: 20rem;
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
+}
+
+.add-order {
+  margin-top: 1rem;
+  text-align: center;
 }

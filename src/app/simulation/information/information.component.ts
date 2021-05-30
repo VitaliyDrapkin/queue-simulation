@@ -1,5 +1,11 @@
-import { SimulationService } from "./../../services/simulation.service";
+import { Store } from "@ngrx/store";
+import { Order } from "src/app/models/order.model";
+import { Observable } from "rxjs";
+import { OrderEditorModal } from "./../order-editor-modal/order-editor-modal.component";
+import { OrdersEditorService } from "../../services/ordersEditor.service";
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { AppState } from "src/app/store/app.reducer";
 
 @Component({
   selector: "app-information",
@@ -7,15 +13,13 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./information.component.scss"],
 })
 export class InformationComponent implements OnInit {
-  constructor(private simulationService: SimulationService) {}
+  orders: Observable<Order[]>;
 
-  ngOnInit(): void {}
+  constructor(public dialog: MatDialog, public store: Store<AppState>) {}
 
-  onStart() {
-    this.simulationService.runSimulation();
-  }
-
-  onStop() {
-    this.simulationService.stopSimulation();
+  ngOnInit(): void {
+    // this.store.subscribe((data) =>
+    //   console.log("[InformationComponent]  changeState()", data)
+    // );
   }
 }

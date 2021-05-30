@@ -1,6 +1,6 @@
 :host {
   height: 100px;
-  flex-basis: 25rem;
+  width: 100%;
   margin-top: 1rem;
   margin-right: 1rem;
   margin-bottom: 1rem;
@@ -10,8 +10,36 @@
   box-shadow: none;
   font-size: 2rem;
   margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  display: flex;
+  align-items: center;
 
-  .time-left {
-    margin-top: 2rem;
+  .delivery-information {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 3rem;
+  }
+  .empty-delivery {
+    display: inline-block;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .delivery-item {
+    font-size: 1.8rem;
+  }
+}
+@media screen and (max-width: 1170px) {
+  .delivery-item {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .delivery-item {
+    flex-direction: column;
+    align-items: center;
   }
 }

@@ -1,10 +1,14 @@
-import { Customer } from "./../../models/customer.model";
+import { Customer } from "./../../models/Customer.model";
 import { Reception } from "./../../models/reception.model";
 import * as ReceptionsActions from "./receptions.actions";
+import { prepareReception } from "./prepare-receptions-reduce";
+import { addCustomerToQueue } from "./add-customer-to-queue.reduce";
+import { removeCustomerByIndex } from "./remove-customer.reduce";
+import { startGetOrder } from "./start-get-order.reduce";
+import { endGetOrder } from "./end-get-order.reduce";
+import { moveQueue } from "./move-queue.reduce";
 
 export interface State {
-  isSimulationRun: boolean;
-  step: number;
   lastCustomerInTime: number;
   newCustomers: Customer[];
   receptions: Reception[];
@@ -12,8 +16,6 @@ export interface State {
 }
 
 const initialState: State = {
-  isSimulationRun: false,
-  step: 0,
   lastCustomerInTime: 0,
   newCustomers: [],
   receptions: [],
@@ -25,51 +27,25 @@ export function receptionsReducer(
   action: ReceptionsActions.ReceptionsActions
 ) {
   switch (action.type) {
-    case ReceptionsActions.SET_INITIAL_DATA:
-      return {
-        ...state,
-        step: 0,
-        newCustomers: action.payload.customers,
-        receptions: action.payload.receptions.map((item) => {
-          return new Reception(
-            1,
-            action.payload.receptionsTypes[item].getOrderTime,
-            [],
-            "Empty"
-          );
-        }),
-        newCustomerFrequency: action.payload.newCustomerFrequency,
-      };
-
-    case ReceptionsActions.MAKE_STEP:
-      console.log("step " + state.step);
-      return {
-        ...state,
-        step: state.step + 1,
-      };
+    case ReceptionsActions.PREPARE_SIMULATION:
+      return prepareReception(state, action.payload);
 
     case ReceptionsActions.ADD_CUSTOMER_TO_QUEUE:
-      const newCustomer = new Customer(action.payload.id, action.payload.order);
+      return addCustomerToQueue(state, action.payload);
 
-      const smallestQueueIndex = state.receptions
-        .map((item) => item.customersInQueue.length)
-        .indexOf(
-          Math.min.apply(
-            Math,
-            state.receptions.map((item) => item.customersInQueue.length)
-          )
-        );
+    case ReceptionsActions.REMOVE_CUSTOMER_BY_INDEX:
+      return removeCustomerByIndex(state, action.payload);
 
-      const newReceptions = [...state.receptions];
-      newReceptions[smallestQueueIndex].customersInQueue = [
-        ...newReceptions[smallestQueueIndex].customersInQueue,
-        newCustomer,
-      ];
-      return {
-        ...state,
-        receptions: newReceptions,
-      };
+    //changes the status of reception occupation and add start get order time
+    case ReceptionsActions.START_GET_ORDER:
+      return startGetOrder(state, action.payload);
 
+    //changes the status of reception occupation and remove customer from queue
+    case ReceptionsActions.END_GET_ORDER:
+      return endGetOrder(state, action.payload);
+
+    case ReceptionsActions.MOVE_QUEUE:
+      return moveQueue(state, action.payload);
     default: {
       return state;
     }

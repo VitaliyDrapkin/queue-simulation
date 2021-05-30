@@ -1,8 +1,8 @@
-.work-places {
+.workplaces {
   height: 50vh;
-  width: 48vw;
+  width: 46vw;
 }
-.work-place-items {
+.workplace-items {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -12,7 +12,7 @@
   overflow-y: auto;
 }
 
-.work-place {
+.workplace {
   margin-bottom: 1rem;
   flex: 1;
   flex-basis: 30rem;
@@ -24,12 +24,23 @@
   flex-basis: 30rem;
 }
 
+@media screen and (max-width: 1200px) {
+  :host {
+    order: 2;
+  }
+
+  .workplaces {
+    width: 70vw;
+    margin: 0 auto;
+  }
+}
 @media screen and (max-width: 768px) {
   :host {
     order: 2;
   }
 
-  .work-places {
-    width: 99vw;
+  .workplaces {
+    width: 97vw;
+    margin: 0 auto;
   }
 }

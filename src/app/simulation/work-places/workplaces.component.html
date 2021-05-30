@@ -1,0 +1,8 @@
+<mat-card class="workplaces card">
+  <h2>Workplaces</h2>
+  <div class="workplace-items">
+    <app-workplace class="workplace" *ngFor="let workplace of workplaces | async" [workplace]="workplace">
+    </app-workplace>
+    <div class="empty"></div>
+  </div>
+</mat-card>

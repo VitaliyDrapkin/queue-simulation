@@ -1,0 +1,100 @@
+@import "../../../styles/variables";
+
+.modal-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  h1 {
+    text-align: center;
+  }
+
+  .order-edit-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .inputFields {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .customer-information {
+        flex: 1;
+        height: 16rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        margin-right: 1rem;
+
+        input {
+          padding: 0.5rem 1rem;
+          font-size: 1.5rem;
+          margin: 0 2rem;
+          width: 90%;
+          outline: none;
+        }
+      }
+      textarea {
+        outline: none;
+        height: 14rem;
+        flex: 1;
+        padding: 0.5rem 1rem;
+        font-size: 1.5rem;
+        margin: 0 2rem;
+        resize: none;
+      }
+
+      .inputField {
+        position: relative;
+        span {
+          position: absolute;
+          top: -1.3rem;
+          left: 2.5rem;
+          z-index: 10;
+          background-color: #fff;
+          color: rgb(224, 2, 2);
+          padding: 0.2rem;
+        }
+      }
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 0;
+      margin-top: 3rem;
+    }
+    .product-items {
+      padding: 0 2rem 1rem;
+      height: 17rem;
+      width: 100%;
+      display: flex;
+      flex-wrap: initial;
+      gap: 1.5rem;
+      overflow-x: auto;
+
+      .product {
+        min-width: fit-content;
+        cursor: pointer;
+      }
+    }
+
+    .mat-dialog-actions {
+      margin-bottom: -1rem;
+      margin-right: 2rem;
+    }
+    h1 {
+      text-align: center;
+    }
+    .mat-raised-wrapper {
+      color: #fff;
+    }
+  }
+  .buttons {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    .cancelButton {
+      margin-right: 2rem;
+    }
+  }
+}

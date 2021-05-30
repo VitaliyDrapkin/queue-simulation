@@ -1,24 +1,45 @@
 <mat-card class="information card">
-    <h2>Information</h2>
-    <div class="all-information">
-        <mat-card class="main-information card-secondary">
-            <div class="total-customers"><span>Total customers : </span> <span> 15 </span></div>
-            <div class="total-receptions"><span>Total receptions : </span> <span> 15 </span></div>
-            <div class="total-work-places"><span>Total work places : </span> <span> 15 </span></div>
-            <div class="total-deliveries"><span>Total deliveries : </span> <span> 15 </span></div>
-            <div class="completed-orders"><span>Completed orders : </span> <span> 15 </span></div>
-        </mat-card>
-        <mat-card class="active-information card-secondary">
-            <div class="customers-queues"><span>Customers in queues : </span> <span> 15 </span></div>
-            <div class="customers-left"><span>Customers left : </span> <span> 15 </span></div>
-            <div class="active-orders"><span>Active orders : </span> <span> 15 </span></div>
-            <div class="empty-work-places"><span>Empty work places : </span> <span> 15 </span></div>
-            <div class="empty-deliveries"><span>Empty deliveries : </span> <span> 15 </span></div>
-        </mat-card>
+  <h2>Information</h2>
+  <app-play-menu></app-play-menu>
+  <div class="all-information">
+    <mat-card class="main-information card-secondary">
+      <div class="total-customers">
+        <span>Total customers : </span> <span> 15 </span>
+      </div>
+      <div class="total-receptions">
+        <span>Total receptions : </span> <span> 15 </span>
+      </div>
+      <div class="total-workplaces">
+        <span>Total workplaces : </span> <span> 15 </span>
+      </div>
+      <div class="total-deliveries">
+        <span>Total deliveries : </span> <span> 15 </span>
+      </div>
+      <div class="completed-orders">
+        <span>Completed orders : </span> <span> 15 </span>
+      </div>
+    </mat-card>
+    <mat-card class="active-information card-secondary">
+      <div class="customers-queues">
+        <span>Customers in queues : </span> <span> 15 </span>
+      </div>
+      <div class="customers-left">
+        <span>Customers left : </span> <span> 15 </span>
+      </div>
+      <div class="active-orders">
+        <span>Active orders : </span> <span> 15 </span>
+      </div>
+      <div class="empty-workplaces">
+        <span>Empty workplaces : </span> <span> 15 </span>
+      </div>
+      <div class="empty-deliveries">
+        <span>Empty deliveries : </span> <span> 15 </span>
+      </div>
+    </mat-card>
+  </div>
+  <!-- <div class="add-order" *ngIf="!(isSimulationPlaying | async) && (isSimulationInit | async)">
+    <button mat-raised-button color="primary" type="button" (click)='onAddOrder()'>Add order</button>
+  </div> -->
 
-    </div>
-    <div class="testButtons">
-        <button class="start" (click)="onStart()">Start</button>
-        <button class="start" (click)="onStop()">Stop</button>
-    </div>
+
 </mat-card>

@@ -1,7 +1,24 @@
 <div class="startPage">
   <h1>Queues manager simulation</h1>
-  <textarea name="" class="textarea" placeholder="Enter company information JSON format"></textarea>
-  <button mat-raised-button color="primary" (click)="onStartSimulation()">
-    Start simulation
-  </button>
+  <form [formGroup]="scenarioForm" (ngSubmit)="onStartSimulation()" class="start-page-form">
+    <textarea name="scenarioInput" class="textarea" formControlName="scenarioInput"
+      placeholder="Enter company information JSON format"></textarea>
+    <span class="textarea-error" *ngIf="scenarioForm.controls.scenarioInput.errors
+       && scenarioForm.controls.scenarioInput.errors.required
+       && (scenarioForm.controls.scenarioInput.touched || scenarioForm.controls.scenarioInput.dirty)">
+      The field cannot be empty.
+    </span>
+    <span class="textarea-error" *ngIf="scenarioForm.controls.scenarioInput.errors
+    && scenarioForm.controls.scenarioInput.errors.incorrect">
+      Wrong JSON format. Try again.
+    </span>
+    <div class="simulation-buttons">
+      <button mat-raised-button color="primary" type="submit" name="test" [disabled]=!scenarioForm.valid>
+        Start simulation
+      </button>
+      <button mat-raised-button color="primary" type="button" (click)="onLoadDemo()">
+        Load demo
+      </button>
+    </div>
+  </form>
 </div>
